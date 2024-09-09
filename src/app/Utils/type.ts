@@ -39,3 +39,16 @@ export type ProfilPetProps = {
     categorisedDog: string
     image: string 
 }
+
+
+export type CardAssoProps = {
+    id: number 
+    image: string
+    nameAsso: string
+    address: Date
+    city: string
+    postalCode: string
+    phone: boolean
+    siret: boolean
+    website: boolean
+}

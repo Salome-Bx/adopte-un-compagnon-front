@@ -5,6 +5,7 @@ import { ButtonProps } from "./Utils/type";
 import Image from "next/image";
 
 
+
 export default function Home() {
   return (
     <main className="quicksand flex min-h-screen flex-col bg-custom-cream w-full">
@@ -17,7 +18,7 @@ export default function Home() {
         <div className="bloc-text w-1/2 p-14 bg-custom-purple">
             <h1 className="text-white text-5xl font-medium w-4/5 pb-5 leading-tight">Bienvenue sur <br></br><span className="font-bold">Adopte un Compagnon</span>,<br></br> la plateforme qui soutien la cause animale !</h1>
             <h2 className="text-white text-ml w-4/5 pb-4">Nous soutenons les associations qui œuvrent pour le bien-être des animaux en leur offrant une plateforme dédiée !</h2>
-            <div className="flex justify-between w-4/5 text-sm">
+            <div className="flex  w-4/5 text-sm">
               <Button
                         title={'Je suis une association'}
                         bgColor={''}
@@ -25,7 +26,7 @@ export default function Home() {
                         color={'text-white'}
                         size={'w-fit'}
                         hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
-                        padding={'px-4 py-1'}
+                        padding={'px-6 py-2'}
                         margin={'mt-2'}
               />
             
@@ -36,8 +37,9 @@ export default function Home() {
                         color={''}
                         size={'w-64'}
                         hover={'hover:text-custom-yellow  hover:bg-white hover:border-custom-yellow'}
-                        padding={'px-4 py-1 '}
-                        margin={'mt-2'}
+                        padding={'px-6 py-2 '}
+                        margin={'mt-2 ml-2'}
+                       
               />
             </div>
             
@@ -67,14 +69,14 @@ export default function Home() {
           <h3 className="text-custom-light-purple text-xl font-bold">En promouvant les adoptions</h3>
           <p className="text-custom-purple">Découvrez tous les animaux qui recherchent un foyer et trouver votre futur compagnon grâce à leurs profils détaillés.</p>
           <Button
-                        title={'Trouver mon compagnon'}
-                        bgColor={'bg-white'}
-                        border={'border border-custom-light-purple'}
-                        color={'text-custom-light-purple'}
-                        size={'w-fit'}
-                        hover={'hover:text-white hover:bg-custom-light-purple'}
-                        padding={'px-4 py-1'}
-                        margin={'mt-2'} font-bold
+              title={'Trouver mon compagnon'}
+              bgColor={'bg-white'}
+              border={'border border-custom-light-purple'}
+              color={'text-custom-light-purple'}
+              size={'w-fit'}
+              hover={'hover:text-white hover:bg-custom-light-purple'}
+              padding={'px-4 py-1'}
+              margin={'mt-2'} font-bold
               />
         </div>
 
@@ -82,15 +84,15 @@ export default function Home() {
           <h3 className="text-custom-light-purple text-xl font-bold">En priorisant les urgences</h3>
           <p className="text-custom-purple">L’onglet SOS permet de mettre en avant les adoptions urgentes.</p>
           <Button
-                        title={'Voir les urgences'}
-                        bgColor={'bg-white'}
-                        border={'border border-custom-light-purple'}
-                        color={'text-custom-light-purple'}
-                        size={'w-fit'}
-                        hover={'hover:text-white hover:bg-custom-light-purple'}
-                        padding={'px-4 py-1'}
-                        margin={'mt-2'}
-              />
+              title={'Voir les urgences'}
+              bgColor={'bg-white'}
+              border={'border border-custom-light-purple'}
+              color={'text-custom-light-purple'}
+              size={'w-fit'}
+              hover={'hover:text-white hover:bg-custom-light-purple'}
+              padding={'px-4 py-1'}
+              margin={'mt-2'}
+          />
         </div>
 
       </div>
@@ -104,7 +106,7 @@ export default function Home() {
 
           <div className="flex cards flex-row">
 
-            <div className="flex card w-1/3 bg-custom-purple h-110 flex-col m-4 p-4">
+            <div className="flex card w-1/3 bg-custom-purple h-110 flex-col m-4 p-4 ">
               <div className="flex img w-full h-1/2 px-5 pt-5 pb-2 flex-col">
                 <h4 className="name flex text-2xl text-custom-cream pb-2">Pantoufle</h4>
                 <Image

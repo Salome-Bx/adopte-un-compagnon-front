@@ -18,4 +18,13 @@ export let petService = {
         }
     },
 
+    getSosPets: async () => {
+        try {
+            const response = await axiosConfig.get("pet/sos");
+            return response.data;
+        } catch (error) {
+            throw new Error("Impossible d'importer les animaux de la catégorie SOS");
+        }
+    },
+
 }
