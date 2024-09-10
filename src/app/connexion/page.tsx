@@ -1,11 +1,46 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react';
 import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
 import Button from "../Components/Button";
+import { useRouter } from 'next/navigation';
 
 
 const pageConnexion = () => {
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [lastname, setLastname] = useState('')
+  const [firstname, setFirstname] = useState('')
+  const [address, setAddress] = useState('')
+  const [city, setCity] = useState('')
+  const [postalCode, setPostalCode] = useState('')
+  const [phone, setPhone] = useState('')
+  const [nameAsso, setNameAsso] = useState('')
+  const [siret, setSiret] = useState('')
+  const [website, setWebsite] = useState('')
+  const [image, setImage] = useState('')
+  
+
+        
+
+  function handleLogin() {
+        if (
+            !email ||
+            !password
+                
+        ) {
+            alert('Merci de remplir tous les champs')
+        } else {
+            let loginData = {
+                email: email,
+                password : password,
+            }
+            console.log(loginData);
+            
+        }
+    }
+
   return (
     <main className="bg-custom-purple">
 
@@ -30,6 +65,8 @@ const pageConnexion = () => {
                 
                 <div className="flex flex-col pt-10">
                   <Button
+                       
+
                         title={'Se connecter'}
                         bgColor={'bg-custom-light-purple'}
                         border={'border border-white'}
@@ -38,6 +75,7 @@ const pageConnexion = () => {
                         hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
                         padding={'px-6 py-2'}
                         margin={'m-auto'}
+                        
                         
                   />
                 </div>
