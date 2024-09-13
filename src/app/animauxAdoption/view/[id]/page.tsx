@@ -6,7 +6,7 @@ import { ProfilPetProps } from "@/app/Utils/type";
 import { Nav } from "@/app/Components/Nav";
 
 
-const detailAnimalPage = ({params}: {params: {id: number} }) => {
+const animalProfilPage = ({params}: {params: {id: number} }) => {
 
     const [petData, setPetData] = useState<ProfilPetProps>();
 
@@ -16,7 +16,7 @@ const detailAnimalPage = ({params}: {params: {id: number} }) => {
 
     const fetchPetProfil = async () => {
       try {
-        const repsonse = await petService.getPetProfil();
+        const repsonse = await petService.getPetProfil(params.id);
         setPetData(repsonse);
       } catch (error) {
         console.error("Erreur pendant la récupération de l'animal :", error);
@@ -29,17 +29,35 @@ const detailAnimalPage = ({params}: {params: {id: number} }) => {
       <Nav></Nav>
 
             {petData && (
-                <div>
-                  <p className="">Race:</p>
-                  <p className="">Genre:</p>
-                  <p className="">Age:</p>
-                  <p className="">Entente avec les chats :</p>
-                  <p className="">Entente avec les chiens :</p>
-                  <p className="">Entente avec les enfants :</p>
+                <div className="">
+                  <h3 className="nom">{petData.name}</h3>
+                  <div  className="text">
+                    <h2 className="title">Informations</h2>
+                    <p className="race">Race: {petData.race}</p>
+                    <p className="gender">Genre: {petData.gender}</p>
+                    {/* <p className="age">Age: {petData.birthyear}</p> */}
+                    <p className="withCats">Entente avec les chats : {petData.getAlongCats}</p>
+                    <p className="withDogs">Entente avec les chiens : {petData.getAlongDogs}</p>
+                    <p className="withChildren">Entente avec les enfants : {petData.getAlongChildren}</p>
+                    <p className="sos">SOS : {petData.sos}</p>
+                    <h2 className="title">Description</h2>
+                    <p className="description">{petData.description}</p>
+                  </div>
+
+                  <div className="image">
+                    <Image
+                      src="/{petData.image}"
+                      width={300}
+                      height={200}
+                      alt="picture of {petData.species}"
+                    />
+                  </div>
+
+
                 </div>
             )}
         </main>
   )
 }
 
-export default detailAnimalPage
+export default animalProfilPage

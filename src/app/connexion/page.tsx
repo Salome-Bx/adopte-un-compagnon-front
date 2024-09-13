@@ -5,6 +5,7 @@ import Footer from "../Components/Footer";
 import Button from "../Components/Button";
 import { useRouter } from 'next/navigation';
 import { userService } from '../Services/user';
+import { loggedService } from '../Services/logged';
 
 
 const pageConnexion = () => {
@@ -22,7 +23,7 @@ const pageConnexion = () => {
           }
             
           try {
-            const response = await userService.login(formData);
+            const response = await loggedService.login(formData);
             console.log("Connexion réussie", response);
               
           } catch (error) {

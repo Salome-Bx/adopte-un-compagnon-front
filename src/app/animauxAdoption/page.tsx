@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
 import { CardPetProps } from "../Utils/type";
+import Button from "../Components/Button";
 
 
 const animalsToAdoptPage = () => {
@@ -31,6 +32,7 @@ const animalsToAdoptPage = () => {
         //   setIsLoading(false);
         // }
     };
+    console.log(petList);
 
     return (
         <main>
@@ -110,9 +112,20 @@ const animalsToAdoptPage = () => {
                                 </div>
                                 
                                 <p className="text-ml text-white">{pet.quickDescription}</p>
-                            </div>
+                            </div> 
 
-                              
+                            <Button 
+                                title={'Je veux adopter un animal'}
+                                bgColor={'bg-custom-yellow'}
+                                border={'border border-custom-yellow'}
+                                color={''}
+                                size={'w-64'}
+                                hover={'hover:text-custom-yellow  hover:bg-white hover:border-custom-yellow'}
+                                padding={'px-6 py-2 '}
+                                margin={'mt-2 ml-2'} 
+                                action={`animauxAdoption/view/${pet.id}`}
+                            />
+
                             </label>
 
                         </div>
