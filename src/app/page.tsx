@@ -1,3 +1,4 @@
+"use client"
 import { Nav } from "./Components/Nav"
 import Footer from "./Components/Footer";
 import Button from "./Components/Button";
@@ -7,7 +8,10 @@ import Image from "next/image";
 
 
 export default function Home() {
+
+  
   return (
+
     <main className="quicksand flex min-h-screen flex-col bg-custom-cream w-full">
       
       <Nav></Nav>
@@ -28,6 +32,8 @@ export default function Home() {
                         hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
                         padding={'px-6 py-2'}
                         margin={'mt-2'}
+                        action="inscription"
+                        
               />
             
               <Button
@@ -38,8 +44,8 @@ export default function Home() {
                         size={'w-64'}
                         hover={'hover:text-custom-yellow  hover:bg-white hover:border-custom-yellow'}
                         padding={'px-6 py-2 '}
-                        margin={'mt-2 ml-2'}
-                       
+                        margin={'mt-2 ml-2'} 
+                        action="animauxAdoption"
               />
             </div>
             
@@ -69,15 +75,16 @@ export default function Home() {
           <h3 className="text-custom-light-purple text-xl font-bold">En promouvant les adoptions</h3>
           <p className="text-custom-purple">Découvrez tous les animaux qui recherchent un foyer et trouver votre futur compagnon grâce à leurs profils détaillés.</p>
           <Button
-              title={'Trouver mon compagnon'}
-              bgColor={'bg-white'}
-              border={'border border-custom-light-purple'}
-              color={'text-custom-light-purple'}
-              size={'w-fit'}
-              hover={'hover:text-white hover:bg-custom-light-purple'}
-              padding={'px-4 py-1'}
-              margin={'mt-2'} font-bold
-              />
+            title={'Trouver mon compagnon'}
+            bgColor={'bg-white'}
+            border={'border border-custom-light-purple'}
+            color={'text-custom-light-purple'}
+            size={'w-fit'}
+            hover={'hover:text-white hover:bg-custom-light-purple'}
+            padding={'px-4 py-1'}
+            margin={'mt-2'} 
+            action={"animauxAdoption"}
+            />
         </div>
 
         <div className="w-1/3 p-2">
@@ -92,6 +99,9 @@ export default function Home() {
               hover={'hover:text-white hover:bg-custom-light-purple'}
               padding={'px-4 py-1'}
               margin={'mt-2'}
+              action={"sos"}        
+                              
+
           />
         </div>
 

@@ -23,9 +23,9 @@ const animalsToAdoptPage = () => {
         try {
         const response = await petService.getAllPets();
         setPetList(response);
-        } catch (err) {
+        } catch (error) {
         // setError("Failed to fetch meals. Please try again.");
-        console.error("Erreur pendant la récupération de la liste des animaux :", err);
+        console.error("Erreur pendant la récupération de la liste des animaux :", error);
         } 
         // finally {
         //   setIsLoading(false);
@@ -105,7 +105,7 @@ const animalsToAdoptPage = () => {
                             <hr  className="w-4/5 justify-center m-auto" />
                             <div className="flex text w-full h-1/2 flex-col px-5 pb-2 mt-4 ">
                                 <div className="flex flex-row mt-2 pb-2 justify-between font-bold">
-                                    <p className="flex age text-ml text-white">{pet.birthyear}</p>
+                                    {/* <p className="flex age text-ml text-white">{pet.birthyear}</p> */}
                                     <p  className="flex race text-ml text-white ">{pet.race}</p>   
                                 </div>
                                 

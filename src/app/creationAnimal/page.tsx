@@ -76,7 +76,7 @@ const pageCreationAnimal = () => {
 
                 <div className="description flex flex-col">
                   <label htmlFor="description">Description</label>
-                  <input type="textarea" name="description" id="description" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pb-2 mt-1" />  
+                  <textarea name="description" id="description" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pb-2 mt-1" />  
                 </div>
                 
                 <div className="flex flex-col pt-10">
@@ -89,6 +89,7 @@ const pageCreationAnimal = () => {
                         hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
                         padding={'px-6 py-2'}
                         margin={'m-auto'}
+                        action=''
                         
                   />
                 </div>

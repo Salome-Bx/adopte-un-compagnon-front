@@ -7,6 +7,7 @@ export type ButtonProps = {
     hover: string
     padding: string
     margin: string
+    action: string
 }
 
 

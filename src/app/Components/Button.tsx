@@ -1,5 +1,7 @@
 import React from 'react'
 import { ButtonProps } from '@/app/Utils/type'
+import {  useRouter } from 'next/navigation';
+
 
   export const Button = ({
     title,
@@ -9,11 +11,15 @@ import { ButtonProps } from '@/app/Utils/type'
     size,
     hover,
     padding,
-    margin
+    margin,
+    action
   }: ButtonProps) => {
+    const { push } = useRouter();
+
       return (
         <button
             className={`${bgColor} ${border} ${color} ${size} ${hover} ${padding} ${margin}`}
+            onClick={() => push(`/${action}`)}
         >
             {title}
         </button>
