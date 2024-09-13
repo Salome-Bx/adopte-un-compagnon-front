@@ -8,6 +8,9 @@ let axiosConfig = axios.create({
     },
 });
 
+
+
+
 export let petService = {
     getAllPets: async () => {
         try {
@@ -27,9 +30,9 @@ export let petService = {
         }
     },
 
-    getPetProfil: async () => {
+    getPetProfil: async (id) => {
         try {
-            const response = await axiosConfig.get("pet/profil");
+            const response = await axiosConfig.get(`pet/${id}`);
             return response.data;
         } catch (error) {
             throw new Error("Impossible d'importer l'animal");
