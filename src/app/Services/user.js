@@ -17,4 +17,31 @@ export let userService = {
             throw new Error("Impossible d'importer les associations");
         }
     },
+
+
+    registration: async (data) => {
+        try {
+            const response = await axiosConfig.post("/user/register", data);
+            const user = response.data.user;
+            localStorage.setItem("user", JSON.stringify(user));
+            console.log(user)
+            return user;
+        } catch (error) {
+            console.error("Erreur lors de l'enregistrement", error);
+            throw error;
+        }
+    },
+
+    login: async (data) => {
+        try {
+            const response = await axiosConfig.post("/user/login", data);
+            const user = response.data.user;
+            localStorage.setItem("user", JSON.stringify(user));
+            console.log(user)
+            return user;
+        } catch (error) {
+            console.error("Erreur lors de l'enregistrement", error);
+            throw error;
+        }
+    },
 }

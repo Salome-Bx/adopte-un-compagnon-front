@@ -27,4 +27,13 @@ export let petService = {
         }
     },
 
+    getPetProfil: async () => {
+        try {
+            const response = await axiosConfig.get("pet/profil");
+            return response.data;
+        } catch (error) {
+            throw new Error("Impossible d'importer l'animal");
+        }
+    },
+
 }

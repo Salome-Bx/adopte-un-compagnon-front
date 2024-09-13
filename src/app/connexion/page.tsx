@@ -1,11 +1,45 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react';
 import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
 import Button from "../Components/Button";
+import { useRouter } from 'next/navigation';
+import { userService } from '../Services/user';
 
 
 const pageConnexion = () => {
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+ 
+  
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
+          let formData = {
+              email: email,
+              password : password,
+          }
+            
+          try {
+            const response = await userService.login(formData);
+            console.log("Connexion réussie", response);
+              
+          } catch (error) {
+              // if (axios.isAxiosError(error) && error.response) {
+              //   setError(
+              //     error.response.data.message ||
+              //       "An error occurred during registration."
+              //   );
+              // } else {
+              //   setError("An unexpected error occurred. Please try again.");
+              // }
+            console.error("Une erreur est survenue", error);
+          }
+          
+  }
+  
+
   return (
     <main className="bg-custom-purple">
 
@@ -25,11 +59,13 @@ const pageConnexion = () => {
                   <label htmlFor="password">Mot de passe*</label>
                   <input type="password" name="password" id="password" className="border-4 border-white bg-custom-purple rounded-3xl mb-2 pl-2 mt-1" />  
                   <p className="text-custom-light-purple text-sm justify-end">Mot de passe oublié ?</p>
+                  <p className="text-custom-light-purple text-sm justify-end">Déjà un compte ?</p>
                 </div>
 
                 
                 <div className="flex flex-col pt-10">
                   <Button
+                       
                         title={'Se connecter'}
                         bgColor={'bg-custom-light-purple'}
                         border={'border border-white'}
@@ -38,6 +74,7 @@ const pageConnexion = () => {
                         hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
                         padding={'px-6 py-2'}
                         margin={'m-auto'}
+                        action= {'accueilAsso'}
                         
                   />
                 </div>
