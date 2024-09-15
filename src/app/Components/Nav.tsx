@@ -28,35 +28,40 @@ export const Nav = () => {
   return (
     <header className="w-full bg-custom-purple p-3 px-14">
 
-      
       {/* --------Menu mobile avec modale-------- */}
-      <nav className="w-full flex flex-row lg:hidden xl:hidden 2xl:hidden justify-between">
+      <nav className="lg:hidden xl:hidden 2xl:hidden justify-between">
+        <div className="w-full flex flex-col">
 
+          <div className="menu flex flex-row w-full">
           {/* Logo */}
-          <div className="logo">
             <Link href="/" className="logo w-fit text-white">
               <img src="img/logo/logo.svg" alt="logo Adopte un Compagnon" />
             </Link>  
-          </div>
+          
 
           {/* Menu */}
-          <div className="menu flex flex-row">
-            <button className="connexion text-white">
-              <Link href="/connexion" className="items-center z-11 flex text-custom-light-purple color-white mr-4">
-                <Image
-                    src="/icones/user.png"
-                    width={21}
-                    height={24}
-                    alt="Espace mon compte"
-                />
-              </Link>
-            </button>
-            <button onClick={toggleMenu} className="items-center flex hover:text-custom-yellow text-white">
-              Menu
-            </button>
+            <div className="icones flex flex-row justify-end">
+              <button className="connexion text-white">
+                <Link href="/connexion" className="items-center z-11 flex text-custom-light-purple color-white mr-4">
+                  <Image
+                      src="/icones/user.png"
+                      width={21}
+                      height={24}
+                      alt="Espace mon compte"
+                  />
+                </Link>
+              </button>
+              <button onClick={toggleMenu} className="items-center flex hover:text-custom-yellow text-white">
+                Menu
+              </button>
+            </div>
+        </div>
+
+          
             
+            <div className="menuDeroulant flex flex-col">
             {isOpen && (
-              <div className="menuMobile bg-custom-purple text-white p-4 rounded-lg shadow-md">
+              <div className="menuMobile bg-custom-purple text-white p-4 rounded-lg shadow-md w-full">
                 <ul className="flex flex-col space-y-4">
                   <li>
                     <Link href="/aPropos" className="flex mr-5 hover:text-custom-yellow">A propos</Link>
@@ -76,7 +81,9 @@ export const Nav = () => {
                 </ul>
               </div>
             )}
+
           </div>
+        </div>
         
       </nav>
 
@@ -92,7 +99,7 @@ export const Nav = () => {
             </Link>  
           </div>
           {/* Menu */}
-          <div className="menuDesktop justify-end flex flex-row w-3/4 text-white">
+          <div className="menuDesktop justify-end flex flex-row w-3/4 text-white items-center">
             <ul className="flex flex-row space-x-5 justify-end">
               <li>
                 <Link href="/aPropos" className="text-white hover:text-custom-yellow">A propos</Link>
