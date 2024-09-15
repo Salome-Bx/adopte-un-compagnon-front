@@ -3,15 +3,16 @@ import React from 'react'
 import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
 import Button from "../Components/Button";
+import { NavAsso } from '../Components/NavAsso';
 
 
-const pageInscription = () => {
+const pageModificationInfos = () => {
   return (
     <main className="bg-custom-purple">
 
-        <Nav></Nav>
+        <NavAsso></NavAsso>
 
-        <div className="flex flex-col w-1/3 m-auto pb-40">
+        <div className="flex flex-col m-auto pb-40 sm:w-3/4 md:w-3/4 lg:w-1/3 ">
             <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Mes informations</h1>
 
             <form action=""  className="text-white text-sm">
@@ -103,4 +104,4 @@ const pageInscription = () => {
   )
 }
 
-export default pageInscription
+export default pageModificationInfos

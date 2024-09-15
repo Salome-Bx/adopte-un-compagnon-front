@@ -16,7 +16,7 @@ const animalProfilPage = ({params}: {params: {id: number} }) => {
 
     const fetchPetProfil = async () => {
       try {
-        const repsonse = await petService.getPetProfil(params.id);
+        const repsonse = await petService.getPetById(params.id);
         setPetData(repsonse);
       } catch (error) {
         console.error("Erreur pendant la récupération de l'animal :", error);
