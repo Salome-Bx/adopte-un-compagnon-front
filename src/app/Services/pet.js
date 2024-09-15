@@ -30,7 +30,7 @@ export let petService = {
         }
     },
 
-    getPetProfil: async (id) => {
+    getPetById: async (id) => {
         try {
             const response = await axiosConfig.get(`pet/${id}`);
             return response.data;
@@ -38,5 +38,42 @@ export let petService = {
             throw new Error("Impossible d'importer l'animal");
         }
     },
+
+    getPetsByAsso: async (id) => {
+        try {
+            const response = await axiosConfig.get(`pet/${id}`);
+            return response.data;
+        } catch (error) {
+            throw new Error("Impossible d'importer l'animal");
+        }
+    },
+
+    createPet: async (data) => {
+        try {
+            const response = await axiosConfig.post("/pet/new", data);
+            const pet = response.data.pet;
+            localStorage.setItem("pet", JSON.stringify(pet));
+            console.log(pet)
+            return pet;
+        } catch (error) {
+            console.error("Erreur lors de l'enregistrement", error);
+            throw error;
+        }
+    },
+
+    editPet: async (data) => {
+        try {
+            const response = await axiosConfig.post("/pet/edit", data);
+            const pet = response.data.pet;
+            localStorage.setItem("pet", JSON.stringify(pet));
+            console.log(pet)
+            return pet;
+        } catch (error) {
+            console.error("Erreur lors de la modification", error);
+            throw error;
+        }
+    },
+
+    deletePet: async (data) => {}
 
 }

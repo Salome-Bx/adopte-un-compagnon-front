@@ -46,46 +46,55 @@ const pageConnexion = () => {
 
         <Nav></Nav>
 
-        <div className="flex flex-col w-1/4 m-auto pb-40">
-            <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Connexion Association</h1>
 
-            <form action=""  className="text-white text-sm">
+      <div className="flex flex-col items-center justify-center min-h-screen px-4">
+        
+            <h1 className="text-custom-light-purple text-3xl font-bold mb-8 text-center">Connexion Association</h1>
 
-                <div className="email flex flex-col">
-                  <label htmlFor="email">Email*</label>
-                  <input type="email" name="email" id="email" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pl-2 mt-1" />  
-                </div>
+            <form className="w-full max-w-md mx-auto bg-custom-purple rounded-lg p-8">
+              <div className="mb-6">
+                <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">Email*</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:border-custom-purple focus:ring-2 focus:ring-custom-purple" 
+                  placeholder="Entrez votre email" 
+                />
+              </div>
 
-                <div className="password flex flex-col">
-                  <label htmlFor="password">Mot de passe*</label>
-                  <input type="password" name="password" id="password" className="border-4 border-white bg-custom-purple rounded-3xl mb-2 pl-2 mt-1" />  
-                  <p className="text-custom-light-purple text-sm justify-end">Mot de passe oublié ?</p>
-                  <p className="text-custom-light-purple text-sm justify-end">Déjà un compte ?</p>
-                </div>
+              <div className="mb-6">
+                <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Mot de passe*</label>
+                <input 
+                  type="password" 
+                  id="password" 
+                  className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:border-custom-purple focus:ring-2 focus:ring-custom-purple" 
+                  placeholder="Entrez votre mot de passe" 
+                />
+                <p className="mt-2 text-sm text-custom-light-purple justify-end text-right">
+                  Mot de passe oublié ?
+                </p>
+                <p className="mt-2 text-sm text-custom-light-purple justify-end text-right">
+                  Déjà un compte ?
+                </p>
+              </div>
 
-                
-                <div className="flex flex-col pt-10">
-                  <Button
-                       
-                        title={'Se connecter'}
-                        bgColor={'bg-custom-light-purple'}
-                        border={'border border-white'}
-                        color={'text-white'}
-                        size={'w-fit'}
-                        hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
-                        padding={'px-6 py-2'}
-                        margin={'m-auto'}
-                        action= {'accueilAsso'}
-                        
-                  />
-                </div>
-                
+              <div className="flex flex-col items-center mt-6">
+                <Button
+                  title={'Se connecter'}
+                  bgColor={'bg-custom-light-purple'}
+                  border={'border border-white'}
+                  color={'text-white'}
+                  size={'w-full md:w-auto'}
+                  hover={'hover:text-custom-purple hover:bg-white hover:border-white'}
+                  padding={'px-6 py-2'}
+                  margin={'mx-auto'}
+                  action={'accueilAsso'}
+                />
+              </div>
+      </form>
 
-            </form>
-
-            <p className="text-sm text-white pt-6">* Champs obligatoires</p>
-
-        </div>
+        <p className="mt-6 text-sm text-center text-gray-500">* Champs obligatoires</p>
+      </div>
 
         <Footer></Footer>
     </main>

@@ -55,7 +55,7 @@ export default function Home() {
 
         <div className="bloc-image w-1/2">
       
-          <img className="w-full" src="img/chien-hero.jpg" alt="chien heureux dans un champs" />
+          <img className="w-full h-full" src="img/chien-hero.jpg" alt="chien heureux dans un champs" />
           
         </div>
 

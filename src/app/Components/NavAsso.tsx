@@ -1,12 +1,13 @@
 // import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { petService } from '../Services/pet';
 
 
 
 
-export const Nav = () => {
+export const NavAsso = () => {
   const [showSubmenu, setShowSubmenu] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -14,16 +15,7 @@ export const Nav = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleMouseOver = () => {
-    setShowSubmenu(true);
-  };
-
-  const handleMouseLeave = () => {
-  
-    setTimeout(() => {
-      setShowSubmenu(false);
-    }, 500); 
-  };
+ 
 
   return (
     <header className="w-full bg-custom-purple p-3 px-14">
@@ -64,20 +56,15 @@ export const Nav = () => {
               <div className="menuMobile bg-custom-purple text-white w-full pb-4">
                 <ul className="flex flex-col space-y-2 items-end">
                   <li>
-                    <Link href="/aPropos" className="flex hover:text-custom-yellow">A propos</Link>
+                    <Link href="/accueilAsso" className="flex hover:text-custom-yellow">Mes animaux</Link>
                   </li>
                   <li>
-                    <Link href="/animauxAdoption" className="flex hover:text-custom-yellow">Compagnons à l'adoption</Link>
+                    <Link href="/demandes" className="flex hover:text-custom-yellow">Mes demandes d'adoptions</Link>
                   </li>
                   <li>
-                    <Link href="/sos" className="flex hover:text-custom-yellow">SOS</Link>
+                    <Link href="/informations" className="flex hover:text-custom-yellow">Mes informations</Link>
                   </li>
-                  <li>
-                    <Link href="/associations" className="flex hover:text-custom-yellow">Les associations</Link>
-                  </li>
-                  <li>
-                    <Link href="/inscription" className=" text-custom-light-purple hover:underline">Inscription Association</Link>
-                  </li>
+                  
                 </ul>
               </div>
             )}
@@ -102,37 +89,14 @@ export const Nav = () => {
           <div className="menuDesktop justify-end flex flex-row w-3/4 text-white items-center">
             <ul className="flex flex-row space-x-5 justify-end">
               <li>
-                <Link href="/aPropos" className="text-white hover:text-custom-yellow">A propos</Link>
-              </li>
-              <li>
-                <Link href="/animauxAdoption" className="text-white hover:text-custom-yellow">Compagnons à l'adoption</Link>
-              </li>
-              <li>
-                <Link href="/sos" className="text-white hover:text-custom-yellow">SOS</Link>
-              </li>
-              <li>
-                <Link href="/associations" className="text-white hover:text-custom-yellow">Les associations</Link>
-              </li>
-              <li>
-                <Link 
-                  href=""
-                  onMouseEnter={handleMouseOver}
-                  onMouseLeave={handleMouseLeave}
-                  className="flex flex-col items-start text-custom-light-purple hover:underline relative z-10"
-                >
-                  Espace association
-                  {showSubmenu && (
-                    <ul className="absolute top-full left-0 mt-2 flex flex-col space-y-1 bg-custom-purple text-white p-2  shadow-md px-10">
-                      <li>
-                        <Link href="/connexion" className="text-sm hover:text-custom-light-purple">Connexion</Link>
-                      </li>
-                      <li>
-                        <Link href="/inscription" className="text-sm hover:text-custom-light-purple">Inscription</Link>
-                      </li>
-                    </ul>
-                  )}
-                </Link>
-              </li>
+                    <Link href="/accueilAsso" className="flex hover:text-custom-yellow">Mes animaux</Link>
+                  </li>
+                  <li>
+                    <Link href="/demandes" className="flex hover:text-custom-yellow">Mes demandes d'adoptions</Link>
+                  </li>
+                  <li>
+                    <Link href="/informations" className="flex hover:text-custom-yellow">Mes informations</Link>
+                  </li>
             </ul>
           </div>
         </div>
@@ -142,5 +106,4 @@ export const Nav = () => {
     </header>
   );
 };
-
 

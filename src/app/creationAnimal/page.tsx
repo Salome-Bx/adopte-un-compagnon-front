@@ -18,65 +18,75 @@ const pageCreationAnimal = () => {
 
                 <div className="name flex flex-col">
                   <label htmlFor="name">Nom de l'animal</label>
-                  <input type="text" name="name" id="name" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pb-2 mt-1" />  
+                  <input type="text" name="name" id="name" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="image flex flex-col">
                   <label htmlFor="image">Images</label>
-                  <input type="file" name="image" id="image" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pb-2 mt-1" />  
+                  <input type="file" name="image" id="image" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="race flex flex-col">
                   <label htmlFor="race">Race</label>
-                  <input type="text" name="race" id="race" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pb-2 mt-1" />
+                  <input type="text" name="race" id="race" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />
                 </div>
 
                 <div className="gender flex flex-col">
                   <label htmlFor="gender">Genre</label>
-                  <input type="text" name="gender" id="gender" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pb-2 mt-1" />  
+                  <input type="text" name="gender" id="gender" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="birthyear flex flex-col">
                   <label htmlFor="birthyear">Année de naissance</label>
-                  <input type="date" name="birthyear" id="birthyear" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pb-2 mt-1" />  
+                  <input type="date" name="birthyear" id="birthyear" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
-                <div className="withCats flex ">
-                  <label htmlFor="withCats">Entente avec les chats</label>
-                  <input type="radio" name="withCatsYes" id="withCatsYes" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pb-2 mt-1 ml-4" />
-                  <label htmlFor="withCatsYes">Oui</label>
-                  <input type="radio" name="withCatsNo" id="withCatsNo" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pb-2 mt-1 ml-4" />
-                  <label htmlFor="withCatsNo">Non</label>
-                </div>
-                
-                
-                <div className="withDogs flex ">
-                  <label htmlFor="withDogs">Entente avec les chiens</label>
-                  <input type="radio" name="withDogs" id="withDogs" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pb-2 mt-1 ml-4"/>  
+                <div className="getAlong flex flex-col py-4">
+                  <p className='font-medium pb-2'>Entente avec :</p>
+                  <ul className='pl-4'>
+                    <li>
+                      <label htmlFor="withCats">les chats</label>
+                      <input type="radio" name="withCatsYes" id="withCatsYes" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" />
+                      <label htmlFor="withCatsYes">Oui</label>
+                      <input type="radio" name="withCatsNo" id="withCatsNo" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" />
+                      <label htmlFor="withCatsNo">Non</label>
+                    </li>
+
+                    <li>
+                      <label htmlFor="withDogs">les chiens</label>
+                      <input type="radio" name="withDogs" id="withDogs" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2"/> 
+                      <label htmlFor="withDogsYes">Oui</label>
+                      <input type="radio" name="withDogsNo" id="withDogsNo" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" />
+                      <label htmlFor="withDogsNo">Non</label> 
+                    </li>
+
+                    <li>
+                      <label htmlFor="withChildren">les enfants</label>
+                      <input type="radio" name="withChildren" id="withChildren" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" /> 
+                      <label htmlFor="withChildrenYes">Oui</label>
+                      <input type="radio" name="withChildrenNo" id="withChildrenNo" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" />
+                      <label htmlFor="withChildrenNo">Non</label>
+                    </li>
+                  </ul>
+                  
                 </div>
                 
 
-                <div className="withChildren flex ">
-                  <label htmlFor="withChildren">Entente avec les enfants</label>
-                  <input type="radio" name="withChildren" id="withChildren" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pb-2 mt-1 ml-4" />  
-                </div>
-                
-
-                <div className="sos flex ">
+                <div className="sos flex">
                   <label htmlFor="sos">SOS</label>
-                  <input type="radio" name="sos" id="sos" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pb-2 mt-1 ml-4" />  
+                  <input type="radio" name="sos" id="sos" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4" />  
                 </div>
                 
 
                 <div className="quickDescrition flex flex-col">
                   <label htmlFor="quickDescrition">Description rapide</label>
-                  <input type="text" name="quickDescrition" id="quickDescrition" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pb-2 mt-1" />  
+                  <textarea name="description" id="description" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
                 
 
                 <div className="description flex flex-col">
                   <label htmlFor="description">Description</label>
-                  <textarea name="description" id="description" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 pb-2 mt-1" />  
+                  <textarea name="description" id="description" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
                 
                 <div className="flex flex-col pt-10">
