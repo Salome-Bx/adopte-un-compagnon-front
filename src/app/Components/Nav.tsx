@@ -40,7 +40,7 @@ export const Nav = () => {
           
 
           {/* Menu */}
-            <div className="icones flex flex-row justify-end">
+            <div className="icones flex flex-row w-full justify-end">
               <button className="connexion text-white">
                 <Link href="/connexion" className="items-center z-11 flex text-custom-light-purple color-white mr-4">
                   <Image
@@ -51,7 +51,7 @@ export const Nav = () => {
                   />
                 </Link>
               </button>
-              <button onClick={toggleMenu} className="items-center flex hover:text-custom-yellow text-white">
+              <button onClick={toggleMenu} className="items-center flex hover:text-custom-yellow text-white font-medium">
                 Menu
               </button>
             </div>
@@ -61,19 +61,19 @@ export const Nav = () => {
             
             <div className="menuDeroulant flex flex-col">
             {isOpen && (
-              <div className="menuMobile bg-custom-purple text-white p-4 rounded-lg shadow-md w-full">
-                <ul className="flex flex-col space-y-4">
+              <div className="menuMobile bg-custom-purple text-white w-full pb-4">
+                <ul className="flex flex-col space-y-2 items-end">
                   <li>
-                    <Link href="/aPropos" className="flex mr-5 hover:text-custom-yellow">A propos</Link>
+                    <Link href="/aPropos" className="flex hover:text-custom-yellow">A propos</Link>
                   </li>
                   <li>
-                    <Link href="/animauxAdoption" className="flex mr-5 hover:text-custom-yellow">Compagnons à l'adoption</Link>
+                    <Link href="/animauxAdoption" className="flex hover:text-custom-yellow">Compagnons à l'adoption</Link>
                   </li>
                   <li>
-                    <Link href="/sos" className="flex mr-5 hover:text-custom-yellow">SOS</Link>
+                    <Link href="/sos" className="flex hover:text-custom-yellow">SOS</Link>
                   </li>
                   <li>
-                    <Link href="/associations" className="flex mr-5 hover:text-custom-yellow">Les associations</Link>
+                    <Link href="/associations" className="flex hover:text-custom-yellow">Les associations</Link>
                   </li>
                   <li>
                     <Link href="/inscription" className=" text-custom-light-purple hover:underline">Inscription Association</Link>
