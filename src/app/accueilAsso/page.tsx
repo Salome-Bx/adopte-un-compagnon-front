@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { NavAsso } from "../Components/NavAsso";
 import Footer from "../Components/Footer";
-import Button from "../Components/Button";
+import Button from "../Components/ButtonAction";
 import Link from 'next/link';
 import { petService } from '../Services/pet';
 

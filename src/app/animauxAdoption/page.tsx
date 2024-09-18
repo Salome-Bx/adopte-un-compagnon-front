@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
 import { CardPetProps } from "../Utils/type";
-import Button from "../Components/Button";
+import Button from "../Components/ButtonAction";
 
 
 const animalsToAdoptPage = () => {
@@ -36,10 +36,40 @@ const animalsToAdoptPage = () => {
 
     return (
         <main>
+
             <Nav></Nav>
+
+            
+
             <div className="w-1/3 p-6 text-custom-purple">
                 <h3 className="text-3xl font-bold">Animaux à l'adoption</h3>
             </div>
+
+            {/* -------filtre------ */}
+
+            <div className="filter w-full flex justify-row">
+                <div className="filterContainer flex justify-row">
+                    <div className="w-1/5 flex">Rechercher par</div>
+                    <div className="w-1/5 flex text-custom-purple">
+                        <select name="pet" id="pet">
+                            <option value="cat">Chien</option>
+                            <option value="dog">Chat</option>
+                        </select>
+                    </div>
+                    <div className="w-1/5 flex">
+                        <input type="search" id='petSearch' name='petSearch' />
+                    </div>
+                    <div className="w-1/5 flex">
+                        <label htmlFor="isSos">SOS</label>
+                        <input type="checkbox" name="isSos" id="isSos" className="border-4 border-white"/>
+                    </div>
+                    <div className="w-1/5 flex">
+                        Rechercher
+                    </div>
+                </div>
+            </div>
+            
+            {/* ------fin filtre------ */}
 
             <div className="cards flex flex-row mx-8 flex-wrap">
                 {petList && (
