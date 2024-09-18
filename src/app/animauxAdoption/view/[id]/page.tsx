@@ -28,6 +28,8 @@ const animalProfilPage = ({params}: {params: {id: number} }) => {
     <main className="quicksand flex min-h-screen flex-col bg-custom-cream w-full">
       <Nav></Nav>
 
+      
+
             {petData && (
                 <div className="">
                   <h3 className="nom">{petData.name}</h3>

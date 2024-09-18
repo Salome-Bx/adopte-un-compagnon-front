@@ -10,7 +10,7 @@ import { petService } from '../Services/pet';
 import axios from 'axios';
 
 
-const pageCreationAnimal = () => {
+const pageModificationAnimal = () => {
 
   
   const [name, setName] = useState('')
@@ -28,7 +28,7 @@ const pageCreationAnimal = () => {
   const [error, setError] = useState<string | null>(null);
   const {push} = useRouter();
 
-  const handlePetCreation = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handlePetEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
     if (!name || !race || !gender || !birthyear || !withCats || !withDogs ||!withChildren || !sos || !quickDescription || !description ) {
@@ -52,8 +52,8 @@ const pageCreationAnimal = () => {
     }
     
     try {
-      const response = await petService.createPet(formData);
-      toast.success("L'animal a bien été crée !");
+      const response = await petService.editPet(formData);
+      toast.success("L'animal a bien été modifié !");
       push("/creationAnimal");
       
     } 
@@ -91,9 +91,9 @@ const pageCreationAnimal = () => {
 
 
         <div className="flex flex-col w-1/3 m-auto pb-40">
-            <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Créer le profil d'un animal</h1>
+            <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Modifier le profil de l'animal</h1>
 
-            <form onSubmit={handlePetCreation} className="text-white text-sm">
+            <form onSubmit={handlePetEdit} className="text-white text-sm">
 
                 <div className="name flex flex-col">
                   <label htmlFor="name">Nom de l'animal</label>
@@ -186,4 +186,4 @@ const pageCreationAnimal = () => {
   )
 }
 
-export default pageCreationAnimal
+export default pageModificationAnimal

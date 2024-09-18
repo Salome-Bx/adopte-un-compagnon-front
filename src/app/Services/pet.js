@@ -63,7 +63,7 @@ export let petService = {
 
     editPet: async (data) => {
         try {
-            const response = await axiosConfig.post("/pet/edit", data);
+            const response = await axiosConfig.post(`/pet/${id}/edit`, data);
             const pet = response.data.pet;
             localStorage.setItem("pet", JSON.stringify(pet));
             console.log(pet)
@@ -74,6 +74,15 @@ export let petService = {
         }
     },
 
-    deletePet: async (data) => {}
+    deletePet: async (data) => {
+        try {
+            const response = await axiosConfig.delete(`/pet/${id}/delete`, data);
+            const pet = response.data.pet;
+            return pet;
+        } catch (error) {
+            console.error("Erreur lors de la suppression", error);
+            throw error;
+        }
+    }
 
 }

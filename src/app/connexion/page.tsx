@@ -3,11 +3,10 @@ import React, { useState } from 'react';
 import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
 import Button from "../Components/Button";
-import { useRouter } from 'next/navigation';
 import { userService } from '../Services/user';
 import { loggedService } from '../Services/logged';
 import axios from 'axios';
-
+import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,37 +19,39 @@ const pageConnexion = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
  
-  const router = useRouter();
+  const {push} = useRouter();
   
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-
-      if (!email || !password) {
-        toast.error("Veuillez remplir tous les champs");
-      } else if (password.length < 8) {
-        toast.error("Veuillez entrer un mot de passe à 8 caractères ou plus");
-      } else {
-
-          let formData = {
-              email: email,
-              password : password,
-          }
-            
-          try {
-            const response = await loggedService.login(formData);
-            console.log("Connexion réussie", response);
-
-            const userRole = response.roles[0];
-            console.log(userRole);
-            switch(userRole) {
-              case 'ROLE_USER':
-                router.push("/accueilAsso");
+    e.preventDefault();
+    
+    if (!email || !password) {
+      toast.error("Veuillez remplir tous les champs");
+      
+    } else if (password.length < 8) {
+      toast.error("Veuillez entrer un mot de passe à 8 caractères ou plus");
+      
+    } else {
+      
+      let formData = {
+        email: email,
+        password : password,
+      }
+      
+      try {
+        const response = await loggedService.login(formData);
+        console.log("Connexion réussie", response);
+        
+        const userRole = response.roles[0];
+        
+        switch(userRole) {
+          case 'ROLE_USER':
+                push("/accueilAsso");
                 break;
               case 'ROLE_ADMIN':
-                router.push("/accueilAdmin");
+                push("/accueilAdmin");
                 break;
               default:
-                router.push("/connexion"); 
+                push("/connexion"); 
             }
             
               
@@ -60,15 +61,15 @@ const pageConnexion = () => {
                   error.response.data.message ||
                     "Erreur pendant la connexion."
                 );
-                router.push("/connexion");
+                push("/connexion");
                 
               } else {
                 setError("Une erreur a eu lieu, veuillez réessayer.");
                 toast.error("Une erreur a eu lieu, veuillez réessayer.");
-                router.push("/connexion");
+                push("/connexion");
               }
             console.error("Une erreur est survenue", error);
-            router.push("/connexion");
+            push("/connexion");
           }
 
           
@@ -79,7 +80,7 @@ const pageConnexion = () => {
       <main className="bg-custom-purple">
         <Nav></Nav>
 
-        <ToastContainer />
+      
         <div className="flex flex-col items-center justify-center min-h-screen px-4">
           
               <h1 className="text-custom-light-purple text-3xl font-bold mb-8 text-center">Connexion Association</h1>
