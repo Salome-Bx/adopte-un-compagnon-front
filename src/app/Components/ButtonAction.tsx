@@ -1,9 +1,9 @@
 import React from 'react'
-import { ButtonProps } from '@/app/Utils/type'
+import { ButtonActionProps } from '@/app/Utils/type'
 import {  useRouter } from 'next/navigation';
 
 
-  export const Button = ({
+  export const ButtonAction = ({
     title,
     bgColor,
     border,
@@ -12,11 +12,14 @@ import {  useRouter } from 'next/navigation';
     hover,
     padding,
     margin,
-  }: ButtonProps) => {
-    
+    action
+  }: ButtonActionProps) => {
+    const { push } = useRouter();
+
       return (
         <button
             className={`${bgColor} ${border} ${color} ${size} ${hover} ${padding} ${margin}`}
+            onClick={() => push(`/${action}`)}
         >
             {title}
         </button>
@@ -24,4 +27,4 @@ import {  useRouter } from 'next/navigation';
   }
 
 
-export default Button
+export default ButtonAction

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
 import { CardPetProps } from "../Utils/type";
-import Button from "../Components/Button";
+import Button from "../Components/ButtonAction";
 
 
 const animalsToAdoptPage = () => {

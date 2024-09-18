@@ -1,7 +1,7 @@
 "use client"
 import { Nav } from "./Components/Nav"
 import Footer from "./Components/Footer";
-import Button from "./Components/Button";
+import Button from "./Components/ButtonAction";
 import { ButtonProps } from "./Utils/type";
 import Image from "next/image";
 

@@ -1,4 +1,4 @@
-export type ButtonProps = {
+export type ButtonActionProps = {
     title: string
     bgColor: string
     border: string
@@ -10,6 +10,17 @@ export type ButtonProps = {
     action: string
 }
 
+export type ButtonProps = {
+    title: string
+    bgColor: string
+    border: string
+    color: string
+    size: string
+    hover: string
+    padding: string
+    margin: string
+   
+}
 
 
 export type CardPetProps = {
@@ -48,6 +59,21 @@ export type CardAssoProps = {
     image: string
     nameAsso: string
     address: Date
+    city: string
+    postalCode: string
+    phone: boolean
+    siret: boolean
+    website: boolean
+}
+
+export type ProfilAssoProps = {
+    id: number 
+    image: string
+    nameAsso: string
+    email: string
+    firstname: string
+    lastname: string
+    address: string
     city: string
     postalCode: string
     phone: boolean

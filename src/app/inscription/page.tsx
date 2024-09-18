@@ -2,11 +2,13 @@
 import React, { useState } from 'react'
 import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
-import Button from "../Components/Button";
+import Button from "../Components/ButtonAction";
 import { useRouter } from 'next/router';
 import { userService } from '../Services/user';
 import axios from 'axios';
 import { resolveSoa } from 'dns';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const pageInscription = () => {
@@ -14,6 +16,7 @@ const pageInscription = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordConfirm, setPasswordConfirm] = useState('')
   const [lastname, setLastname] = useState('')
   const [firstname, setFirstname] = useState('')
   const [address, setAddress] = useState('')
@@ -32,6 +35,13 @@ const pageInscription = () => {
   const handleRegistration = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+            if (!email || !password || !lastname || !firstname || !address || !city || !postalCode ||!phone || !nameAsso || !siret || !website || !image ) {
+              toast.error("Veuillez remplir tous les champs");
+            } else if (password.valueOf != passwordConfirm.valueOf) {
+              toast.error("Les mots de passes sont différents");
+            } else if (password.length < 8) {
+              toast.error("Veuillez entrer un mot de passe à 8 caractères ou plus");
+            } else {
         
             let formData = {
                 email: email,
@@ -67,7 +77,7 @@ const pageInscription = () => {
           
         }
         
-
+      }
     
 
 
@@ -75,7 +85,7 @@ const pageInscription = () => {
     <main className="bg-custom-purple">
 
         <Nav></Nav>
-
+        <ToastContainer />
         <div className="flex flex-col w-1/3 m-auto pb-40">
             <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Inscription Association</h1>
 
@@ -106,9 +116,9 @@ const pageInscription = () => {
                   <input type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 py-2 mt-1 pl-2" />  
                 </div>
 
-                <div className="password2 flex flex-col">
-                  <label htmlFor="password2">Vérification mot de passe*</label>
-                  <input type="password" name="password2" id="password2" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 py-2 mt-1 pl-2" />
+                <div className="passwordConfirm flex flex-col">
+                  <label htmlFor="passwordConfirm">Vérification mot de passe*</label>
+                  <input type="password" name="passwordConfirm" id="passwordConfirm" onChange={(e) => setPasswordConfirm(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 py-2 mt-1 pl-2" />
                 </div>
                 
                 
