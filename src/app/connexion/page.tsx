@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
 import Button from "../Components/Button";
@@ -12,14 +12,39 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-const pageConnexion = () => {
 
+
+
+const pageConnexion = () => {
+  
+  const [userInStorage, setUserInStorage] = useState ([]);
   const [error, setError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState('');
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
- 
+  
   const {push} = useRouter();
+  
+  useEffect(() => {
+  
+      const storedUser = localStorage.getItem("user");
+  
+      if (storedUser) {
+        try {
+          const userData = JSON.parse(storedUser);
+          setUserInStorage(userData);
+          
+          if (userData.roles.includes("ROLE_USER")) {
+            push("/accueilAsso");
+  
+          } else {
+              push("/accueilAdmin");
+          }
+        } catch (error) {
+          console.error("Erreur lors du chargement de l'utilisateur depuis le stockage local:", error);
+        }
+      }
+    }, []);
   
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

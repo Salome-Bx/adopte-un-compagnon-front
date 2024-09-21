@@ -51,6 +51,14 @@ export type ProfilPetProps = {
     race: string
     categorisedDog: string
     image: string 
+    species: string
+    asso : string
+    address :string
+    city: string
+    postalCode : string
+    phone : string
+    website : string
+    
 }
 
 
@@ -61,9 +69,10 @@ export type CardAssoProps = {
     address: Date
     city: string
     postalCode: string
-    phone: boolean
-    siret: boolean
-    website: boolean
+    phone: string
+    siret: string
+    website: string
+
 }
 
 export type ProfilAssoProps = {
@@ -76,7 +85,18 @@ export type ProfilAssoProps = {
     address: string
     city: string
     postalCode: string
-    phone: boolean
-    siret: boolean
-    website: boolean
+    phone: string
+    siret: string
+    website: string
+}
+
+export type AdoptionForm = {
+    
+    lastname : string,
+    firstname : string,
+    email : string,
+    postalCode : string,
+    phone : string,
+    message : string,
+    pet_id : number
 }

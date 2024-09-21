@@ -15,10 +15,29 @@ export let formService = {
             const response = await axiosConfig.get("/forms");
             return response.data;
         } catch (error) {
-            throw new Error("Impossible d'importer les animaux");
+            throw new Error("Impossible d'importer les formualires");
         }
     },
 
-    deleteForm: async () => {}
+
+    
+
+    deleteForm: async () => {
+
+    },
+
+    newForm: async (data) => {
+        try {
+            const response = await axiosConfig.post("/form/new", data);
+            const pet = response.data.form;
+        } catch (error) {
+            console.error("Erreur lors de l'envoi", error);
+            throw error;
+        }
+    },
+
+
+
+
 
 }
