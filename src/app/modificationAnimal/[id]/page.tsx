@@ -1,17 +1,16 @@
 "use client"
 import React, { useState } from 'react'
-import { Nav } from "../Components/Nav";
-import Footer from "../Components/Footer";
-import Button from "../Components/ButtonAction";
+import { Nav } from "../../Components/Nav";
+import Footer from "../../Components/Footer";
+import Button from "../../Components/Button";
 import { useRouter } from 'next/navigation';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { petService } from '../Services/pet';
+import { petService } from '../../Services/pet';
 import axios from 'axios';
 
 
-const pageModificationAnimal = () => {
-
+const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
   
   const [name, setName] = useState('')
   const [image, setImage] = useState('')
@@ -38,6 +37,7 @@ const pageModificationAnimal = () => {
     } else {
 
     let formData = {
+        id: params.id,
         name: name,
         image : image,
         race: race,
@@ -54,11 +54,9 @@ const pageModificationAnimal = () => {
     try {
       const response = await petService.editPet(formData);
       toast.success("L'animal a bien été modifié !");
-      push("/creationAnimal");
-      
+      push(`/accueilAsso/${params.id}`);
     } 
   
-
     catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const errorMessage = error.response.data.message;
@@ -77,6 +75,7 @@ const pageModificationAnimal = () => {
         toast.error("Une erreur inattendue s'est produite. Veuillez réessayer.");
       }
       console.error("Une erreur est survenue", error);
+      toast.success("Une erreur est survenue");
     }
   
 }
@@ -167,10 +166,9 @@ const pageModificationAnimal = () => {
                         border={'border border-white'}
                         color={'text-white'}
                         size={'w-fit'}
-                        hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
+                        hover={'hover:text-custom-purple hover:bg-white hover:borderwhite'}
                         padding={'px-6 py-2'}
-                        margin={'m-auto'}
-                        action=''
+                        margin={'m-auto'}   
                   />
                 </div>
                 

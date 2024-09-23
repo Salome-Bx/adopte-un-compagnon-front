@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
-import ButtonAction from "../Components/ButtonAction";
 import { useRouter } from 'next/navigation';
 import { userService } from '../Services/user';
 import axios from 'axios';

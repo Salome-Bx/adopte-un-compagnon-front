@@ -13,15 +13,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
 
-const animalProfilPage = ({params}: {params: {id: number} }) => {
+const animalProfilPage = ({params}: {params: {id: number}}) => {
 
     const [petData, setPetData] = useState<ProfilPetProps>();
-    const [lastname, setLastname] = useState<AdoptionForm>();
-    const [firstname, setFirstname] = useState<AdoptionForm>();
-    const [email, setEmail] = useState<AdoptionForm>();
-    const [postalCode, setPostalCode] = useState<AdoptionForm>();
-    const [phone, setPhone] = useState<AdoptionForm>();
-    const [message, setMessage] = useState<AdoptionForm>();
+    const [lastname, setLastname] = useState('');
+    const [firstname, setFirstname] = useState('');
+    const [email, setEmail] = useState('');
+    const [postalCode, setPostalCode] = useState('');
+    const [phone, setPhone] = useState('');
+    const [message, setMessage] = useState('');
     const [error, setError] = useState<string | null>(null);
     const {push} = useRouter();
    
@@ -55,7 +55,7 @@ const animalProfilPage = ({params}: {params: {id: number} }) => {
         try {
           const response = await formService.newForm(formData);
           toast.success("Formulaire envoyé");
-        
+          push("/animauxAdoption");
           
           } catch (error) {
               if (axios.isAxiosError(error) && error.response) {
@@ -115,7 +115,7 @@ const animalProfilPage = ({params}: {params: {id: number} }) => {
                         <h2 className="title text-custom-light-purple text-ml font-medium pb-2 pt-4">Informations</h2>
                         <p className="race">Race : {petData.race}</p>
                         <p className="gender">Genre : {petData.gender}</p>
-                        <p className="age">Age : {new Date().getFullYear() - petData.birthyear}</p>
+                        {/* <p className="age">Age : {new Date().getFullYear() - petData.birthyear}</p> */}
                         <p className="withCats">Entente avec les chats : {petData.getAlongCats ? 'Oui' : 'Non'}</p>
                         <p className="withDogs">Entente avec les chiens : {petData.getAlongDogs ? 'Oui' : 'Non'}</p>
                         <p className="withChildren">Entente avec les enfants : {petData.getAlongChildren ? 'Oui' : 'Non'}</p>

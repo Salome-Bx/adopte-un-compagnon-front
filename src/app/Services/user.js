@@ -66,7 +66,7 @@ export let userService = {
             console.log(user)
             return user;
         } catch (error) {
-            console.error("Erreur lors de la modification", error);
+            console.error("Erreur lors de la modification des informations", error);
             throw error;
         }
     },
@@ -76,18 +76,7 @@ export let userService = {
     },
 
     
-    logout: async (data) => {
-        try {
-            const response = await axiosConfig.post("/user/logout", data);
-            const user = response.data.user;
-            localStorage.removeItem("user");
-            console.log("Déconnexion réussie");
-            return user;
-        } catch (error) {
-            console.error("Erreur lors de la déconnexion", error);
-            throw error;
-        }
-    },
+    
 
     
 

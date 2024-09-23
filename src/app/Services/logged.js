@@ -23,4 +23,19 @@ let axiosConfig = axios.create({
                 throw error;
             }
         },
+
+        logout: async () => {
+            try {
+                const response = await axiosConfig.post("/user/logout");
+                
+                localStorage.removeItem("user");
+                
+                console.log("Déconnexion réussie");
+                
+                return response.data;
+            } catch (error) {
+                console.error("Erreur lors de la déconnexion", error);
+                throw error;
+            }
+        },
     }

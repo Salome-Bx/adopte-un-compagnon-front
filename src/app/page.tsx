@@ -357,10 +357,10 @@ import { useEffect, useState } from "react";
           </div>
       </div>
       
-      
-          
       {/*------------- fin bloc SOS ----------------*/}
+
       <Footer></Footer>
+      
     </main>
     );
 

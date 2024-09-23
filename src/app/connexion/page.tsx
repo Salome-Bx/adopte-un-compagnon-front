@@ -12,9 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-
-
-
 const pageConnexion = () => {
   
   const [userInStorage, setUserInStorage] = useState ([]);
@@ -34,12 +31,6 @@ const pageConnexion = () => {
           const userData = JSON.parse(storedUser);
           setUserInStorage(userData);
           
-          if (userData.roles.includes("ROLE_USER")) {
-            push("/accueilAsso");
-  
-          } else {
-              push("/accueilAdmin");
-          }
         } catch (error) {
           console.error("Erreur lors du chargement de l'utilisateur depuis le stockage local:", error);
         }
@@ -67,10 +58,11 @@ const pageConnexion = () => {
         console.log("Connexion réussie", response);
         
         const userRole = response.roles[0];
+        const userId = response.id;
         
         switch(userRole) {
           case 'ROLE_USER':
-                push("/accueilAsso");
+                push(`/accueilAsso/${userId}`);
                 break;
               case 'ROLE_ADMIN':
                 push("/accueilAdmin");
