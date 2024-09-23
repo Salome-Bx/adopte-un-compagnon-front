@@ -1,8 +1,10 @@
-// import React, { useState } from 'react';
+"use client"
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { petService } from '../Services/pet';
+import { userService } from '../Services/user';
+import { loggedService } from '../Services/logged';
 
 
 
@@ -14,6 +16,25 @@ export const NavAsso = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+ 
+  
+
+  const handeLogout = async () => {
+    // setIsLoading(true);
+    // setError(null);
+    try {
+    const response = await loggedService.logout();
+    
+    } catch (error) {
+    // setError("Failed to fetch meals. Please try again.");
+    console.error("Erreur pendant la déconnexion :", error);
+    } 
+    // finally {
+    //   setIsLoading(false);
+    // }
+};
+
 
  
 
@@ -64,6 +85,9 @@ export const NavAsso = () => {
                   <li>
                     <Link href="/informations" className="flex hover:text-custom-yellow">Mes informations</Link>
                   </li>
+                  <li>
+                    <Link href="/" className="flex hover:text-custom-yellow">Se déconnecter</Link>
+                  </li>
                   
                 </ul>
               </div>
@@ -97,12 +121,13 @@ export const NavAsso = () => {
                   <li>
                     <Link href="/informations" className="flex hover:text-custom-yellow">Mes informations</Link>
                   </li>
+                  <li>
+                    <Link onClick={handeLogout} href="/" className="flex hover:text-custom-yellow">Se déconnecter</Link>
+                  </li>
             </ul>
           </div>
         </div>
-
       </nav>
-      
     </header>
   );
 };

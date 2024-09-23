@@ -35,11 +35,20 @@ const AccueilAdminPage = () => {
 
 
   return (
-    <main className="bg-custom-purple w-full">
+    <main className="bg-custom-purple">
         <NavAsso></NavAsso>
-            <div className="w-1/3 p-6 text-custom-purple">
+        <div className="flex flex-col items-center justify-center min-h-screen px-4">
+            <div className="w-1/3 p-6 text-white">
                 <h3 className="text-3xl font-bold">Bienvenue sur votre espace</h3>
             </div>
+
+
+
+        </div>
+            
+
+            
+
 
             
     </main>

@@ -24,6 +24,7 @@ export type ButtonProps = {
 
 
 export type CardPetProps = {
+    map(arg0: (pet: CardPetProps) => import("react").JSX.Element): import("react").ReactNode
     id: number 
     name: string
     birthyear: Date
@@ -36,6 +37,8 @@ export type CardPetProps = {
     race: string
     image: string 
 }
+
+
 
 export type ProfilPetProps = {
     id: number 
@@ -52,15 +55,40 @@ export type ProfilPetProps = {
     categorisedDog: string
     image: string 
     species: string
-    asso : string
+    nameAsso : string
     address :string
     city: string
     postalCode : string
     phone : string
     website : string
-    
+    asso: any
 }
 
+export type EditProfilPetProps = {
+    map(arg0: (pet: EditProfilPetProps) => import("react").JSX.Element): import("react").ReactNode
+    id: number 
+    name: string
+    birthyear: Date
+    gender: string
+    quickDescription: string
+    description: string
+    getAlongCats: boolean
+    getAlongDogs: boolean
+    getAlongChildren: boolean
+    entryDate: Date
+    sos: boolean
+    race: string
+    categorisedDog: string
+    image: string 
+    species: string
+    nameAsso : string
+    address :string
+    city: string
+    postalCode : string
+    phone : string
+    website : string
+    asso: any
+}
 
 export type CardAssoProps = {
     id: number 

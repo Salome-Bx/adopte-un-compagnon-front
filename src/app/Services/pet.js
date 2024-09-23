@@ -41,10 +41,10 @@ export let petService = {
 
     getPetsByAsso: async (id) => {
         try {
-            const response = await axiosConfig.get(`pet/${id}`);
+            const response = await axiosConfig.get(`user/${id}/home/asso/pets`);
             return response.data;
         } catch (error) {
-            throw new Error("Impossible d'importer l'animal");
+            throw new Error("Impossible d'importer les animaux");
         }
     },
 
@@ -69,7 +69,7 @@ export let petService = {
             console.log(pet)
             return pet;
         } catch (error) {
-            console.error("Erreur lors de la modification", error);
+            console.error("Erreur lors de la modification des informations de l'animal", error);
             throw error;
         }
     },
