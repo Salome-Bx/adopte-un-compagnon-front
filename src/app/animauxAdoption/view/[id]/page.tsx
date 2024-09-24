@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { petService } from "@/app/Services/pet";
 import { formService } from "@/app/Services/form";
-import { AdoptionForm, ProfilPetProps } from "@/app/Utils/type";
+import { ProfilPetProps } from "@/app/Utils/type";
 import { CardAssoProps } from "@/app/Utils/type";
 import { Nav } from "@/app/Components/Nav";
 import Footer from "@/app/Components/Footer";

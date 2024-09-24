@@ -6,6 +6,7 @@ import { ButtonProps, CardPetProps } from "./Utils/type";
 import Image from "next/image";
 import { petService } from "./Services/pet";
 import { useEffect, useState } from "react";
+import { Oval } from "react-loader-spinner";
 
 
 
@@ -15,6 +16,7 @@ import { useEffect, useState } from "react";
     
     const [petList, setPetList] = useState ([]);
     const [sosList, setSosList] = useState ([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     
     
     useEffect(() => {
@@ -26,7 +28,7 @@ import { useEffect, useState } from "react";
     
     
     const fetchPets = async () => {
-        // setIsLoading(true);
+        setIsLoading(true);
         // setError(null);
         try {
         const response = await petService.getAllPets();
@@ -35,9 +37,9 @@ import { useEffect, useState } from "react";
         // setError("Failed to fetch meals. Please try again.");
         console.error("Erreur pendant la récupération de la liste des animaux :", error);
         } 
-        // finally {
-        //   setIsLoading(false);
-        // }
+        finally {
+          setIsLoading(false);
+        }
     };
     
 
@@ -51,6 +53,25 @@ import { useEffect, useState } from "react";
           console.error("Erreur pendant la récupération de la liste des animaux SOS :", err);
       }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Oval
+          height={80}
+          width={80}
+          color="#FF8DDC"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="oval-loading"
+          secondaryColor="#333333"
+          strokeWidth={2}
+          strokeWidthSecondary={2}
+        />
+      </div>
+    );
+  }
 
     
     return (

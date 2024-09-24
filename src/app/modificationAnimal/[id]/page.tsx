@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import { Nav } from "../../Components/Nav";
+import { NavAsso } from "../../Components/NavAsso";
 import Footer from "../../Components/Footer";
 import Button from "../../Components/Button";
 import { useRouter } from 'next/navigation';
@@ -11,7 +11,8 @@ import axios from 'axios';
 
 
 const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
-  
+
+  const [id, setId] = useState('')
   const [name, setName] = useState('')
   const [image, setImage] = useState('')
   const [race, setRace] = useState('')
@@ -30,7 +31,7 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
   const handlePetEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
-    if (!name || !race || !gender || !birthyear || !withCats || !withDogs ||!withChildren || !sos || !quickDescription || !description ) {
+    if (!name || !race || !gender || !birthyear || !quickDescription || !description ) {
 
       toast.error("Veuillez remplir tous les champs");
 
@@ -52,7 +53,7 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
     }
     
     try {
-      const response = await petService.editPet(formData);
+      const response = await petService.editPet(params.id, formData);
       toast.success("L'animal a bien été modifié !");
       push(`/accueilAsso/${params.id}`);
     } 
@@ -75,7 +76,7 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
         toast.error("Une erreur inattendue s'est produite. Veuillez réessayer.");
       }
       console.error("Une erreur est survenue", error);
-      toast.success("Une erreur est survenue");
+      toast.error("Une erreur est survenue");
     }
   
 }
@@ -86,7 +87,7 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
   return (
     <main className="bg-custom-purple">
 
-        <Nav></Nav>
+        <NavAsso></NavAsso>
 
 
         <div className="flex flex-col w-1/3 m-auto pb-40">
@@ -101,7 +102,7 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
 
                 <div className="image flex flex-col">
                   <label htmlFor="image">Images</label>
-                  <input type="file" name="image" id="image" onChange={(e) => setImage(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <input type="text" name="image" id="image" onChange={(e) => setImage(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="race flex flex-col">
