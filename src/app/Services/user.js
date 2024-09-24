@@ -49,7 +49,7 @@ export let userService = {
         }
     },
 
-    getAssoProfil: async (id) => {
+    getAssoById: async (id) => {
         try {
             const response = await axiosConfig.get(`user/${id}`);
             return response.data;

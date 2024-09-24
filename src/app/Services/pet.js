@@ -53,7 +53,6 @@ export let petService = {
             const response = await axiosConfig.post("/pet/new", data);
             const pet = response.data.pet;
             localStorage.setItem("pet", JSON.stringify(pet));
-            console.log(pet)
             return pet;
         } catch (error) {
             console.error("Erreur lors de l'enregistrement", error);
@@ -61,12 +60,11 @@ export let petService = {
         }
     },
 
-    editPet: async (data) => {
+    editPet: async (id, data) => {
         try {
-            const response = await axiosConfig.post(`/pet/${id}/edit`, data);
-            const pet = response.data.pet;
-            localStorage.setItem("pet", JSON.stringify(pet));
-            console.log(pet)
+            const response = await axiosConfig.put(`/pet/${id}/edit`, data);
+            const pet = response.data;
+            console.log(pet);
             return pet;
         } catch (error) {
             console.error("Erreur lors de la modification des informations de l'animal", error);

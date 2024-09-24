@@ -1,3 +1,15 @@
+export type ButtonStateProps = {
+    title: string
+    bgColor: string
+    border: string
+    color: string
+    size: string
+    hover: string
+    padding: string
+    margin: string
+    state: string
+}
+
 export type ButtonActionProps = {
     title: string
     bgColor: string
@@ -118,8 +130,11 @@ export type ProfilAssoProps = {
     website: string
 }
 
-export type AdoptionForm = {
-    
+export type AdoptionFormProps = {
+    map(arg0: (form: AdoptionFormProps) => import("react").JSX.Element): import("react").ReactNode
+
+    id : number
+    date : string
     lastname : string,
     firstname : string,
     email : string,

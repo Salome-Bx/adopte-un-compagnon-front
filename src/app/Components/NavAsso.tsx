@@ -12,6 +12,7 @@ import { loggedService } from '../Services/logged';
 export const NavAsso = () => {
   const [showSubmenu, setShowSubmenu] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -83,7 +84,7 @@ export const NavAsso = () => {
                     <Link href="/demandes" className="flex hover:text-custom-yellow">Mes demandes d'adoptions</Link>
                   </li>
                   <li>
-                    <Link href="/informations" className="flex hover:text-custom-yellow">Mes informations</Link>
+                    <Link href="/infos" className="flex hover:text-custom-yellow">Mes informations</Link>
                   </li>
                   <li>
                     <Link href="/" className="flex hover:text-custom-yellow">Se déconnecter</Link>
@@ -119,7 +120,7 @@ export const NavAsso = () => {
                     <Link href="/demandes" className="flex hover:text-custom-yellow">Mes demandes d'adoptions</Link>
                   </li>
                   <li>
-                    <Link href="/informations" className="flex hover:text-custom-yellow">Mes informations</Link>
+                    <Link href="/infos" className="flex hover:text-custom-yellow">Mes informations</Link>
                   </li>
                   <li>
                     <Link onClick={handeLogout} href="/" className="flex hover:text-custom-yellow">Se déconnecter</Link>

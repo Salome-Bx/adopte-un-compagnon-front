@@ -1,19 +1,56 @@
 "use client"
-import React from 'react'
-import { Nav } from "../Components/Nav";
-import Footer from "../Components/Footer";
-import Button from "../Components/ButtonAction";
-import { NavAsso } from '../Components/NavAsso';
+import React, { useState } from 'react'
+import { Nav } from "../../Components/Nav";
+import Footer from "../../Components/Footer";
+import Button from "../../Components/ButtonAction";
+import { NavAsso } from '../../Components/NavAsso';
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
-const pageModificationInfos = () => {
+const pageModificationInfos = ({params}: {params: {id: number}}) => {
+  
+      const [email, setEmail] = useState('')
+      const [password, setPassword] = useState('')
+      const [passwordConfirm, setPasswordConfirm] = useState('')
+      const [lastname, setLastname] = useState('')
+      const [firstname, setFirstname] = useState('')
+      const [address, setAddress] = useState('')
+      const [city, setCity] = useState('')
+      const [postalCode, setPostalCode] = useState('')
+      const [phone, setPhone] = useState('')
+      const [nameAsso, setNameAsso] = useState('')
+      const [siret, setSiret] = useState('')
+      const [website, setWebsite] = useState('')
+      const [image, setImage] = useState('')
+
+      const [error, setError] = useState<string | null>(null);
+      const {push} = useRouter();
+
+      
+      if (!lastname || !firstname || !address || !city || !postalCode || !phone || !website || !image  ) {
+
+        toast.error("Veuillez remplir tous les champs");
+
+      } else {
+
+        let formData = {
+          id: params.id,
+          lastname: name,
+          firstname : image,
+          
+      }
+
+
   return (
+    
+
     <main className="bg-custom-purple">
 
         <NavAsso></NavAsso>
 
         <div className="flex flex-col m-auto pb-40 w-2/3 max-w-md mx-auto">
-            <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Mes informations</h1>
+            <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Modifier mes informations</h1>
 
             <form action=""  className="text-white text-sm">
 
@@ -91,11 +128,8 @@ const pageModificationInfos = () => {
                   />
                 </div>
                 
-
             </form>
 
-            <p className="text-sm text-white pt-6">* Champs obligatoires</p>
-            <p className="text-sm text-white pt-6">En cliquant sur "Je crée mon compte", vous acceptez de vous conformer à la politique et aux conditions générales d’Adopte un Compagnon.</p>
 
         </div>
 

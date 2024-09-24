@@ -8,7 +8,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Adopte un Compagnon",
-  description: "Adopte un Compagnon est un site dédié aux associations de protection animale",
+  description: "Adopte un Compagnon, le site pour adopter un animal de refuge !",
+  keywords: "adopter animal refuge association aide France chat chien adoption"
 };
 
 export default function RootLayout({
@@ -20,7 +21,7 @@ export default function RootLayout({
     <html lang="fr">
       <body className={inter.className}>
       <ToastContainer/>
-{children}
+      {children}
 
       </body>
     </html>
