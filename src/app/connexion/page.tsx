@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Oval } from 'react-loader-spinner';
 
 
 
@@ -19,6 +20,7 @@ const pageConnexion = () => {
   const [passwordError, setPasswordError] = useState('');
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   
   const {push} = useRouter();
   
@@ -39,6 +41,7 @@ const pageConnexion = () => {
   
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     
     if (!email || !password) {
       toast.error("Veuillez remplir tous les champs");
@@ -62,7 +65,7 @@ const pageConnexion = () => {
         
         switch(userRole) {
           case 'ROLE_USER':
-                push(`/accueilAsso/${userId}`);
+                push("/accueilAsso");
                 break;
               case 'ROLE_ADMIN':
                 push("/accueilAdmin");
@@ -87,10 +90,32 @@ const pageConnexion = () => {
               }
             console.error("Une erreur est survenue", error);
             push("/connexion");
+          } finally {
+            setIsLoading(false);
           }
+      
 
           
         }
+      }
+
+      if (isLoading) {
+        return (
+          <div className="flex justify-center items-center h-screen">
+            <Oval
+              height={80}
+              width={80}
+              color="#FF8DDC"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#333333"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          </div>
+        );
       }
 
     return (

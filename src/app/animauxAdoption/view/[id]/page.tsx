@@ -4,13 +4,14 @@ import Image from "next/image";
 import { petService } from "@/app/Services/pet";
 import { formService } from "@/app/Services/form";
 import { ProfilPetProps } from "@/app/Utils/type";
-import { CardAssoProps } from "@/app/Utils/type";
 import { Nav } from "@/app/Components/Nav";
 import Footer from "@/app/Components/Footer";
 import { useRouter } from 'next/navigation';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+import 'react-toastify/dist/ReactToastify.css';
+import { Oval } from "react-loader-spinner";
 
 
 const animalProfilPage = ({params}: {params: {id: number}}) => {
@@ -22,6 +23,8 @@ const animalProfilPage = ({params}: {params: {id: number}}) => {
     const [postalCode, setPostalCode] = useState('');
     const [phone, setPhone] = useState('');
     const [message, setMessage] = useState('');
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const {push} = useRouter();
    
@@ -83,14 +86,38 @@ const animalProfilPage = ({params}: {params: {id: number}}) => {
 
 
     const fetchPetProfil = async () => {
+      setIsLoading(true);
       try {
         const repsonse = await petService.getPetById(params.id);
         setPetData(repsonse);
       } catch (error) {
         console.error("Erreur pendant la récupération de l'animal :", error);
       }
+      finally {
+        setIsLoading(false);
+      }
     }
+
     
+    
+    if (isLoading) {
+      return (
+        <div className="flex justify-center items-center h-screen">
+          <Oval
+            height={80}
+            width={80}
+            color="#FF8DDC"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+            ariaLabel="oval-loading"
+            secondaryColor="#333333"
+            strokeWidth={2}
+            strokeWidthSecondary={2}
+          />
+        </div>
+      );
+    }
 
   return (
     <main className="quicksand flex min-h-screen flex-col bg-white w-full">

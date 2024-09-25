@@ -6,13 +6,13 @@ import { NavAsso } from "../Components/NavAsso";
 import Footer from "../Components/Footer";
 import { AdoptionFormProps } from "../Utils/type";
 import { ButtonStateProps } from "../Utils/type";
+import 'react-toastify/dist/ReactToastify.css';
+import { Oval } from "react-loader-spinner";
 
-
-const AllFormsPage = () => {
+const FormsByAssoPage = () => {
     
     const [formList, setFormList] = useState <AdoptionFormProps>();
-    const [isClicked, setIsClicked] = useState(false);
-    
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     
     useEffect(() => {
         fetchForms();
@@ -20,21 +20,40 @@ const AllFormsPage = () => {
     
     
     const fetchForms = async () => {
-        // setIsLoading(true);
+        setIsLoading(true);
         // setError(null);
         try {
-        const response = await formService.getAllForms();
+        const response = await formService.getFormsByAsso();
         setFormList(response);
 
         } catch (error) {
         // setError("Failed to fetch meals. Please try again.");
         console.error("Erreur pendant la récupération des formulaires :", error);
         } 
-        // finally {
-        //   setIsLoading(false);
-        // }
+        finally {
+          setIsLoading(false);
+        }
     };
     console.log(formList);
+
+    if (isLoading) {
+        return (
+          <div className="flex justify-center items-center h-screen">
+            <Oval
+              height={80}
+              width={80}
+              color="#FF8DDC"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#333333"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          </div>
+        );
+      }
 
     return (
         <main className="bg-custom-purple">
@@ -57,18 +76,25 @@ const AllFormsPage = () => {
                             <label
                             key={form.id}   
                             >
-                            <h4 className="name flex text-lg font-bold text-custom-purple py-2">Demande de : {form.lastname} {form.firstname}</h4>
-                            <p className="flex text-sm font-bold text-custom-yellow py-2">{form.date}</p>
-                            <p className="flex text-sm font-bold text-custom-light-purple py-2">{form.email}</p>
-                            <p className="flex text-sm font-bold text-custom-light-purple">{form.postalCode}</p>
-                            <p className="flex text-sm font-bold text-custom-light-purple">{form.phone}</p>
-                            <p className="flex text-sm font-bold text-custom-purple py-2">{form.message}</p>
-                            <p className="flex text-sm font-bold text-custom-purple py-2">{form.pet_id}</p>
-                            </label>
+                            
+                            <h4 className="name flex text-lg font-bold text-custom-purple py-2">Demandes pour {form.name}</h4> 
+                            <p>de : {form.form.map((f: { lastname: string; }) => f.lastname).join(' ')} {form.form.map((f: { firstname: string; }) => f.firstname).join(' ')} </p>
 
-                              
+                            <p>date de la demande : {form.form.map((f: { date: string; }) => f.date)} </p>
+
+                            <p> {form.form.map((f: { email: string; }) => f.email)} </p>
+
+                            <p> {form.form.map((f: { postalCode: string; }) => f.postalCode)} </p>
+
+                            <p> {form.form.map((f: { phone: string; }) => f.phone)} </p>
+
+                            <p> {form.form.map((f: { message: string; }) => f.message)} </p>
+
+                            <p> {form.form.map((f: { pet_id: string; }) => f.pet_id)} </p>
+
                             
-                            
+                            </label>
+  
                         </div>
                         
                    
@@ -83,7 +109,7 @@ const AllFormsPage = () => {
     )
 }
     
-export default AllFormsPage
+export default FormsByAssoPage
 
 
     

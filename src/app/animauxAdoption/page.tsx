@@ -6,12 +6,13 @@ import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
 import { CardPetProps } from "../Utils/type";
 import Button from "../Components/ButtonAction";
-
+import 'react-toastify/dist/ReactToastify.css';
+import { Oval } from "react-loader-spinner";
 
 const animalsToAdoptPage = () => {
     
     const [petList, setPetList] = useState ([]);
-    
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     
     useEffect(() => {
         fetchPets();
@@ -19,7 +20,7 @@ const animalsToAdoptPage = () => {
     
     
     const fetchPets = async () => {
-        // setIsLoading(true);
+        setIsLoading(true);
         // setError(null);
         try {
         const response = await petService.getAllPets();
@@ -28,11 +29,30 @@ const animalsToAdoptPage = () => {
         // setError("Failed to fetch meals. Please try again.");
         console.error("Erreur pendant la récupération de la liste des animaux :", error);
         } 
-        // finally {
-        //   setIsLoading(false);
-        // }
+        finally {
+          setIsLoading(false);
+        }
     };
     console.log(petList);
+
+    if (isLoading) {
+        return (
+          <div className="flex justify-center items-center h-screen">
+            <Oval
+              height={80}
+              width={80}
+              color="#FF8DDC"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#333333"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          </div>
+        );
+      }
 
     return (
         <main className="bg-white">

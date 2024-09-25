@@ -130,10 +130,29 @@ export type ProfilAssoProps = {
     website: string
 }
 
-export type AdoptionFormProps = {
-    map(arg0: (form: AdoptionFormProps) => import("react").JSX.Element): import("react").ReactNode
+export type RegisterAssoProps = {
+    id: number 
+    image: string
+    nameAsso: string
+    email:string
+    firstname: string
+    lastname: string
+    address: string
+    city: string
+    postalCode: string
+    phone: string
+    siret: string
+    website: string
+    password: string
+    passwordConfirm: string
+}
 
+export type AdoptionFormProps = {
+    
+    map(arg0: (form: AdoptionFormProps) => import("react").JSX.Element): import("react").ReactNode
+    form: any
     id : number
+    name: string,
     date : string
     lastname : string,
     firstname : string,

@@ -20,11 +20,18 @@ export let formService = {
     },
 
 
+    getFormsByAsso: async () => {
+        try {
+            const id = JSON.parse(localStorage.getItem("user")).id
+            const response = await axiosConfig.get(`form/${id}/home/asso/forms`);
+            console.log(response);
+            return response.data;
+        } catch (error) {
+            throw new Error("Impossible d'importer les formulaires");
+        }
+    },
     
 
-    deleteForm: async () => {
-
-    },
 
     newForm: async (data) => {
         try {
@@ -34,6 +41,11 @@ export let formService = {
             console.error("Erreur lors de l'envoi", error);
             throw error;
         }
+    },
+
+    
+    deleteForm: async () => {
+
     },
 
 
