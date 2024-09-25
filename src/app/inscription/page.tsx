@@ -7,11 +7,12 @@ import { userService } from '../Services/user';
 import axios from 'axios';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { Oval } from "react-loader-spinner";
+import { RegisterAssoProps } from '../Utils/type';
 
 const pageInscription = () => {
 
-
+  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
@@ -26,11 +27,13 @@ const pageInscription = () => {
   const [website, setWebsite] = useState('')
   const [image, setImage] = useState('')
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const {push} = useRouter();
 
   const handleRegistration = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
             if (!email || !password || !lastname || !firstname || !address || !city || !postalCode ||!phone || !nameAsso || !siret || !website || !image ) {
 
@@ -39,7 +42,7 @@ const pageInscription = () => {
             } else if (password.valueOf() !== passwordConfirm.valueOf()) {
               toast.error("Les mots de passes sont différents");
 
-            } else if (password.length < 8) {
+            } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
               toast.error("Veuillez entrer un mot de passe à 8 caractères ou plus");
 
             } else if (!/^\d{14}$/.test(siret)) {
@@ -48,8 +51,11 @@ const pageInscription = () => {
             } else if (!/^\d{5}$/.test(postalCode)) {
               toast.error("Le code postal doit contenir 5 chiffres");
 
-            } else if (!/^\d{10}$/.test(phone)) {
+            } else if (!/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phone)) {
               toast.error("Le téléphone doit contenir 10 chiffres");
+
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+              toast.error("L'email doit être au bon format'");
 
             } else {
         
@@ -89,19 +95,41 @@ const pageInscription = () => {
                   default:
                     setError("Une erreur s'est produite lors de l'enregistrement.");
                     toast.error("Une erreur s'est produite lors de l'enregistrement.");
+                    push("/inscription");
                 }
               } else {
                 setError("Une erreur inattendue s'est produite. Veuillez réessayer.");
                 toast.error("Une erreur inattendue s'est produite. Veuillez réessayer.");
+                push("/inscription");
               }
               console.error("Une erreur est survenue", error);
+            }
+            finally {
+              setIsLoading(false);
             }
           
         }
         
       }
     
-
+      if (isLoading) {
+        return (
+          <div className="flex justify-center items-center h-screen">
+            <Oval
+              height={80}
+              width={80}
+              color="#FF8DDC"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#333333"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          </div>
+        );
+      }
 
   return (
     <main className="bg-custom-purple">

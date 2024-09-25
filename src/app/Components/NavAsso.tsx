@@ -5,13 +5,15 @@ import { useEffect, useState } from 'react';
 import { petService } from '../Services/pet';
 import { userService } from '../Services/user';
 import { loggedService } from '../Services/logged';
-
+import 'react-toastify/dist/ReactToastify.css';
+import { Oval } from 'react-loader-spinner';
 
 
 
 export const NavAsso = () => {
   const [showSubmenu, setShowSubmenu] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   
 
   const toggleMenu = () => {
@@ -22,7 +24,7 @@ export const NavAsso = () => {
   
 
   const handeLogout = async () => {
-    // setIsLoading(true);
+    setIsLoading(true);
     // setError(null);
     try {
     const response = await loggedService.logout();
@@ -31,12 +33,29 @@ export const NavAsso = () => {
     // setError("Failed to fetch meals. Please try again.");
     console.error("Erreur pendant la déconnexion :", error);
     } 
-    // finally {
-    //   setIsLoading(false);
-    // }
+    finally {
+      setIsLoading(false);
+    }
 };
 
-
+if (isLoading) {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <Oval
+        height={80}
+        width={80}
+        color="#FF8DDC"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+        ariaLabel="oval-loading"
+        secondaryColor="#333333"
+        strokeWidth={2}
+        strokeWidthSecondary={2}
+      />
+    </div>
+  );
+}
  
 
   return (

@@ -8,6 +8,7 @@ import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { petService } from '../Services/pet';
 import axios from 'axios';
+import { Oval } from 'react-loader-spinner';
 
 
 const pageCreationAnimal = () => {
@@ -25,11 +26,14 @@ const pageCreationAnimal = () => {
   const [quickDescription, setQuickDescription] = useState('')
   const [description, setDescription] = useState('')
   
+  
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {push} = useRouter();
 
   const handlePetCreation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
   
     if (!name || !race || !gender || !birthyear || !withCats || !withDogs ||!withChildren || !sos || !quickDescription || !description ) {
 
@@ -77,12 +81,31 @@ const pageCreationAnimal = () => {
         toast.error("Une erreur inattendue s'est produite. Veuillez réessayer.");
       }
       console.error("Une erreur est survenue", error);
+    } finally {
+      setIsLoading(false);
     }
   
 }
 
 }
-
+if (isLoading) {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <Oval
+        height={80}
+        width={80}
+        color="#FF8DDC"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+        ariaLabel="oval-loading"
+        secondaryColor="#333333"
+        strokeWidth={2}
+        strokeWidthSecondary={2}
+      />
+    </div>
+  );
+}
 
   return (
     <main className="bg-custom-purple">

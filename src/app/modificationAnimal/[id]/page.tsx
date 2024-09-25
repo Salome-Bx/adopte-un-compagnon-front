@@ -8,6 +8,7 @@ import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { petService } from '../../Services/pet';
 import axios from 'axios';
+import { Oval } from "react-loader-spinner";
 
 
 const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
@@ -24,13 +25,15 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
   const [sos, setSos] = useState('')
   const [quickDescription, setQuickDescription] = useState('')
   const [description, setDescription] = useState('')
-  
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const {push} = useRouter();
 
   const handlePetEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+    setIsLoading(true);
+    
     if (!name || !race || !gender || !birthyear || !quickDescription || !description ) {
 
       toast.error("Veuillez remplir tous les champs");
@@ -75,14 +78,34 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
         setError("Une erreur inattendue s'est produite. Veuillez réessayer.");
         toast.error("Une erreur inattendue s'est produite. Veuillez réessayer.");
       }
-      console.error("Une erreur est survenue", error);
-      toast.error("Une erreur est survenue");
+      
+    }
+    finally {
+      setIsLoading(false);
     }
   
-}
 
 }
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Oval
+          height={80}
+          width={80}
+          color="#FF8DDC"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="oval-loading"
+          secondaryColor="#333333"
+          strokeWidth={2}
+          strokeWidthSecondary={2}
+        />
+      </div>
+    );
+  }
+  }
 
   return (
     <main className="bg-custom-purple">

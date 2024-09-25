@@ -25,7 +25,6 @@ export let userService = {
             const response = await axiosConfig.post("/user/register", data);
             const user = response.data.user;
             localStorage.setItem("user", JSON.stringify(user));
-            console.log(user)
             return user;
         } catch (error) {
             console.error("Erreur lors de l'enregistrement", error);
@@ -33,15 +32,12 @@ export let userService = {
         }
     },
 
-    
-      
 
     login: async (data) => {
         try {
             const response = await axiosConfig.post("/user/login", data);
             const user = response.data.user;
             localStorage.setItem("user", JSON.stringify(user));
-            console.log(user)
             return user;
         } catch (error) {
             console.error("Erreur lors de l'enregistrement", error);
@@ -52,24 +48,27 @@ export let userService = {
     getAssoById: async (id) => {
         try {
             const response = await axiosConfig.get(`user/${id}`);
+            localStorage.setItem("user", JSON.stringify(user));
             return response.data;
         } catch (error) {
             throw new Error("Impossible d'importer l'utilisateur");
         }
     },
 
-    editUser: async (data) => {
+    editUser: async (id, data) => {
         try {
-            const response = await axiosConfig.post("/user/edit", data);
-            const user = response.data.user;
+            const response = await axiosConfig.put(`/user/${id}/edit`, data);
+            const user = response.data;
             localStorage.setItem("user", JSON.stringify(user));
-            console.log(user)
             return user;
         } catch (error) {
             console.error("Erreur lors de la modification des informations", error);
             throw error;
         }
     },
+
+    
+    
 
     deleteUser: async (data) => {
 

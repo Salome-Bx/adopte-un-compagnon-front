@@ -32,6 +32,7 @@ export let petService = {
 
     getPetById: async (id) => {
         try {
+            
             const response = await axiosConfig.get(`pet/${id}`);
             return response.data;
         } catch (error) {
@@ -39,8 +40,9 @@ export let petService = {
         }
     },
 
-    getPetsByAsso: async (id) => {
+    getPetsByAsso: async () => {
         try {
+            const id = JSON.parse(localStorage.getItem("user")).id
             const response = await axiosConfig.get(`user/${id}/home/asso/pets`);
             return response.data;
         } catch (error) {
@@ -64,7 +66,6 @@ export let petService = {
         try {
             const response = await axiosConfig.put(`/pet/${id}/edit`, data);
             const pet = response.data;
-            console.log(pet);
             return pet;
         } catch (error) {
             console.error("Erreur lors de la modification des informations de l'animal", error);

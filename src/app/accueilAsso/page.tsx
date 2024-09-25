@@ -1,38 +1,59 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { NavAsso } from "../../Components/NavAsso";
-import Footer from "../../Components/Footer";
-import Button from "../../Components/ButtonAction";
+import { NavAsso } from "../Components/NavAsso";
+import Footer from "../Components/Footer";
+import Button from "../Components/ButtonAction";
 import Link from 'next/link';
-import { petService } from '../../Services/pet';
-import { EditProfilPetProps } from '../../Utils/type';
+import { petService } from '../Services/pet';
+import { EditProfilPetProps } from '../Utils/type';
 import Image from "next/image";
+import 'react-toastify/dist/ReactToastify.css';
+import { Oval } from 'react-loader-spinner';
 
-
-const AccueilAssoPage = ({params}: {params: {id: number}}) => {
-
+const AccueilAssoPage = () => {
     
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [petsByAssoList, setPetsByAssoList] = useState<EditProfilPetProps>();
+
     useEffect(() => {
         fetchPetsByAsso();
 }, []);
-    
-    
+
     const fetchPetsByAsso = async () => {
-        // setIsLoading(true);
+
+        setIsLoading(true);
         // setError(null);
         try {
-        const response = await petService.getPetsByAsso(params.id);
+        const response = await petService.getPetsByAsso();
         setPetsByAssoList(response);
         } catch (error) {
         // setError("Failed to fetch meals. Please try again.");
         console.error("Erreur pendant la récupération de la liste des animaux :", error);
         } 
-        // finally {
-        //   setIsLoading(false);
-        // }
+        finally {
+          setIsLoading(false);
+        }
     };
     console.log(petsByAssoList);
+
+    if (isLoading) {
+        return (
+          <div className="flex justify-center items-center h-screen">
+            <Oval
+              height={80}
+              width={80}
+              color="#FF8DDC"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#333333"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          </div>
+        );
+      }
 
 
   return (
