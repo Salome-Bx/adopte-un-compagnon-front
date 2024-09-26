@@ -7,11 +7,13 @@ import Footer from "../Components/Footer";
 import { AdoptionFormProps } from "../Utils/type";
 import { ButtonStateProps } from "../Utils/type";
 import 'react-toastify/dist/ReactToastify.css';
-import { Oval } from "react-loader-spinner";
+import { Oval } from 'react-loader-spinner';
+import toast from "react-hot-toast";
+
 
 const FormsByAssoPage = () => {
     
-    const [formList, setFormList] = useState <AdoptionFormProps>();
+    const [formList, setFormList] = useState<AdoptionFormProps | undefined>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     
     useEffect(() => {
@@ -24,11 +26,13 @@ const FormsByAssoPage = () => {
         // setError(null);
         try {
         const response = await formService.getFormsByAsso();
+        toast.success("Formulaire envoyé");
         setFormList(response);
 
         } catch (error) {
         // setError("Failed to fetch meals. Please try again.");
         console.error("Erreur pendant la récupération des formulaires :", error);
+        toast.success("Une erreur s'est produite");
         } 
         finally {
           setIsLoading(false);
@@ -67,7 +71,7 @@ const FormsByAssoPage = () => {
 
             
 
-            <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center">
+            {/* <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center">
                 {formList && (
                     formList.map((form : AdoptionFormProps) => (
                         
@@ -96,13 +100,43 @@ const FormsByAssoPage = () => {
                             </label>
   
                         </div>
+
+                        
                         
                    
 
                     ))
                 )}
                             
+            </div> */}
+
+            <div className="flex flex-wrap cards  gap-4 mx-14 md:mx-2 md:gap-8 justify-center">
+                {formList && formList.map((form: AdoptionFormProps) => (
+
+                    <div className={`card flex bg-custom-cream p-4 pb-6 m-4 flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4 `} key={formList.id}>
+                        <label key={form.id}>
+
+                        <h4 className="name flex text-lg font-bold text-custom-light-purple py-2">Demandes pour {form.name}</h4> 
+                        
+                        {/* Display individual form details */}
+                        {form.form.map((item: AdoptionFormProps, itemIndex: number) => (
+                            <div className="pb-6 pt-4 border-b border-black-400">
+                            <p>M ou Mme : <span className="font-bold">{item.firstname} {item.lastname}</span> </p>
+                            <p>Date de la demande : {item.dateForm}</p>
+                            <p>Email : {item.email}</p>
+                            <p>Code postal : {item.postalCode}</p>
+                            <p>Téléphone : {item.phone}</p>
+                            <p>Message : {item.message}</p>
+                            <p>Pet ID : {item.pet_id}</p>
+                            </div>
+                        ))}
+                        </label>
+                        
+                    </div>
+                ))}
+
             </div>
+
 
         <Footer></Footer>
         </main>

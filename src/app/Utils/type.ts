@@ -150,10 +150,12 @@ export type RegisterAssoProps = {
 export type AdoptionFormProps = {
     
     map(arg0: (form: AdoptionFormProps) => import("react").JSX.Element): import("react").ReactNode
+    formList: any
+    map(arg0: (form: AdoptionFormProps) => import("react").JSX.Element): import("react").ReactNode
     form: any
     id : number
     name: string,
-    date : string
+    dateForm : string
     lastname : string,
     firstname : string,
     email : string,
