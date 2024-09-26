@@ -96,7 +96,8 @@ import { Oval } from "react-loader-spinner";
 
         <div className="bloc-image w-1/2">
       
-          <img className="w-full h-full" src="img/chien-hero.jpg" alt="chien heureux dans un champs" />
+          <img className="w-full h-full" src="img/img/chien-hero.jpg" alt="chien heureux dans un champs" />
+         
           
         </div>
 

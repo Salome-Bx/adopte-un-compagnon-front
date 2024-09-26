@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { FaUser } from "react-icons/fa6";
 
 
 
@@ -42,13 +43,8 @@ export const Nav = () => {
           {/* Menu */}
             <div className="icones flex flex-row w-full justify-end">
               <button className="connexion text-white">
-                <Link href="/connexion" className="items-center z-11 flex text-custom-light-purple color-white mr-4">
-                  <Image
-                      src="/icones/user.png"
-                      width={21}
-                      height={24}
-                      alt="Espace mon compte"
-                  />
+                <Link href="/connexion" className="items-center z-11 flex text-custom-light-purple text-lg color-white mr-4">
+                  <FaUser />
                 </Link>
               </button>
               <button onClick={toggleMenu} className="items-center flex hover:text-custom-yellow text-white font-medium">

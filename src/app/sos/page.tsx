@@ -95,7 +95,7 @@ const fetchSos = async () => {
                             <hr  className="w-4/5 justify-center m-auto" />
                             <div className="flex text w-full h-1/2 flex-col px-5 pb-2 mt-4 ">
                                 <div className="flex flex-row mt-2 pb-2 justify-between font-bold">
-                                    <p className="flex age text-ml text-white">{pet.birthyear}</p>
+                                    {/* <p className="flex age text-ml text-white">{pet.birthyear}</p> */}
                                     <p  className="flex race text-ml text-white ">{pet.race}</p>   
                                 </div>
                                 
