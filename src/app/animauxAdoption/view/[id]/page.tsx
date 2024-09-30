@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Oval } from "react-loader-spinner";
 
 
+
 const animalProfilPage = ({params}: {params: {id: number}}) => {
 
     const [petData, setPetData] = useState<ProfilPetProps>();
