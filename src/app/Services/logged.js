@@ -4,7 +4,7 @@ let url = process.env.NEXT_PUBLIC_API_URL;
 let axiosConfig = axios.create({
     baseURL: url,
     headers: {
-        'Authorization': 'Bearer <VOTRE_TOKEN>',
+        'Authorization': `Bearer `,
         "Content-Type": "application/json",
     },
 });
@@ -16,11 +16,25 @@ let axiosConfig = axios.create({
             try {
                 const response = await axiosConfig.post("/user/login", data);
                 const user = response.data.user;
-                localStorage.setItem("user", JSON.stringify(user));
-                console.log(user)
+                localStorage.setItem("user", JSON.stringify(response.data.user));
                 return user;
             } catch (error) {
                 console.error("Erreur lors de l'enregistrement", error);
+                throw error;
+            }
+        },
+
+        logout: async () => {
+            try {
+                const response = await axiosConfig.post("/user/logout");
+                
+                localStorage.removeItem("user");
+                
+                console.log("Déconnexion réussie");
+                
+                return response.data;
+            } catch (error) {
+                console.error("Erreur lors de la déconnexion", error);
                 throw error;
             }
         },

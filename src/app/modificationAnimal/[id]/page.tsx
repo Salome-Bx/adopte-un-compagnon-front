@@ -1,19 +1,19 @@
 "use client"
 import React, { useState } from 'react'
-import { Nav } from "../Components/Nav";
-import Footer from "../Components/Footer";
-import Button from "../Components/ButtonAction";
+import { NavAsso } from "../../Components/NavAsso";
+import Footer from "../../Components/Footer";
+import Button from "../../Components/Button";
 import { useRouter } from 'next/navigation';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { petService } from '../Services/pet';
+import { petService } from '../../Services/pet';
 import axios from 'axios';
-import { Oval } from 'react-loader-spinner';
+import { Oval } from "react-loader-spinner";
 
 
-const pageCreationAnimal = () => {
+const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
 
-  
+  const [id, setId] = useState('')
   const [name, setName] = useState('')
   const [image, setImage] = useState('')
   const [race, setRace] = useState('')
@@ -25,23 +25,23 @@ const pageCreationAnimal = () => {
   const [sos, setSos] = useState('')
   const [quickDescription, setQuickDescription] = useState('')
   const [description, setDescription] = useState('')
-  
-  
-  const [error, setError] = useState<string | null>(null);
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   const {push} = useRouter();
 
-  const handlePetCreation = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handlePetEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-  
-    if (!name || !race || !gender || !birthyear || !withCats || !withDogs ||!withChildren || !sos || !quickDescription || !description ) {
+    
+    if (!name || !race || !gender || !birthyear || !quickDescription || !description ) {
 
       toast.error("Veuillez remplir tous les champs");
 
     } else {
 
     let formData = {
+        id: params.id,
         name: name,
         image : image,
         race: race,
@@ -56,13 +56,11 @@ const pageCreationAnimal = () => {
     }
     
     try {
-      const response = await petService.createPet(formData);
-      toast.success("L'animal a bien été crée !");
-      push("/creationAnimal");
-      
+      const response = await petService.editPet(params.id, formData);
+      toast.success("L'animal a bien été modifié !");
+      push(`/accueilAsso/${params.id}`);
     } 
   
-
     catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const errorMessage = error.response.data.message;
@@ -80,43 +78,45 @@ const pageCreationAnimal = () => {
         setError("Une erreur inattendue s'est produite. Veuillez réessayer.");
         toast.error("Une erreur inattendue s'est produite. Veuillez réessayer.");
       }
-      console.error("Une erreur est survenue", error);
-    } finally {
+      
+    }
+    finally {
       setIsLoading(false);
     }
   
-}
 
 }
-if (isLoading) {
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <Oval
-        height={80}
-        width={80}
-        color="#FF8DDC"
-        wrapperStyle={{}}
-        wrapperClass=""
-        visible={true}
-        ariaLabel="oval-loading"
-        secondaryColor="#333333"
-        strokeWidth={2}
-        strokeWidthSecondary={2}
-      />
-    </div>
-  );
-}
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Oval
+          height={80}
+          width={80}
+          color="#FF8DDC"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="oval-loading"
+          secondaryColor="#333333"
+          strokeWidth={2}
+          strokeWidthSecondary={2}
+        />
+      </div>
+    );
+  }
+  }
 
   return (
     <main className="bg-custom-purple">
 
-        <Nav></Nav>
+        <NavAsso></NavAsso>
 
 
         <div className="flex flex-col w-1/3 m-auto pb-40">
-            <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Créer le profil d'un animal</h1>
+            <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Modifier le profil de l'animal</h1>
 
-            <form onSubmit={handlePetCreation} className="text-white text-sm">
+            <form onSubmit={handlePetEdit} className="text-white text-sm">
 
                 <div className="name flex flex-col">
                   <label htmlFor="name">Nom de l'animal</label>
@@ -125,7 +125,7 @@ if (isLoading) {
 
                 <div className="image flex flex-col">
                   <label htmlFor="image">Images</label>
-                  <input type="file" name="image" id="image" onChange={(e) => setImage(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <input type="text" name="image" id="image" onChange={(e) => setImage(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="race flex flex-col">
@@ -190,10 +190,9 @@ if (isLoading) {
                         border={'border border-white'}
                         color={'text-white'}
                         size={'w-fit'}
-                        hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
+                        hover={'hover:text-custom-purple hover:bg-white hover:borderwhite'}
                         padding={'px-6 py-2'}
-                        margin={'m-auto'}
-                        action=''
+                        margin={'m-auto'}   
                   />
                 </div>
                 
@@ -209,4 +208,4 @@ if (isLoading) {
   )
 }
 
-export default pageCreationAnimal
+export default pageModificationAnimal

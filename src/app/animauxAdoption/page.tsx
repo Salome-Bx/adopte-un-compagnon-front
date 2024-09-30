@@ -5,13 +5,14 @@ import Image from "next/image";
 import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
 import { CardPetProps } from "../Utils/type";
-import Button from "../Components/Button";
-
+import Button from "../Components/ButtonAction";
+import 'react-toastify/dist/ReactToastify.css';
+import { Oval } from "react-loader-spinner";
 
 const animalsToAdoptPage = () => {
     
     const [petList, setPetList] = useState ([]);
-    
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     
     useEffect(() => {
         fetchPets();
@@ -19,7 +20,7 @@ const animalsToAdoptPage = () => {
     
     
     const fetchPets = async () => {
-        // setIsLoading(true);
+        setIsLoading(true);
         // setError(null);
         try {
         const response = await petService.getAllPets();
@@ -28,109 +29,169 @@ const animalsToAdoptPage = () => {
         // setError("Failed to fetch meals. Please try again.");
         console.error("Erreur pendant la récupération de la liste des animaux :", error);
         } 
-        // finally {
-        //   setIsLoading(false);
-        // }
+        finally {
+          setIsLoading(false);
+        }
     };
     console.log(petList);
 
+    if (isLoading) {
+        return (
+          <div className="flex justify-center items-center h-screen">
+            <Oval
+              height={80}
+              width={80}
+              color="#FF8DDC"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#333333"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          </div>
+        );
+      }
+
     return (
-        <main>
+        <main className="bg-white">
+
             <Nav></Nav>
-            <div className="w-1/3 p-6 text-custom-purple">
-                <h3 className="text-3xl font-bold">Animaux à l'adoption</h3>
+
+            <div className="w-full flex p-6 pt-20 justify-center text-custom-purple">
+                <h3 className="flex text-3xl text-center font-bold">Animaux à l'adoption</h3>
+                <p></p>
             </div>
 
-            <div className="cards flex flex-row mx-8 flex-wrap">
+            {/* -------filtre------ */}
+
+            <div className="filter w-full flex justify-center pb-6 h-12">
+                <div className="filterContainer flex justify-row text-custom-light-purple">
+                    <div className="w-fit flex">Rechercher par</div>
+                    <div className="w-1/5 flex">
+                        <select className=" text-custom-light-purple" name="pet" id="pet">
+                            <option value="cat">Espèce</option>
+                            <option value="dog">Chat</option>
+                            <option value="cat">Chien</option>
+                        </select>
+                    </div>
+                    <div className="w-1/5 flex">
+                        <input type="search" id='petSearch' name='petSearch' />
+                    </div>
+                    <div className="w-1/5 flex">
+                        <label className="" htmlFor="isSos">SOS</label>
+                        <input type="checkbox" name="isSos" id="isSos" className="border-4 border-custom-light-purple"/>
+                    </div>
+                    <div className="w-1/5 flex">
+                        <Button 
+                            title={'Filtrer'}
+                            bgColor={'bg-custom-light-purple'}
+                            border={'border border-white'}
+                            color={'text-white font-regular'}
+                            size={'w-fit'}
+                            hover={'hover:text-custom-purple hover:border-custom-light-purple'}
+                            padding={'px-2'}
+                            margin={'m-2'} 
+                            action={``}
+                        />
+                    </div>
+                </div>
+            </div>
+            
+            {/* ------fin filtre------ */}
+
+            <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center">
                 {petList && (
                     petList.map((pet : CardPetProps) => (
 
-                        
-                        <div className="card flex bg-custom-purple h-110 flex-col m-3 max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
-
+                        <div className="card flex bg-white flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
                             <label
                             key={pet.id}   
                             >
-                            <h4 className="name flex text-2xl font-bold text-custom-cream py-2 pl-2">{pet.name}</h4>
+                            <h4 className="name flex text-2xl font-bold text-custom-purple py-2">{pet.name}</h4>
                             
                             <div className="relative overflow-hidden h-[300px]">
-                                <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="absolute inset-0 flex items-center justify-center w-full">
                                     <Image
                                     src={`/${pet.image}`}
                                     width={300}
                                     height={70}
                                     alt="photo de l'animal"
                                     className="object-contain"
+                                    style={{ width: '100%' }}
                                     />
                                 </div>
                             </div>
-                              
-                                
-                            <div className="icons flex flex-row w-full justify-center pb-2">
-                                <div className="flex rounded-full bg-custom-light-purple w-8 h-8 justify-center">
-                                    <Image
-                                        src="img/icones/cat-white.svg"
-                                        width={28}
-                                        height={24}
-                                        alt="icon of cat"
-                                        className="flex items-center"
+
+                            <div className="flex bg-custom-purple h-250 flex-col align-top">
+                                  
+                                <div className="icons flex flex-row w-full justify-center p-2">
+                                    <div className="flex rounded-full bg-custom-light-purple w-7 h-7 justify-center">
+                                        <Image
+                                            src="img/icones/cat-white.svg"
+                                            width={22}
+                                            height={22}
+                                            alt="icon of cat"
+                                            className="flex items-center"
+                                        />
+                                    </div>
+
+                                    <p className="ml-2 mr-4 text-white"> {pet.getAlongCats ? "Oui" : "Non"}</p>
+
+                                    <div className="flex rounded-full bg-custom-light-purple w-7 h-7 justify-center">
+                                        <Image
+                                            src="img/icones/dog-white.svg"
+                                            width={22}
+                                            height={22}
+                                            alt="icon of dog"
+                                            className="flex items-center"
+                                            
+                                        /> 
+                                    </div>
+                                    <p className="ml-2 mr-4 text-white"> {pet.getAlongDogs ? "Oui" : "Non"}</p>
+
+                                    <div className="flex rounded-full bg-custom-light-purple w-7 h-7 justify-center">
+                                        <Image
+                                            src="img/icones/children-white.svg"
+                                            width={22}
+                                            height={22}
+                                            alt="icon of children"
+                                            className="flex items-center"
+                                        />    
+                                    </div>
+                                    <p className="ml-2 mr-4 text-white"> {pet.getAlongChildren ? "Oui" : "Non"}</p>
+
+                                </div>
+
+                                <hr className="w-4/5 justify-center m-auto" />
+                                <div className="flex text w-full h-1/2 flex-col px-5 pb-2">
+                                    <div className="flex flex-row mt-2 pb-2 justify-between font-bold">
+                                        {/* <p className="flex age text-ml text-white">{pet.birthyear}</p> */}
+                                        <p  className="flex race text-ml text-white">{pet.race}</p>   
+                                    </div>
+                                    
+                                    <p className="text-ml text-white">{pet.quickDescription}</p>
+                                </div> 
+                                <div className="button flex justify-end text-xs pr-2">
+                                    <Button 
+                                        title={'En savoir plus >'}
+                                        bgColor={'bg-custom-purple'}
+                                        border={'border border-white'}
+                                        color={'text-white font-regular'}
+                                        size={'w-fit'}
+                                        hover={'hover:text-custom-light-purple hover:border-custom-light-purple'}
+                                        padding={'px-2'}
+                                        margin={'m-2'} 
+                                        action={`animauxAdoption/view/${pet.id}`}
                                     />
                                 </div>
 
-                                <p className="ml-2 mr-4 text-white">: {pet.getAlongCats ? "Oui" : "Non"}</p>
-
-                                <div className="flex rounded-full bg-custom-light-purple w-8 h-8 justify-center">
-                                    <Image
-                                        src="img/icones/dog-white.svg"
-                                        width={27}
-                                        height={23}
-                                        alt="icon of dog"
-                                        className="flex items-center"
-                                        
-                                    /> 
-                                </div>
-                                <p className="ml-2 mr-4 text-white">: {pet.getAlongDogs ? "Oui" : "Non"}</p>
-
-                                <div className="flex rounded-full bg-custom-light-purple w-8 h-8 justify-center">
-                                    <Image
-                                        src="img/icones/children-white.svg"
-                                        width={28}
-                                        height={23}
-                                        alt="icon of children"
-                                        className="flex items-center"
-                                    />    
-                                </div>
-                                <p className="ml-2 mr-4 text-white">: {pet.getAlongChildren ? "Oui" : "Non"}</p>
-
                             </div>
+                        </label>
+                    </div>
 
-                            <hr  className="w-4/5 justify-center m-auto" />
-                            <div className="flex text w-full h-1/2 flex-col px-5 pb-2 mt-4 ">
-                                <div className="flex flex-row mt-2 pb-2 justify-between font-bold">
-                                    {/* <p className="flex age text-ml text-white">{pet.birthyear}</p> */}
-                                    <p  className="flex race text-ml text-white ">{pet.race}</p>   
-                                </div>
-                                
-                                <p className="text-ml text-white">{pet.quickDescription}</p>
-                            </div> 
-
-                            <Button 
-                                title={'Je veux adopter un animal'}
-                                bgColor={'bg-custom-yellow'}
-                                border={'border border-custom-yellow'}
-                                color={''}
-                                size={'w-64'}
-                                hover={'hover:text-custom-yellow  hover:bg-white hover:border-custom-yellow'}
-                                padding={'px-6 py-2 '}
-                                margin={'mt-2 ml-2'} 
-                                action={`animauxAdoption/view/${pet.id}`}
-                            />
-
-                            </label>
-
-                        </div>
-
-                        ))
+                    ))
                 )}
                             
             </div>

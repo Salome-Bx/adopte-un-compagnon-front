@@ -5,11 +5,13 @@ import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
 import { CardAssoProps } from "../Utils/type";
 import { userService } from "../Services/user";
-
+import { Oval } from "react-loader-spinner";
 
 const associationsPage = () => {
     
     const [assoList, setAssoList] = useState ([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
     
     
     useEffect(() => {
@@ -18,7 +20,7 @@ const associationsPage = () => {
     
     
     const fetchAssos = async () => {
-        // setIsLoading(true);
+        setIsLoading(true);
         // setError(null);
         try {
         const response = await userService.getAllAssos();
@@ -27,10 +29,29 @@ const associationsPage = () => {
         // setError("Failed to fetch meals. Please try again.");
         console.error("Erreur pendant la récupération de la liste des associations :", err);
         } 
-        // finally {
-        //   setIsLoading(false);
-        // }
+        finally {
+          setIsLoading(false);
+        }
     };
+
+    if (isLoading) {
+        return (
+          <div className="flex justify-center items-center h-screen">
+            <Oval
+              height={80}
+              width={80}
+              color="#FF8DDC"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#333333"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          </div>
+        );
+      }
 
     return (
         <main>
