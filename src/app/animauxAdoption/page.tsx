@@ -30,11 +30,11 @@ const animalsToAdoptPage = () => {
         try {
             const response = await petService.getAllPets();
             
-            const filteredPets = response.filter((pet: { sos: boolean; postalCode: string | string[]; species: string; }) => {
+            const filteredPets = response.filter((pet: { sos: boolean; postalCode: string | string[]; species: { name: string }; }) => {
                 console.log(pet);
                 const matchesSos = sos ? pet.sos : true;
                 const matchesPostalCode = postalCode ? pet.postalCode.includes(postalCode) : true;
-                const matchesSpecies = species ? pet.species === species : true;
+                const matchesSpecies = species ? pet.species.name === species : true;
                 
                 return matchesSos && matchesPostalCode && matchesSpecies;
             });
@@ -68,11 +68,11 @@ const animalsToAdoptPage = () => {
                     <div className="w-fit flex">Rechercher par</div>
                     <div className="species ml-4 flex">
                         <select className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" name="pet" id="pet" value="{species}" onChange={(e) => setSpecies(e.target.value)}>
-                            <option value="" className="text-custom-light-purple" disabled selected>
+                            <option value="" className="text-custom-light-purple" disabled>
                                 Espèce
                             </option>
-                            <option value="dog">Chat</option>
-                            <option value="cat">Chien</option>
+                            <option value="chat">Chat</option>
+                            <option value="chien">Chien</option>
                         </select>
                     </div>
                     
