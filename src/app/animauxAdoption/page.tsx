@@ -67,8 +67,8 @@ const animalsToAdoptPage = () => {
                 <div className="filterContainer w-3/5 flex justify-between text-custom-light-purple">
                     <div className="w-fit flex">Rechercher par</div>
                     <div className="species ml-4 flex">
-                        <select className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" name="pet" id="pet" value="{species}" onChange={(e) => setSpecies(e.target.value)}>
-                            <option value="" className="text-custom-light-purple" disabled>
+                        <select className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" name="pet" id="pet" value={species} onChange={(e) => setSpecies(e.target.value)}>
+                            <option value="" className="text-custom-light-purple" disabled selected>
                                 Espèce
                             </option>
                             <option value="chat">Chat</option>
