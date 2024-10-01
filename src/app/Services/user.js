@@ -33,17 +33,17 @@ export let userService = {
     },
 
 
-    login: async (data) => {
-        try {
-            const response = await axiosConfig.post("/user/login", data);
-            const user = response.data.user;
-            localStorage.setItem("user", JSON.stringify(user));
-            return user;
-        } catch (error) {
-            console.error("Erreur lors de l'enregistrement", error);
-            throw error;
-        }
-    },
+    // login: async (data) => {
+    //     try {
+    //         const response = await axiosConfig.post("/user/login", data);
+    //         const user = response.data.user;
+    //         localStorage.setItem("user", JSON.stringify(user));
+    //         return user;
+    //     } catch (error) {
+    //         console.error("Erreur lors de l'enregistrement", error);
+    //         throw error;
+    //     }
+    // },
 
     getAssoById: async (id) => {
         try {

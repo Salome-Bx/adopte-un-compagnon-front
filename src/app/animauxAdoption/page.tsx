@@ -13,6 +13,8 @@ const animalsToAdoptPage = () => {
     
     const [petList, setPetList] = useState ([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [sosList, setSosList] = useState("");
+
     
     useEffect(() => {
         fetchPets();
@@ -33,26 +35,24 @@ const animalsToAdoptPage = () => {
           setIsLoading(false);
         }
     };
-    console.log(petList);
 
-    if (isLoading) {
-        return (
-          <div className="flex justify-center items-center h-screen">
-            <Oval
-              height={80}
-              width={80}
-              color="#FF8DDC"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-              ariaLabel="oval-loading"
-              secondaryColor="#333333"
-              strokeWidth={2}
-              strokeWidthSecondary={2}
-            />
-          </div>
-        );
-      }
+    // const sosFilter = async () => {
+    //     setIsLoading(true);
+    //     // setError(null);
+    //     try {
+    //     const response = await petService.getSosPets();
+    //     setPetList(response);
+    //     } catch (error) {
+    //     // setError("Failed to fetch meals. Please try again.");
+    //     console.error("Erreur pendant la récupération de la liste des animaux :", error);
+    //     } 
+    //     finally {
+    //       setIsLoading(false);
+    //     }
+    // };
+    
+
+    
 
     return (
         <main className="bg-white">
@@ -102,6 +102,24 @@ const animalsToAdoptPage = () => {
             {/* ------fin filtre------ */}
 
             <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center">
+
+                {isLoading && (
+                    <div className="flex w-1/5 h-fit items-center justify-center">      
+                        <Oval
+                        height={70}
+                        width={70}
+                        color="#9003ff"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel="oval-loading"
+                        secondaryColor="#410f72"
+                        strokeWidth={2}
+                        strokeWidthSecondary={2}
+                        />
+                    </div>
+                )}
+
                 {petList && (
                     petList.map((pet : CardPetProps) => (
 
