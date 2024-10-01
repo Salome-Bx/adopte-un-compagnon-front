@@ -31,7 +31,7 @@ const animalsToAdoptPage = () => {
             const response = await petService.getAllPets();
             
             const filteredPets = response.filter((pet: { sos: boolean; postalCode: string | string[]; species: { name: string }; }) => {
-                console.log(pet);
+                
                 const matchesSos = sos ? pet.sos : true;
                 const matchesPostalCode = postalCode ? pet.postalCode.includes(postalCode) : true;
                 const matchesSpecies = species ? pet.species.name === species : true;
