@@ -77,7 +77,7 @@ const animalsToAdoptPage = () => {
                         </select>
                     </div>
                     <div className="w-1/5 flex">
-                        <input type="search" id='petSearch' name='petSearch' />
+                        <input type="search" id='petSearch' name='petSearch' className="border-4 border-custom-light-purple" />
                     </div>
                     <div className="w-1/5 flex">
                         <label className="" htmlFor="isSos">SOS</label>
