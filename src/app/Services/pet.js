@@ -82,6 +82,17 @@ export let petService = {
             console.error("Erreur lors de la suppression", error);
             throw error;
         }
+    },
+
+    filterPetByPostalCode: async (data) => {
+        try {
+            const response = await axiosConfig.delgetete(`/pet/filter`, data);
+            const pet = response.data.pet;
+            return pet;
+        } catch (error) {
+            console.error("Erreur lors de la suppression", error);
+            throw error;
+        }
     }
 
 }
