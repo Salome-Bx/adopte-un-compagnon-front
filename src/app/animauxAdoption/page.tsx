@@ -13,47 +13,44 @@ const animalsToAdoptPage = () => {
     
     const [petList, setPetList] = useState ([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [sosList, setSosList] = useState("");
+    
+    const [sos, setSos] = useState<boolean>(false);
+    const [postalCode, setPostalCode] = useState<string>("");
+    const [species, setSpecies] = useState<string>("");
 
     
     useEffect(() => {
         fetchPets();
-}, []);
+    }, [sos, postalCode, species]);
     
     
     const fetchPets = async () => {
         setIsLoading(true);
         // setError(null);
         try {
-        const response = await petService.getAllPets();
-        setPetList(response);
+            const response = await petService.getAllPets();
+            
+            const filteredPets = response.filter(pet => {
+                console.log(pet);
+                const matchesSos = sos ? pet.sos : true;
+                const matchesPostalCode = postalCode ? pet.postalCode.includes(postalCode) : true;
+                const matchesSpecies = species ? pet.species === species : true;
+                
+                return matchesSos && matchesPostalCode && matchesSpecies;
+            });
+            
+            setPetList(filteredPets);
+            
         } catch (error) {
-        // setError("Failed to fetch meals. Please try again.");
-        console.error("Erreur pendant la récupération de la liste des animaux :", error);
+            // setError("Failed to fetch meals. Please try again.");
+            console.error("Erreur pendant la récupération de la liste des animaux :", error);
         } 
         finally {
-          setIsLoading(false);
+            setIsLoading(false);
         }
     };
-
-    // const sosFilter = async () => {
-    //     setIsLoading(true);
-    //     // setError(null);
-    //     try {
-    //     const response = await petService.getSosPets();
-    //     setPetList(response);
-    //     } catch (error) {
-    //     // setError("Failed to fetch meals. Please try again.");
-    //     console.error("Erreur pendant la récupération de la liste des animaux :", error);
-    //     } 
-    //     finally {
-    //       setIsLoading(false);
-    //     }
-    // };
+        
     
-
-    
-
     return (
         <main className="bg-white">
 
@@ -67,23 +64,29 @@ const animalsToAdoptPage = () => {
             {/* -------filtre------ */}
 
             <div className="filter w-full flex justify-center pb-6 h-12">
-                <div className="filterContainer flex justify-row text-custom-light-purple">
+                <div className="filterContainer w-3/5 flex justify-between text-custom-light-purple">
                     <div className="w-fit flex">Rechercher par</div>
-                    <div className="w-1/5 flex">
-                        <select className=" text-custom-light-purple" name="pet" id="pet">
-                            <option value="cat">Espèce</option>
+                    <div className="species ml-4 flex">
+                        <select className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" name="pet" id="pet" value="{species}" onChange={(e) => setSpecies(e.target.value)}>
+                            <option value="" className="text-custom-light-purple" disabled selected>
+                                Espèce
+                            </option>
                             <option value="dog">Chat</option>
                             <option value="cat">Chien</option>
                         </select>
                     </div>
-                    <div className="w-1/5 flex">
-                        <input type="search" id='petSearch' name='petSearch' className="border-4 border-custom-light-purple" />
+                    
+
+                    <div className="search ml-4 flex flex-col">
+                        <input type="search" id="petSearch" name="petSearch" className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" placeholder="Code postal" value={postalCode} onChange={(e) => setPostalCode(e.target.value)}/>
                     </div>
-                    <div className="w-1/5 flex">
-                        <label className="" htmlFor="isSos">SOS</label>
-                        <input type="checkbox" name="isSos" id="isSos" className="border-4 border-custom-light-purple"/>
+
+                    <div className="sos ml-4 flex">
+                        <label className="mr-2" htmlFor="isSos">SOS</label>
+                        <input type="checkbox" name="isSos" id="isSos" className="border-4 border-custom-light-purple rounded-sm accent-custom-light-purple" checked={sos} onChange={() => setSos(prev => !prev)}/>
                     </div>
-                    <div className="w-1/5 flex">
+
+                    <div className="ml-4 flex w-fit">
                         <Button 
                             title={'Filtrer'}
                             bgColor={'bg-custom-light-purple'}
@@ -92,7 +95,7 @@ const animalsToAdoptPage = () => {
                             size={'w-fit'}
                             hover={'hover:text-custom-purple hover:border-custom-light-purple'}
                             padding={'px-2'}
-                            margin={'m-2'} 
+                            margin={''} 
                             action={``}
                         />
                     </div>
