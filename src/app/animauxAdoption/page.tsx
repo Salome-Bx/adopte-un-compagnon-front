@@ -37,10 +37,12 @@ const animalsToAdoptPage = () => {
         try {
             const response = await petService.getAllPets();
             
-            const filteredPets = response.filter((pet: { sos: boolean; postalCode: string | string[]; species: { name: string }; }) => {
+            const filteredPets = response.filter((pet: {
+                asso: any; sos: boolean; postalCode: string | string[]; species: { name: string }; 
+            }) => {
                 
                 const matchesSos = sos ? pet.sos : true;
-                const matchesPostalCode = postalCode ? pet.postalCode.includes(postalCode) : true;
+                const matchesPostalCode = postalCode ? pet.asso.postalCode.includes(postalCode) : true;
                 const matchesSpecies = species ? pet.species.name === species : true;
                 
                 return matchesSos && matchesPostalCode && matchesSpecies;
