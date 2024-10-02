@@ -89,7 +89,6 @@ const animalsToAdoptPage = () => {
                     <div className="search ml-4 flex flex-col">
                         <input type="search" id="petSearch" name="petSearch" className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" placeholder="Code postal" value={postalCode} 
                         onChange={handlePostalCodeChange} 
-                        // onChange={(e) => setPostalCode(e.target.value)}
                         />
                     </div>
 
