@@ -18,6 +18,13 @@ const animalsToAdoptPage = () => {
     const [postalCode, setPostalCode] = useState<string>("");
     const [species, setSpecies] = useState<string>("");
 
+    const handlePostalCodeChange = (e: { target: { value: any; }; }) => {
+        const value = e.target.value;
+        
+        if (/^\d*$/.test(value) && value.length <= 5) {
+            setPostalCode(value);
+        }
+    };
     
     useEffect(() => {
         fetchPets();
@@ -78,7 +85,10 @@ const animalsToAdoptPage = () => {
                     
 
                     <div className="search ml-4 flex flex-col">
-                        <input type="search" id="petSearch" name="petSearch" className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" placeholder="Code postal" value={postalCode} onChange={(e) => setPostalCode(e.target.value)}/>
+                        <input type="search" id="petSearch" name="petSearch" className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" placeholder="Code postal" value={postalCode} 
+                        onChange={handlePostalCodeChange} 
+                        // onChange={(e) => setPostalCode(e.target.value)}
+                        />
                     </div>
 
                     <div className="sos ml-4 flex">
