@@ -72,7 +72,7 @@ const animalsToAdoptPage = () => {
                                 Espèce
                             </option>
                             <option value="chat">Chat</option>
-                            <option value="chien">Chieng</option>
+                            <option value="chien">Chien</option>
                         </select>
                     </div>
                     
