@@ -6,14 +6,16 @@ import { NavAsso } from '../Components/NavAsso';
 import { userService } from '../Services/user';
 import { CardAssoProps, ProfilAssoProps } from '../Utils/type';
 import { Oval } from "react-loader-spinner";
+import 'react-toastify/dist/ReactToastify.css';
+import toast from 'react-hot-toast';
 
-// personnal association informations page component
+
 const pageInfos = () => {
 
     const [userData, setUserData] = useState ([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     
-    //fetch association personnal informations
+    
     useEffect(() => {
         fetchData();
 }, []);
@@ -27,7 +29,7 @@ const pageInfos = () => {
         setUserData(response);
         } catch (error) {
         // setError("Failed to fetch meals. Please try again.");
-        console.error("Erreur pendant la récupération des information de l'association :", error);
+        toast.error("Erreur pendant la récupération des information de l'association :");
         } 
         finally {
           setIsLoading(false);
