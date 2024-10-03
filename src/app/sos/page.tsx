@@ -5,10 +5,12 @@ import Image from "next/image";
 import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
 import { CardPetProps } from "../Utils/type";
+import { Oval } from "react-loader-spinner";
 
 const SOSpage = () => {
 
   const [sosList, setSosList] = useState ([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     fetchSos();
@@ -16,7 +18,7 @@ const SOSpage = () => {
   }, [])
   
 const fetchSos = async () => {
-
+    setIsLoading(true);
     try {
         const response = await petService.getSosPets();
         setSosList(response); 
@@ -24,6 +26,10 @@ const fetchSos = async () => {
     } catch (err) {
         console.error("Erreur pendant la récupération de la liste des animaux SOS :", err);
     }
+    finally {
+        setIsLoading(false);
+    }
+
 };
   return (
         <main>
@@ -33,6 +39,23 @@ const fetchSos = async () => {
             </div>
 
             <div className="cards flex flex-row mx-8 flex-wrap">
+
+            {isLoading && (
+                    <div className="flex w-1/5 h-fit items-center justify-center">      
+                        <Oval
+                        height={70}
+                        width={70}
+                        color="#9003ff"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel="oval-loading"
+                        secondaryColor="#410f72"
+                        strokeWidth={2}
+                        strokeWidthSecondary={2}
+                        />
+                    </div>)}
+
                 {sosList && (
                     sosList.map((pet : CardPetProps) => (
 
