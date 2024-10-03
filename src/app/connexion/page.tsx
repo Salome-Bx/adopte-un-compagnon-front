@@ -71,7 +71,7 @@ const pageConnexion = () => {
                 push("/accueilAdmin");
                 break;
               default:
-                push("/connexion"); 
+                push("/"); 
             }
             
               

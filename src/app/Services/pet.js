@@ -57,8 +57,7 @@ export let petService = {
             localStorage.setItem("pet", JSON.stringify(pet));
             return pet;
         } catch (error) {
-            console.error("Erreur lors de l'enregistrement", error);
-            throw error;
+            throw new Error("Erreur lors de l'enregistrement");
         }
     },
 
@@ -68,8 +67,7 @@ export let petService = {
             const pet = response.data;
             return pet;
         } catch (error) {
-            console.error("Erreur lors de la modification des informations de l'animal", error);
-            throw error;
+            throw new Error("Erreur lors de la modification des informations de l'animal");
         }
     },
 
@@ -79,20 +77,10 @@ export let petService = {
             const pet = response.data.pet;
             return pet;
         } catch (error) {
-            console.error("Erreur lors de la suppression", error);
-            throw error;
+            throw new Error("Erreur lors de la suppression");
         }
     },
 
-    filterPetByPostalCode: async (data) => {
-        try {
-            const response = await axiosConfig.delgetete(`/pet/filter`, data);
-            const pet = response.data.pet;
-            return pet;
-        } catch (error) {
-            console.error("Erreur lors de la suppression", error);
-            throw error;
-        }
-    }
+    
 
 }
