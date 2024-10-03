@@ -33,27 +33,17 @@ export let userService = {
     },
 
 
-    // login: async (data) => {
-    //     try {
-    //         const response = await axiosConfig.post("/user/login", data);
-    //         const user = response.data.user;
-    //         localStorage.setItem("user", JSON.stringify(user));
-    //         return user;
-    //     } catch (error) {
-    //         console.error("Erreur lors de l'enregistrement", error);
-    //         throw error;
-    //     }
-    // },
-
-    getAssoById: async (id) => {
+    getAssoById: async () => {
         try {
-            const response = await axiosConfig.get(`user/${id}`);
-            localStorage.setItem("user", JSON.stringify(user));
+            const user = JSON.parse(localStorage.getItem("user"));
+            const response = await axiosConfig.get(`user/informations/${user.id}`);
             return response.data;
         } catch (error) {
             throw new Error("Impossible d'importer l'utilisateur");
         }
     },
+
+    
 
     editUser: async (id, data) => {
         try {
