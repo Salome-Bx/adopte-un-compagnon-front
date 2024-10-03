@@ -35,24 +35,6 @@ const pageInfos = () => {
     };
     console.log(userData);
 
-    if (isLoading) {
-        return (
-          <div className="flex justify-center items-center h-screen">
-            <Oval
-              height={80}
-              width={80}
-              color="#FF8DDC"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-              ariaLabel="oval-loading"
-              secondaryColor="#333333"
-              strokeWidth={2}
-              strokeWidthSecondary={2}
-            />
-          </div>
-        );
-      }
 
   return (
     <main className="bg-custom-purple">
@@ -61,7 +43,22 @@ const pageInfos = () => {
 
         <div className="flex flex-col m-auto pb-40 w-2/3 max-w-md mx-auto">
             <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Mes informations</h1>
-
+                
+                {isLoading && (
+                        <div className="flex w-1/5 h-fit items-center justify-center">      
+                            <Oval
+                            height={70}
+                            width={70}
+                            color="#9003ff"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                            visible={true}
+                            ariaLabel="oval-loading"
+                            secondaryColor="#410f72"
+                            strokeWidth={2}
+                            strokeWidthSecondary={2}
+                            />
+                </div>)}
             
                 {userData && (
                     userData.map((user : ProfilAssoProps) => (

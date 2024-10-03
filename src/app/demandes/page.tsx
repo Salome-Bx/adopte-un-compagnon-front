@@ -40,24 +40,7 @@ const FormsByAssoPage = () => {
     };
     console.log(formList);
 
-    if (isLoading) {
-        return (
-          <div className="flex justify-center items-center h-screen">
-            <Oval
-              height={80}
-              width={80}
-              color="#FF8DDC"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-              ariaLabel="oval-loading"
-              secondaryColor="#333333"
-              strokeWidth={2}
-              strokeWidthSecondary={2}
-            />
-          </div>
-        );
-      }
+    
 
     return (
         <main className="bg-custom-purple">
@@ -111,6 +94,23 @@ const FormsByAssoPage = () => {
             </div> */}
 
             <div className="flex flex-wrap cards  gap-4 mx-14 md:mx-2 md:gap-8 justify-center">
+
+                {isLoading && (
+                        <div className="flex w-1/5 h-fit items-center justify-center">      
+                            <Oval
+                            height={70}
+                            width={70}
+                            color="#9003ff"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                            visible={true}
+                            ariaLabel="oval-loading"
+                            secondaryColor="#410f72"
+                            strokeWidth={2}
+                            strokeWidthSecondary={2}
+                            />
+                        </div>)}
+
                 {formList && formList.map((form: AdoptionFormProps) => (
 
                     <div className={`card flex bg-custom-cream p-4 pb-6 m-4 flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4 `} key={formList.id}>

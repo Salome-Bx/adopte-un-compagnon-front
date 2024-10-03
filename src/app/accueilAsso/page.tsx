@@ -36,24 +36,7 @@ const AccueilAssoPage = () => {
     };
     console.log(petsByAssoList);
 
-    if (isLoading) {
-        return (
-          <div className="flex justify-center items-center h-screen">
-            <Oval
-              height={80}
-              width={80}
-              color="#FF8DDC"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-              ariaLabel="oval-loading"
-              secondaryColor="#333333"
-              strokeWidth={2}
-              strokeWidthSecondary={2}
-            />
-          </div>
-        );
-      }
+    
 
 
   return (
@@ -65,7 +48,22 @@ const AccueilAssoPage = () => {
             <h5 className="text-custom-light-purple mt-10 mb-6 ml-12 font-bold">Les profils de vos pensionnaires :</h5>
 
             <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center">
-                
+                {isLoading && (
+                    <div className="flex w-1/5 h-fit items-center justify-center">      
+                        <Oval
+                        height={70}
+                        width={70}
+                        color="#9003ff"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel="oval-loading"
+                        secondaryColor="#410f72"
+                        strokeWidth={2}
+                        strokeWidthSecondary={2}
+                        />
+                    </div>)}
+
                 {petsByAssoList && (
                     petsByAssoList.map((pet : EditProfilPetProps) => (
 
