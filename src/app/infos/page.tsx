@@ -12,8 +12,9 @@ import toast from 'react-hot-toast';
 
 const pageInfos = () => {
 
-    const [userData, setUserData] = useState ([]);
+   
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [userData, setUserData] = useState<ProfilAssoProps | null>(null); 
     
     
     useEffect(() => {
@@ -35,8 +36,6 @@ const pageInfos = () => {
           setIsLoading(false);
         }
     };
-    console.log(userData);
-
 
   return (
     <main className="bg-custom-purple">
@@ -63,84 +62,94 @@ const pageInfos = () => {
                 </div>)}
             
                 {userData && (
-                    userData.map((user : ProfilAssoProps) => (
-                        <div>
-                            <div className="name flex flex-col">
-                               <h5 className="name">Nom de l'association : {user.nameAsso}</h5>
-                            </div>
-
-                            <div className="lastname flex flex-col">
-                                <h5 className="lastname">Nom du représentant : {user.lastname}</h5>
-                            </div>
-
-                            <div className="firstname flex flex-col">
-                                <h5 className="firstname">Prénom du représentant : {user.firstname}</h5>
-                            </div>
-
-                            <div className="email flex flex-col">
-                                <h5 className="email">Email : {user.email} </h5>
-                            </div>
-
-                            <div className="password flex flex-col">
-                                <h5 className="password">Mot de passe*</h5>
-                            </div>
-
-                            <div className="password2 flex flex-col">
-                                <h5 className="password2">Vérification mot de passe*</h5>
-                            </div>
-                            
-                            
-                            <div className="address flex flex-col">
-                                <h5 className="address">Adresse de l'association : {user.address}</h5>
-                            </div>
-                            
-
-                            <div className="postalCode flex flex-col">
-                                <h5 className="postalCode">Code postal :  {user.postalCode}</h5>
-                            </div>
-                            
-
-                            <div className="city flex flex-col">
-                                <h5 className="city">Ville : {user.city}</h5>
-                            </div>
-                            
-
-                            <div className="phone flex flex-col">
-                                <h5 className="phone">Téléphone : {user.phone}</h5>
-                            </div>
-                            
-
-                            <div className="siret flex flex-col">
-                                <h5 className="siret">SIRET : {user.siret}</h5>
-                            </div>
+                    <div className="text-white w-full">
+                        <div className="name flex flex-col border-b border-white pt-6">
+                            <h5 className="name">
+                                <span className="font-bold">Nom de l'association :</span> {userData.nameAsso}
+                            </h5>
                         </div>
-                        
-                    ))
-                )}
-                <div className="flex flex-col pt-10">
-                  <Button
-                        title={'Modifier mes informations'}
-                        bgColor={'bg-custom-light-purple'}
-                        border={'border border-white'}
-                        color={'text-white'}
-                        size={'w-fit'}
-                        hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
-                        padding={'px-6 py-2'}
-                        margin={'m-auto'}  
-                        action={'modificationInfos'} 
-                  />
-                  <Button
-                        title={'Supprimer mon compte'}
-                        bgColor={'bg-custom-light-purple'}
-                        border={'border border-white'}
-                        color={'text-white'}
-                        size={'w-fit'}
-                        hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
-                        padding={'px-6 py-2'}
-                        margin={'m-auto'}  
-                        action={''} 
-                  />
+
+                        <div className="lastname flex flex-col border-b border-white pt-6">
+                            <h5 className="lastname">
+                                <span className="font-bold">Nom du représentant :</span> {userData.lastname}
+                            </h5>
+                        </div>
+
+                        <div className="firstname flex flex-col border-b border-white pt-6">
+                            <h5 className="firstname">
+                                <span className="font-bold">Prénom du représentant :</span> {userData.firstname}
+                            </h5>
+                        </div>
+
+                        <div className="email flex flex-col border-b border-white pt-6">
+                            <h5 className="email">
+                                <span className="font-bold">Email :</span> {userData.email}
+                            </h5>
+                        </div>
+
+                        <div className="address flex flex-col border-b border-white pt-6">
+                            <h5 className="address">
+                                <span className="font-bold">Adresse de l'association :</span> {userData.address}
+                            </h5>
+                        </div>
+
+                        <div className="postalCode flex flex-col border-b border-white pt-6">
+                            <h5 className="postalCode">
+                                <span className="font-bold">Code postal :</span> {userData.postalCode}
+                            </h5>
+                        </div>
+
+                        <div className="city flex flex-col border-b border-white pt-6">
+                            <h5 className="city">
+                                <span className="font-bold">Ville :</span> {userData.city}
+                            </h5>
+                        </div>
+
+                        <div className="phone flex flex-col border-b border-white pt-6">
+                            <h5 className="phone">
+                                <span className="font-bold">Téléphone :</span> {userData.phone}
+                            </h5>
+                        </div>
+
+                        <div className="siret flex flex-col border-b border-white pt-6">
+                            <h5 className="siret">
+                                <span className="font-bold">SIRET :</span> {userData.siret}
+                            </h5>
+                        </div>
+                        <div className="flex flex-col pt-10">
+                    </div>
+
                 </div>
+                )}
+
+                {userData && (
+                    <div className="flex flex-col pt-10">
+                        <Button
+                            title={'Modifier mes informations'}
+                            bgColor={'bg-custom-light-purple'}
+                            border={'border border-white'}
+                            color={'text-white'}
+                            size={'w-fit'}
+                            hover={'hover:text-custom-purple hover:bg-white hover:borderwhite'}
+                            padding={'px-6 py-2'}
+                            margin={'m-auto mt-4'}
+                            action={`modificationInfos/${userData.id}`} 
+                        />
+                        <Button
+                            title={'Supprimer mon compte'}
+                            bgColor={'bg-custom-light-purple'}
+                            border={'border border-white'}
+                            color={'text-white'}
+                            size={'w-fit'}
+                            hover={'hover:text-custom-purple hover:bg-white hover:borderwhite'}
+                            padding={'px-6 py-2'}
+                            margin={'m-auto mt-4'}
+                            action={"connexion"} 
+                        />
+                    </div>
+                )}
+                
+                
             
         </div>
 
