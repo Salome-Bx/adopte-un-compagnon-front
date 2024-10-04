@@ -36,8 +36,9 @@ export let userService = {
     getAssoById: async () => {
         try {
             const user = JSON.parse(localStorage.getItem("user"));
-            const response = await axiosConfig.get(`user/informations/${user.id}`);
-            return response.data;
+            const response = await axiosConfig.get(`/user/informations/${user.id}`);
+            console.log(user.id);
+            return response.data.user.id;
         } catch (error) {
             throw new Error("Impossible d'importer l'utilisateur");
         }
