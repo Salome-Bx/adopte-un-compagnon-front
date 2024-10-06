@@ -158,7 +158,7 @@ import toast from 'react-hot-toast';
 
 
       {/*------------- meet the animals section  ----------------*/}
-      <div className="pets-meet flex m-auto w-fit flex-col bg-white h-fit mb-48">
+      <div className="pets-meet flex m-auto w-fit flex-col bg-white h-fit pb-32">
           <h3 className="text-custom-purple flex m-auto mt-10 w-fit text-3xl font-bold mb-12 lg:ml-24">Et si on se rencontrait ?</h3>
       
          
