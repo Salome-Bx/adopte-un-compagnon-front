@@ -30,7 +30,7 @@ const pageInfos = () => {
         setUserData(response);
         } catch (error) {
         // setError("Failed to fetch meals. Please try again.");
-        toast.error("Erreur pendant la récupération des information de l'association :");
+        toast.error("Erreur pendant la récupération des information de l'association");
         } 
         finally {
           setIsLoading(false);
@@ -119,35 +119,31 @@ const pageInfos = () => {
                         <div className="flex flex-col pt-10">
                     </div>
 
-                </div>
-                )}
-
-                {userData && (
-                    <div className="flex flex-col pt-10">
-                        <Button
+                    <Button
                             title={'Modifier mes informations'}
                             bgColor={'bg-custom-light-purple'}
                             border={'border border-white'}
                             color={'text-white'}
                             size={'w-fit'}
-                            hover={'hover:text-custom-purple hover:bg-white hover:borderwhite'}
+                            hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
                             padding={'px-6 py-2'}
-                            margin={'m-auto mt-4'}
+                            margin={'m-auto mt-4'}  
                             action={`modificationInfos/${userData.id}`} 
-                        />
-                        <Button
+                    />
+                    <Button
                             title={'Supprimer mon compte'}
                             bgColor={'bg-custom-light-purple'}
                             border={'border border-white'}
                             color={'text-white'}
                             size={'w-fit'}
-                            hover={'hover:text-custom-purple hover:bg-white hover:borderwhite'}
+                            hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
                             padding={'px-6 py-2'}
-                            margin={'m-auto mt-4'}
+                            margin={'m-auto mt-4'}  
                             action={"connexion"} 
-                        />
-                    </div>
+                    />
+                </div>
                 )}
+
                 
                 
             
