@@ -12,6 +12,7 @@ export let userService = {
     getAllAssos: async () => {
         try {
             const response = await axiosConfig.get("/users");
+            console.log(response.data);
             return response.data;
         } catch (error) {
             throw new Error("Impossible d'importer les associations");

@@ -34,15 +34,21 @@ const associationsPage = () => {
        
         try {
         const response = await userService.getAllAssos();
-
-        const filteredPets = response.filter((pet: {
-            asso: any; postalCode: string | string[];  
-        }) => {
-            
-            const matchesPostalCode = postalCode ? pet.asso.postalCode.includes(postalCode) : true;
-            
-            return matchesPostalCode;
+            console.log(response);
+        //filtrer pour garder seulement role_user
+        const onlyAssos = response.filter((asso: CardAssoProps) => {
+            return !asso.roles || !asso.roles.includes("ROLE_ADMIN");
         });
+
+        //filtrer par code postal
+        // const filteredAssos = response.filter((asso: {
+        //     asso: any; postalCode: string | string[];  
+        // }) => {
+            
+        //     const matchesPostalCode = postalCode ? pet.asso.postalCode.includes(postalCode) : true;
+            
+        //     return matchesPostalCode;
+        // });
 
         setAssoList(response);
 
@@ -58,7 +64,7 @@ const associationsPage = () => {
     
 
     return (
-        <main>
+        <main className="bg-white">
             <Nav></Nav>
             <div className="w-full flex p-6 pt-20 justify-center text-custom-purple">
                 <h3 className="flex text-3xl text-center font-bold">Associations</h3>
@@ -67,11 +73,9 @@ const associationsPage = () => {
             {/* -------filtre------ */}
 
             <div className="filter w-full flex justify-center pb-6 m-auto">
-                <div className="filterContainer flex-col lg:flex-row w-3/5 flex justify-between text-custom-light-purple">
-                    <div className="w-full lg:w-1/4 flex lg:justify-end mb-4">Rechercher par</div>
+                <div className="filterContainer flex-col lg:flex-row lg:justify-center w-3/5 flex  text-custom-light-purple">
+                    <div className="w-full lg:w-fit flex lg:justify-end mb-4">Rechercher par</div>
                     
-                    
-
                     <div className="search w-full lg:w-1/4  lg:ml-4 mb-4 flex flex-col">
                         <input type="search" id="petSearch" name="petSearch" className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" placeholder="Code postal" value={postalCode} 
                         onChange={handlePostalCodeChange} 
@@ -88,7 +92,7 @@ const associationsPage = () => {
             <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center mb-28p">
 
             {isLoading && (
-                    <div className="flex w-1/5 h-fit items-center justify-center">      
+                    <div className="flex card w-1/5 h-fit items-center justify-center">      
                         <Oval
                         height={70}
                         width={70}
@@ -108,14 +112,14 @@ const associationsPage = () => {
                     assoList.map((asso : CardAssoProps) => (
 
                         
-                        <div className="card flex bg-white flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
+                        <div className="card flex bg-custom-purple flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
 
                             <label
                             key={asso.id}   
                             >
                                 <h4 className="name flex text-2xl font-bold text-custom-cream py-2 pl-2">{asso.nameAsso}</h4>
                                 <div className="relative overflow-hidden h-[300px]">
-                                    <div className="absolute inset-0 flex items-center justify-center w-full">
+                                    <div className="absolute inset-0 flex items-center justify-center w-full ">
                                         <Image
                                             src={`/${asso.image}`}
                                             width={300}
@@ -123,14 +127,16 @@ const associationsPage = () => {
                                             alt="photo de l'association"
                                         />
                                     </div>
-                                </div>    
-                                 
-                                <hr  className="w-4/5 justify-center m-auto" />
+                                </div>  
+                                
                                 <div className="flex text w-full h-1/2 flex-col px-5 pb-2 mt-4 ">
                                     <div className="flex flex-row mt-2 pb-2 font-bold">
                                         <p className="flex age text-ml text-white">{asso.postalCode}</p>
+                                        {/* <p className="text-ml text-white">{asso.address}</p> */}
                                         <p  className="flex race text-ml text-white pl-4">{asso.city}</p>   
                                     </div>
+                                    <hr  className="w-4/5 justify-center m-auto" />
+                                    
                                     <p className="text-ml text-white">{asso.phone}</p>
                                     <p className="text-ml text-white">{asso.website}</p>
                                 </div>

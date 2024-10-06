@@ -110,8 +110,8 @@ export type CardAssoProps = {
     city: string
     postalCode: string
     phone: string
-    siret: string
     website: string
+    roles : string
 
 }
 
