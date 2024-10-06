@@ -59,7 +59,7 @@ const Footer = () => {
       
       
       {/* ----------footer écrans larges---------- */}
-      <div className="footerDesktop flex w-full flex-row sm:hidden md:hidden lg:block justify-between">
+      <div className="footerDesktop  w-full flex-row hidden lg:block justify-between">
 
         <div className="contactEtPlan flex justify-between">
           <div className="logo flex flex-col">
