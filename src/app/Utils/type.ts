@@ -106,7 +106,7 @@ export type CardAssoProps = {
     id: number 
     image: string
     nameAsso: string
-    address: Date
+    address: string
     city: string
     postalCode: string
     phone: string
