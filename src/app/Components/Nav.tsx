@@ -34,7 +34,7 @@ export const Nav = () => {
             {/* Menu */}
             <div className="icones flex flex-row w-full justify-end mb-4">
               <button className="connexion text-white">
-                <Link href="/connexion" onClick={handleLinkClick} className="items-center z-11 flex text-white hover:text-custom-yellow text-lg color-white mr-4">
+                <Link href="/connexion" className="items-center z-11 flex text-white hover:text-custom-yellow text-lg color-white mr-4">
                   <FaUser />
                 </Link>
               </button>
@@ -48,6 +48,8 @@ export const Nav = () => {
             </div>
           </div>
           <div className="menuDeroulant flex flex-col ">
+          
+
             {menuOpen && (
               <div className="menuMobile bg-custom-purple text-white w-full pb-4">
                 <ul className="flex flex-col space-y-2 items-end">
@@ -55,7 +57,7 @@ export const Nav = () => {
                   <li><Link href="/animauxAdoption" className="flex hover:text-custom-yellow mb-2">Compagnons à l'adoption</Link></li>
                   <li><Link href="/sos" className="flex hover:text-custom-yellow mb-2">SOS</Link></li>
                   <li><Link href="/associations" className="flex hover:text-custom-yellow mb-2">Les associations</Link></li>
-                  <li><Link href="/inscription" onClick={handleLinkClick} className="text-custom-light-purple hover:underline mb-2">Espace Association</Link></li>
+                  <li><Link href="/inscription" className="text-custom-light-purple hover:underline mb-2">Inscription Association</Link></li>
                 </ul>
               </div>
             )}
@@ -90,10 +92,10 @@ export const Nav = () => {
                   className={`absolute top-full left-0 mt-2 flex flex-col space-y-1 bg-custom-purple text-white p-2 shadow-md px-10 transition-all duration-300 ease-in-out ${menuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}
                 >
                   <li>
-                    <Link href="/connexion" onClick={handleLinkClick} className="text-sm hover:text-custom-light-purple">Connexion</Link>
+                    <Link href="/connexion" className="text-sm hover:text-custom-light-purple">Connexion</Link>
                   </li>
                   <li>
-                    <Link href="/inscription" onClick={handleLinkClick} className="text-sm hover:text-custom-light-purple">Inscription</Link>
+                    <Link href="/inscription" className="text-sm hover:text-custom-light-purple">Inscription</Link>
                   </li>
                 </ul>
               </li>

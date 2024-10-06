@@ -84,8 +84,6 @@ const animalProfilPage = ({params}: {params: {id: number}}) => {
 
 
 
-
-
     const fetchPetProfil = async () => {
       setIsLoading(true);
       try {
@@ -101,33 +99,33 @@ const animalProfilPage = ({params}: {params: {id: number}}) => {
 
     
     
-    if (isLoading) {
-      return (
-        <div className="flex justify-center items-center h-screen">
-          <Oval
-            height={80}
-            width={80}
-            color="#FF8DDC"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-            ariaLabel="oval-loading"
-            secondaryColor="#333333"
-            strokeWidth={2}
-            strokeWidthSecondary={2}
-          />
-        </div>
-      );
-    }
 
   return (
     <main className="quicksand flex min-h-screen flex-col bg-white w-full">
       <Nav></Nav>
+
+            {isLoading && (
+                          <div className="flex w-1/5 h-fit items-center justify-center">      
+                              <Oval
+                              height={70}
+                              width={70}
+                              color="#9003ff"
+                              wrapperStyle={{}}
+                              wrapperClass=""
+                              visible={true}
+                              ariaLabel="oval-loading"
+                              secondaryColor="#410f72"
+                              strokeWidth={2}
+                              strokeWidthSecondary={2}
+                              />
+                          </div>
+                      )}
+
             {petData && (
-                  <div className="informationsEtPhoto flex w-full flex-row">
-                    <div className="bg-custom-cream w-1/2 pl-10">
-                      <h3 className="flex nom w-2/3 text-custom-purple text-3xl font-bold pt-10 pb-4">{petData.name}</h3>
-                      <div className="flex photo text-custom-purple">
+                  <div className="informationsEtPhoto flex w-full flex-col lg:flex-row">
+                    <div className="bg-custom-cream w-full lg:w-1/2 pl-10">
+                      <h3 className="flex nom w-full lg:w-2/3 text-custom-purple text-3xl font-bold pt-10 pb-4">{petData.name}</h3>
+                      <div className="flex photo w-full text-custom-purple">
                       <Image
                             src={`/${petData.image}`}
                             width={300}
@@ -138,8 +136,8 @@ const animalProfilPage = ({params}: {params: {id: number}}) => {
                     </div>
                     
 
-                    <div className="flex informations w-1/2 text-custom-purple pt-20 pl-10">
-                      <div className="text w-2/3">
+                    <div className="flex informations w-3/4 mb-12 text-custom-purple m-auto lg:w-1/2 lg:mr-10">
+                      <div className="text w-full lg:w-full sm:m-auto md:m-auto">
                         <h2 className="title text-custom-light-purple text-ml font-medium pb-2 pt-4">Informations</h2>
                         <p className="race">Race : {petData.race}</p>
                         <p className="gender">Genre : {petData.gender}</p>
@@ -153,16 +151,16 @@ const animalProfilPage = ({params}: {params: {id: number}}) => {
                       </div>
 
                     </div>
-                </div>
+              </div>
             )}
 
-            <div className="flex w-full bg-custom-purple flex-row">
+            <div className="flex w-full bg-custom-purple m-auto flex-col lg:flex-row">
 
-              <div className="flex asso w-1/2 pt-10 pl-14">
+              <div className="flex lg:w-1/2 lg:ml-14 w-3/4 m-auto form flex-col mt-12">
                   <div className="">
                       <p className="text-custom-light-purple font-medium text-lg">L'association</p>
                       {petData && (
-                        <div className="text-white">
+                        <div className="text-white justify-center">
                           <p className="">{petData.asso.nameAsso}</p> 
                           <p className="">{petData.asso.address}</p>
                           <p className="">{petData.asso.postalCode}</p> <p className="">{petData.asso.city}</p>
@@ -173,14 +171,14 @@ const animalProfilPage = ({params}: {params: {id: number}}) => {
                        )}
                   </div>
               </div>
-              <div className="flex w-1/2 form flex-col">
+              <div className="flex lg:w-1/2 w-3/4 m-auto lg:mr-14 form flex-col">
 
               {petData && (
-                <h1 className="text-custom-yellow text-2xl font-bold  w-2/3 pt-10">Un coup de cœur pour {petData.name} ?</h1>)}
+                <h1 className="text-custom-yellow text-2xl font-bold w-2/3 pt-10">Un coup de cœur pour {petData.name} ?</h1>)}
                 
-                <p className="text-ml w-2/3 pt-6">Contactez l’association avec le formuaire ci dessous afin d’avoir des renseignements sur la procédure d’adoption. </p> 
+                <p className="text-ml w-fit text-white pt-6">Contactez l’association avec le formuaire ci dessous afin d’avoir des renseignements sur la procédure d’adoption. </p> 
                   
-                  <form onSubmit={handleContact} className="text-white text-sm w-3/4 pt-6">
+                  <form onSubmit={handleContact} className="text-white text-sm pt-6">
 
                       <div className="name flex flex-col">
                         <label htmlFor="name">Votre nom</label>

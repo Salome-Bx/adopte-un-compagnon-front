@@ -134,10 +134,11 @@ const pageInscription = () => {
                         />
                     </div>)}
 
-        <div className="flex flex-col w-1/3 m-auto pb-40">
+        
+        <div className="flex flex-col items-center justify-center min-h-screen px-4 pb-24">
             <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Inscription Association</h1>
 
-            <form onSubmit={handleRegistration}  className="text-white text-sm">
+            <form onSubmit={handleRegistration}  className="text-white text-sm w-full max-w-md mx-auto">
 
                 <div className="name flex flex-col">
                   <label htmlFor="name">Nom de l'association*</label>
@@ -215,9 +216,10 @@ const pageInscription = () => {
                 </div>
             
             </form>
-
-            <p className="text-sm text-white pt-6">* Champs obligatoires</p>
-            <p className="text-sm text-white pt-6">En cliquant sur "Je crée mon compte", vous acceptez de vous conformer à la politique et aux conditions générales d’Adopte un Compagnon.</p>
+            <div className=" text-sm w-full max-w-md mx-auto">
+              <p className="text-sm text-white pt-6">* Champs obligatoires</p>
+              <p className="text-sm text-white pt-6">En cliquant sur "Je crée mon compte", vous acceptez de vous conformer à la politique et aux conditions générales d’Adopte un Compagnon.</p>
+            </div>
 
         </div>
 

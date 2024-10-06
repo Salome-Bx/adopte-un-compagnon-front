@@ -8,6 +8,7 @@ import { CardPetProps } from "../Utils/type";
 import Button from "../Components/ButtonAction";
 import 'react-toastify/dist/ReactToastify.css';
 import { Oval } from "react-loader-spinner";
+import toast from "react-hot-toast";
 
 const animalsToAdoptPage = () => {
     
@@ -33,7 +34,7 @@ const animalsToAdoptPage = () => {
     
     const fetchPets = async () => {
         setIsLoading(true);
-        // setError(null);
+        
         try {
             const response = await petService.getAllPets();
             
@@ -51,8 +52,8 @@ const animalsToAdoptPage = () => {
             setPetList(filteredPets);
             
         } catch (error) {
-            // setError("Failed to fetch meals. Please try again.");
-            console.error("Erreur pendant la récupération de la liste des animaux :", error);
+            
+            toast.error("Erreur pendant la récupération de la liste des animaux");
         } 
         finally {
             setIsLoading(false);
@@ -72,50 +73,29 @@ const animalsToAdoptPage = () => {
 
             {/* -------filtre------ */}
 
-            <div className="filter w-full flex justify-center pb-6 h-12">
-                <div className="filterContainer w-3/5 flex justify-between text-custom-light-purple">
-                    <div className="w-fit flex">Rechercher par</div>
-                    <div className="species ml-4 flex">
-                        <select className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" name="pet" id="pet" value={species} onChange={(e) => setSpecies(e.target.value)}>
-                            <option value="" className="text-custom-light-purple" disabled>
-                                Espèce
-                            </option>
-                            <option value="chat">Chat</option>
-                            <option value="chien">Chien</option>
-                        </select>
-                    </div>
+            <div className="filter w-full flex justify-center pb-6 m-auto">
+                <div className="filterContainer flex-col lg:flex-row w-3/5 flex justify-between text-custom-light-purple">
+                    <div className="w-full lg:w-1/4 flex lg:justify-end mb-4">Rechercher par</div>
+                    
                     
 
-                    <div className="search ml-4 flex flex-col">
+                    <div className="search w-full lg:w-1/4  lg:ml-4 mb-4 flex flex-col">
                         <input type="search" id="petSearch" name="petSearch" className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" placeholder="Code postal" value={postalCode} 
                         onChange={handlePostalCodeChange} 
                         />
                     </div>
 
-                    <div className="sos ml-4 flex">
+                    <div className="sos lg:ml-4 lg:w-1/4 flex">
                         <label className="mr-2" htmlFor="isSos">SOS</label>
                         <input type="checkbox" name="isSos" id="isSos" className="border-4 border-custom-light-purple rounded-sm accent-custom-light-purple" checked={sos} onChange={() => setSos(prev => !prev)}/>
                     </div>
 
-                    <div className="ml-4 flex w-fit">
-                        <Button 
-                            title={'Filtrer'}
-                            bgColor={'bg-custom-light-purple'}
-                            border={'border border-white'}
-                            color={'text-white font-regular'}
-                            size={'w-fit'}
-                            hover={'hover:text-custom-purple hover:border-custom-light-purple'}
-                            padding={'px-2'}
-                            margin={''} 
-                            action={``}
-                        />
-                    </div>
                 </div>
             </div>
             
             {/* ------fin filtre------ */}
 
-            <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center">
+            <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center mb-28">
 
                 {isLoading && (
                     <div className="flex w-1/5 h-fit items-center justify-center">      
