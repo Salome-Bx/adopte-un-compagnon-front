@@ -37,7 +37,7 @@ const associationsPage = () => {
             console.log(response);
         //filtrer pour garder seulement role_user
         const onlyAssos = response.filter((asso: CardAssoProps) => {
-            return !asso.roles || !asso.roles.includes("ROLE_ADMIN");
+            return !(asso.roles && Array.isArray(asso.roles) && asso.roles.includes("ROLE_ADMIN"));
         });
 
         //filtrer par code postal
@@ -50,7 +50,7 @@ const associationsPage = () => {
         //     return matchesPostalCode;
         // });
 
-        setAssoList(response);
+        setAssoList(onlyAssos);
 
         } catch (err) {
         
