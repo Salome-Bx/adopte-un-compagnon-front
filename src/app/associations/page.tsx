@@ -64,10 +64,10 @@ const associationsPage = () => {
     
 
     return (
-        <main className="bg-white">
+        <main className="bg-white ">
             <Nav></Nav>
             <div className="w-full flex p-6 pt-20 justify-center text-custom-purple">
-                <h3 className="flex text-3xl text-center font-bold">Associations</h3>
+                <h3 className="flex text-3xl text-center font-bold pb-4">Retrouvez les associations près de chez vous</h3>
             </div>
 
             {/* -------filtre------ */}
@@ -89,7 +89,7 @@ const associationsPage = () => {
             
             {/* ------fin filtre------ */}
 
-            <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center mb-28p">
+            <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center mb-28">
 
             {isLoading && (
                     <div className="flex card w-1/5 h-fit items-center justify-center">      
@@ -112,32 +112,33 @@ const associationsPage = () => {
                     assoList.map((asso : CardAssoProps) => (
 
                         
-                        <div className="card flex bg-custom-purple flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
+                        <div className="card flex bg-custom-purple h-[400px] align-top flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
 
                             <label
                             key={asso.id}   
                             >
                                 <h4 className="name flex text-2xl font-bold text-custom-cream py-2 pl-2">{asso.nameAsso}</h4>
-                                <div className="relative overflow-hidden h-[300px]">
+                                <div className="relative overflow-hidden h-[200px]">
                                     <div className="absolute inset-0 flex items-center justify-center w-full ">
-                                        <Image
-                                            src={`/${asso.image}`}
-                                            width={300}
-                                            height={70}
-                                            alt="photo de l'association"
-                                        />
+                                    <Image
+                                        src={`/${asso.image}`}
+                                        layout="fill" 
+                                        objectFit="cover" 
+                                        alt="photo de l'association"
+                                    />
                                     </div>
                                 </div>  
                                 
-                                <div className="flex text w-full h-1/2 flex-col px-5 pb-2 mt-4 ">
-                                    <div className="flex flex-row mt-2 pb-2 font-bold">
-                                        <p className="flex age text-ml text-white">{asso.postalCode}</p>
-                                        {/* <p className="text-ml text-white">{asso.address}</p> */}
-                                        <p  className="flex race text-ml text-white pl-4">{asso.city}</p>   
+                                <div className="flex text w-full text-center flex-col px-5 mt-2 h-[150px]">
+                                    <div className="flex flex-row mt-2 font-bold text-center mx-auto">
+                                        <p className="flex text-ml text-white"><span className="font-normal mr-2">Située à</span>{asso.city}</p>
                                     </div>
-                                    <hr  className="w-4/5 justify-center m-auto" />
-                                    
-                                    <p className="text-ml text-white">{asso.phone}</p>
+                                    <div>
+                                        <p className="text-ml text-white">{asso.address}</p>
+                                        <p className="text-ml text-white pl-2">{asso.postalCode}</p>   
+                                    </div>
+                                    <hr  className="w-4/5 justify-center mx-auto mb-2" />
+                                    <p className="text-ml text-white"><span className="font-normal mr-2">Contact :</span>{asso.phone}</p>
                                     <p className="text-ml text-white">{asso.website}</p>
                                 </div>
 
