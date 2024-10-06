@@ -6,78 +6,123 @@ import Footer from "../Components/Footer";
 import { CardAssoProps } from "../Utils/type";
 import { userService } from "../Services/user";
 import { Oval } from "react-loader-spinner";
+import toast from "react-hot-toast";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const associationsPage = () => {
     
     const [assoList, setAssoList] = useState ([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [postalCode, setPostalCode] = useState<string>("");
 
-    
+    const handlePostalCodeChange = (e: { target: { value: any; }; }) => {
+        const value = e.target.value;
+        
+        if (/^\d*$/.test(value) && value.length <= 5) {
+            setPostalCode(value);
+        }
+    };
     
     useEffect(() => {
         fetchAssos();
-}, []);
+    }, [postalCode]);
     
     
     const fetchAssos = async () => {
         setIsLoading(true);
-        // setError(null);
+       
         try {
         const response = await userService.getAllAssos();
+
+        const filteredPets = response.filter((pet: {
+            asso: any; postalCode: string | string[];  
+        }) => {
+            
+            const matchesPostalCode = postalCode ? pet.asso.postalCode.includes(postalCode) : true;
+            
+            return matchesPostalCode;
+        });
+
         setAssoList(response);
+
         } catch (err) {
-        // setError("Failed to fetch meals. Please try again.");
-        console.error("Erreur pendant la récupération de la liste des associations :", err);
+        
+        toast.error("Erreur pendant la récupération de la liste des associations");
         } 
         finally {
           setIsLoading(false);
         }
     };
 
-    if (isLoading) {
-        return (
-          <div className="flex justify-center items-center h-screen">
-            <Oval
-              height={80}
-              width={80}
-              color="#FF8DDC"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-              ariaLabel="oval-loading"
-              secondaryColor="#333333"
-              strokeWidth={2}
-              strokeWidthSecondary={2}
-            />
-          </div>
-        );
-      }
+    
 
     return (
         <main>
             <Nav></Nav>
-            <div className="w-1/3 p-6 text-custom-purple">
-                <h3 className="text-3xl font-bold">Associations</h3>
+            <div className="w-full flex p-6 pt-20 justify-center text-custom-purple">
+                <h3 className="flex text-3xl text-center font-bold">Associations</h3>
             </div>
 
-            <div className="cards flex flex-row mx-8 flex-wrap">
+            {/* -------filtre------ */}
+
+            <div className="filter w-full flex justify-center pb-6 m-auto">
+                <div className="filterContainer flex-col lg:flex-row w-3/5 flex justify-between text-custom-light-purple">
+                    <div className="w-full lg:w-1/4 flex lg:justify-end mb-4">Rechercher par</div>
+                    
+                    
+
+                    <div className="search w-full lg:w-1/4  lg:ml-4 mb-4 flex flex-col">
+                        <input type="search" id="petSearch" name="petSearch" className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" placeholder="Code postal" value={postalCode} 
+                        onChange={handlePostalCodeChange} 
+                        />
+                    </div>
+
+                    
+
+                </div>
+            </div>
+            
+            {/* ------fin filtre------ */}
+
+            <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center mb-28p">
+
+            {isLoading && (
+                    <div className="flex w-1/5 h-fit items-center justify-center">      
+                        <Oval
+                        height={70}
+                        width={70}
+                        color="#9003ff"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel="oval-loading"
+                        secondaryColor="#410f72"
+                        strokeWidth={2}
+                        strokeWidthSecondary={2}
+                        />
+                    </div>
+                )}
+
                 {assoList && (
                     assoList.map((asso : CardAssoProps) => (
 
                         
-                        <div className="card flex bg-custom-purple h-110 flex-col m-3 max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
+                        <div className="card flex bg-white flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
 
                             <label
                             key={asso.id}   
                             >
                                 <h4 className="name flex text-2xl font-bold text-custom-cream py-2 pl-2">{asso.nameAsso}</h4>
-                                <div className="img flex w-full h-1/2 flex-col items-center justify-center">
-                                    <Image
-                                        src={`/${asso.image}`}
-                                        width={300}
-                                        height={70}
-                                        alt="photo de l'association"
-                                    />
+                                <div className="relative overflow-hidden h-[300px]">
+                                    <div className="absolute inset-0 flex items-center justify-center w-full">
+                                        <Image
+                                            src={`/${asso.image}`}
+                                            width={300}
+                                            height={70}
+                                            alt="photo de l'association"
+                                        />
+                                    </div>
                                 </div>    
                                  
                                 <hr  className="w-4/5 justify-center m-auto" />
