@@ -115,8 +115,7 @@ const associationsPage = () => {
                         <div className="card flex bg-custom-purple h-[430px] align-top flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
 
                             <label
-                            key={asso.id}   
-                            >
+                            key={asso.id}>
                                 <h4 className="name flex text-2xl font-bold text-custom-cream py-2 pl-2">{asso.nameAsso}</h4>
                                 <div className="relative overflow-hidden h-[230px] mx-10">
                                     <div className="absolute inset-0 flex items-center justify-center w-full ">
