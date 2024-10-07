@@ -140,6 +140,8 @@ const pageInfos = () => {
                         <div className="flex flex-col pt-10">
                     </div>
 
+                    <div className="button flex justify-end text-xs pr-2">
+
                     <Button
                             title={'Modifier mes informations'}
                             bgColor={'bg-custom-light-purple'}
@@ -159,6 +161,8 @@ const pageInfos = () => {
                     >
                         Supprimer mon compte
                     </button>
+
+                    </div>
                 
                 </div>
                 )}

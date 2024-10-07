@@ -8,12 +8,15 @@ import { petService } from '../Services/pet';
 import { EditProfilPetProps } from '../Utils/type';
 import Image from "next/image";
 import 'react-toastify/dist/ReactToastify.css';
+import toast from 'react-hot-toast';
 import { Oval } from 'react-loader-spinner';
+import { useRouter } from 'next/navigation';
 
 const AccueilAssoPage = () => {
     
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [petsByAssoList, setPetsByAssoList] = useState<EditProfilPetProps>();
+    const {push} = useRouter();
 
     useEffect(() => {
         fetchPetsByAsso();
@@ -34,7 +37,7 @@ const AccueilAssoPage = () => {
           setIsLoading(false);
         }
     };
-    console.log(petsByAssoList);
+    
 
     
 
@@ -165,19 +168,12 @@ const AccueilAssoPage = () => {
                                             hover={'hover:text-custom-light-purple hover:border-custom-light-purple'}
                                             padding={'px-2'}
                                             margin={'m-2'} 
-                                            action={`modificationAnimal/${pet.id}`}
+                                            action={`accueilAsso/${pet.id}`}
                                         />
-                                        <Button 
-                                            title={'Supprimer'}
-                                            bgColor={'bg-custom-purple'}
-                                            border={'border border-white'}
-                                            color={'text-white font-regular'}
-                                            size={'w-fit'}
-                                            hover={'hover:text-custom-light-purple hover:border-custom-light-purple'}
-                                            padding={'px-2'}
-                                            margin={'m-2'} 
-                                            action={""}
-                                        />
+                                        
+                                        
+
+
                                     </div>
                                 </div>
                             </label>
