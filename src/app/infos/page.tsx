@@ -52,6 +52,7 @@ const pageInfos = () => {
             toast.error("Erreur lors de la suppression du compte.");
 
           } finally {
+            toast.success("Votre compte a été supprimé avec succès.");
             setIsLoading(false);
           }
         }
