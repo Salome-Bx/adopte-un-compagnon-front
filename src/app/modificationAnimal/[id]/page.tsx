@@ -27,18 +27,17 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
   const [description, setDescription] = useState('')
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
   const {push} = useRouter();
 
   const handlePetEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     
-    if (!name || !race || !gender || !birthyear || !quickDescription || !description ) {
+    if (!name && !race && !gender && !birthyear && !quickDescription && !description) {
+      
+      toast.error("Veuillez remplir au moins un champ.");
 
-      toast.error("Veuillez remplir tous les champs");
-
-    } else {
+  } else {
 
     let formData = {
         id: params.id,
@@ -67,15 +66,12 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
         
         switch (errorMessage) {
           case 'Animal déjà crée':
-            setError('L\'animal a déjà été crée');
             toast.error('L\'animal a déjà été crée');
             break;
           default:
-            setError("Une erreur s'est produite lors de l'enregistrement.");
             toast.error("Une erreur s'est produite lors de l'enregistrement.");
         }
       } else {
-        setError("Une erreur inattendue s'est produite. Veuillez réessayer.");
         toast.error("Une erreur inattendue s'est produite. Veuillez réessayer.");
       }
       

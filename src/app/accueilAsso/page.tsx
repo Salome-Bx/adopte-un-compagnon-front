@@ -22,12 +22,12 @@ const AccueilAssoPage = () => {
     const fetchPetsByAsso = async () => {
 
         setIsLoading(true);
-        // setError(null);
+        
         try {
         const response = await petService.getPetsByAsso();
         setPetsByAssoList(response);
         } catch (error) {
-        // setError("Failed to fetch meals. Please try again.");
+        
         console.error("Erreur pendant la récupération de la liste des animaux :", error);
         } 
         finally {
