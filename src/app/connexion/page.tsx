@@ -16,7 +16,6 @@ import { Oval } from 'react-loader-spinner';
 const pageConnexion = () => {
   
   const [userInStorage, setUserInStorage] = useState ([]);
-  const [error, setError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState('');
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -34,7 +33,7 @@ const pageConnexion = () => {
           setUserInStorage(userData);
           
         } catch (error) {
-          console.error("Erreur lors du chargement de l'utilisateur depuis le stockage local:", error);
+          toast.error("Vérifier votre email et/ou mot de passe");
         }
       }
     }, []);
@@ -58,7 +57,7 @@ const pageConnexion = () => {
       
       try {
         const response = await loggedService.login(formData);
-        console.log("Connexion réussie", response);
+        toast.success("Connexion réussie");
         
         const userRole = response.roles[0];
         const userId = response.id;
@@ -77,20 +76,16 @@ const pageConnexion = () => {
               
           } catch (error) {
               if (axios.isAxiosError(error) && error.response) {
-                setError(
-                  error.response.data.message ||
-                    "Erreur pendant la connexion."
-                );
+                toast.error("Identifiants non valides");
                 push("/connexion");
                 
               } else {
-                setError("Une erreur a eu lieu, veuillez réessayer.");
                 toast.error("Une erreur a eu lieu, veuillez réessayer.");
                 push("/connexion");
               }
-            console.error("Une erreur est survenue", error);
-            push("/connexion");
+            
           } finally {
+            
             setIsLoading(false);
           }
       

@@ -1,3 +1,5 @@
+import { MouseEventHandler } from "react"
+
 export type ButtonStateProps = {
     title: string
     bgColor: string
@@ -9,6 +11,7 @@ export type ButtonStateProps = {
     margin: string
     state: string
 }
+
 
 export type ButtonActionProps = {
     title: string

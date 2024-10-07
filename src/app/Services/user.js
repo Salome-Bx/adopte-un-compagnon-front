@@ -57,13 +57,22 @@ export let userService = {
         }
     },
 
-    
-    
 
-    deleteUser: async (data) => {
 
+    deleteUser: async () => {
+        try {
+            
+            const user = JSON.parse(localStorage.getItem("user"));
+            const id = user?.id;
+    
+            const response = await axiosConfig.delete(`/user/${id}/delete`);
+            return response.data;
+
+        } catch (error) {
+            throw new Error("Erreur lors de la suppression");
+        }
     },
-
+    
     
     
 

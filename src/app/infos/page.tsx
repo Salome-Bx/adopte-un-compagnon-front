@@ -8,6 +8,7 @@ import { CardAssoProps, ProfilAssoProps } from '../Utils/type';
 import { Oval } from "react-loader-spinner";
 import 'react-toastify/dist/ReactToastify.css';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 
 const pageInfos = () => {
@@ -15,27 +16,47 @@ const pageInfos = () => {
    
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [userData, setUserData] = useState<ProfilAssoProps | null>(null); 
-    
+    const {push} = useRouter();
     
     useEffect(() => {
         fetchData();
-}, []);
+    }, []);
     
     
     const fetchData = async () => {
         setIsLoading(true);
-        // setError(null);
+        
         try {
-        const response = await userService.getAssoById();
-        setUserData(response);
+            const response = await userService.getAssoById();
+            setUserData(response);
         } catch (error) {
-        // setError("Failed to fetch meals. Please try again.");
-        toast.error("Erreur pendant la récupération des information de l'association");
+        
+            toast.error("Erreur pendant la récupération des information de l'association");
         } 
         finally {
-          setIsLoading(false);
+            setIsLoading(false);
         }
     };
+
+    const handleDelete = async () => {
+        const confirmed = window.confirm("Voulez-vous vraiment supprimer votre compte ?");
+        if (confirmed) {
+          setIsLoading(true);
+          
+          try {
+              await userService.deleteUser();
+              console.log('coucou');
+              toast.success("Votre compte a été supprimé avec succès.");
+              push("/connexion");
+
+          } catch (error) {
+            toast.error("Erreur lors de la suppression du compte.");
+
+          } finally {
+            setIsLoading(false);
+          }
+        }
+      };
 
   return (
     <main className="bg-custom-purple">
@@ -130,17 +151,15 @@ const pageInfos = () => {
                             margin={'m-auto mt-4'}  
                             action={`modificationInfos/${userData.id}`} 
                     />
-                    <Button
-                            title={'Supprimer mon compte'}
-                            bgColor={'bg-custom-light-purple'}
-                            border={'border border-white'}
-                            color={'text-white'}
-                            size={'w-fit'}
-                            hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
-                            padding={'px-6 py-2'}
-                            margin={'m-auto mt-4'}  
-                            action={"connexion"} 
-                    />
+                    
+
+                    <button 
+                        onClick={handleDelete} 
+                        className='bg-custom-light-purple px-6 py-2 m-auto mt-4 border border-white text-white w-fit hover:text-custom-purple hover:bg-white hover:borderwhite'
+                    >
+                        Supprimer mon compte
+                    </button>
+                
                 </div>
                 )}
 
