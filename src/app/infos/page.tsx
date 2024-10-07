@@ -45,7 +45,6 @@ const pageInfos = () => {
           
           try {
               await userService.deleteUser();
-              console.log('coucou');
               toast.success("Votre compte a été supprimé avec succès.");
               push("/connexion");
 
