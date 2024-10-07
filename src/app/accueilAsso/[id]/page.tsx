@@ -74,17 +74,31 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
       } else {
         toast.error("Une erreur inattendue s'est produite. Veuillez réessayer.");
       }
-      
     }
     finally {
       setIsLoading(false);
     }
-  
-
+  }
 }
 
-  
-  }
+  const handleDelete = async () => {
+    const confirmed = window.confirm("Voulez-vous vraiment supprimer cet animal ?");
+    if (confirmed) {
+      setIsLoading(true);
+      
+      try {
+          await petService.deletePet(params.id);
+          toast.success("L'animal a été supprimé avec succès.");
+          push("/accueilAsso");
+
+      } catch (error) {
+        toast.error("Erreur lors de la suppression de l'animal.");
+
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
 
   return (
     <main className="bg-custom-purple">
@@ -190,6 +204,13 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
                         margin={'m-auto'}   
                   />
                 </div>
+
+                <button 
+                    onClick={handleDelete} 
+                    className='bg-custom-light-purple px-6 py-2 m-auto mt-4 border border-white text-white w-fit hover:text-custom-purple hover:bg-white hover:borderwhite'
+                >
+                    Supprimer
+                </button>
                 
 
             </form>

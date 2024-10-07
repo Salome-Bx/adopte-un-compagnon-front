@@ -72,15 +72,16 @@ export let petService = {
         }
     },
 
-    deletePet: async (data) => {
+    deletePet: async (id) => {
         try {
-            const response = await axiosConfig.delete(`/pet/${id}/delete`, data);
-            return response.data;
+            const response = await axiosConfig.delete(`/pet/${id}/delete`);
+            return response;
             
         } catch (error) {
             throw new Error("Erreur lors de la suppression");
         }
     },
+    
 
     
 
