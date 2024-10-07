@@ -35,7 +35,7 @@ const pageCreationAnimal = () => {
     e.preventDefault();
     setIsLoading(true);
   
-    if (!name || !race || !gender || !birthyear || !withCats || !withDogs ||!withChildren || !sos || !quickDescription || !description ) {
+    if (!name || !race || !gender || !birthyear || !quickDescription || !description ) {
 
       toast.error("Veuillez remplir tous les champs");
 
@@ -118,28 +118,28 @@ const pageCreationAnimal = () => {
                     </div>)}
 
                 <div className="name flex flex-col">
-                  <label htmlFor="name">Nom de l'animal</label>
+                  <label htmlFor="name">Nom de l'animal*</label>
                   <input type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="image flex flex-col">
-                  <label htmlFor="image">Images</label>
-                  <input type="file" name="image" id="image" onChange={(e) => setImage(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <label htmlFor="image">Image*</label>
+                  <input type="text" name="image" id="image" onChange={(e) => setImage(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="race flex flex-col">
-                  <label htmlFor="race">Race</label>
+                  <label htmlFor="race">Race*</label>
                   <input type="text" name="race" id="race" onChange={(e) => setRace(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />
                 </div>
 
                 <div className="gender flex flex-col">
-                  <label htmlFor="gender">Genre</label>
+                  <label htmlFor="gender">Genre*</label>
                   <input type="text" name="gender" id="gender" 
                   onChange={(e) => setGender(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="birthyear flex flex-col">
-                  <label htmlFor="birthyear">Année de naissance</label>
+                  <label htmlFor="birthyear">Année de naissance*</label>
                   <input type="date" name="birthyear" id="birthyear" onChange={(e) => setBirthyear(e.target.value)}className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
@@ -172,13 +172,13 @@ const pageCreationAnimal = () => {
                 
 
                 <div className="quickDescrition flex flex-col">
-                  <label htmlFor="quickDescrition">Description rapide</label>
+                  <label htmlFor="quickDescrition">Description rapide*</label>
                   <textarea name="description" id="description" onChange={(e) => setQuickDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
                 
 
                 <div className="description flex flex-col">
-                  <label htmlFor="description">Description</label>
+                  <label htmlFor="description">Description*</label>
                   <textarea name="description" id="description" onChange={(e) => setDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />
                 </div>
                 
@@ -195,9 +195,10 @@ const pageCreationAnimal = () => {
                         action=''
                   />
                 </div>
-                
-
             </form>
+            <div className=" text-sm w-full max-w-md mx-auto">
+              <p className="text-sm text-white pt-6">* Champs obligatoires</p>
+            </div>
 
             
 

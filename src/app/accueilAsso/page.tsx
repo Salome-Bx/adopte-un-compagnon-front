@@ -43,11 +43,13 @@ const AccueilAssoPage = () => {
     <main className="bg-custom-purple w-full ">
         <NavAsso></NavAsso>
         
-            <h3 className="text-3xl font-bold text-white mt-12 ml-12">Bienvenue sur votre espace</h3>
+            <h3 className="text-3xl font-bold text-white mt-12 ml-12 text-center">Bienvenue sur votre espace</h3>
             
-            <h5 className="text-custom-light-purple mt-10 mb-6 ml-12 font-bold">Les profils de vos pensionnaires :</h5>
+            <h5 className="text-custom-light-purple mt-10 mb-6 ml-12 font-bold text-xl text-center">Les profils de vos pensionnaires :</h5>
 
-            <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center">
+            
+
+            <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center mb-32">
                 {isLoading && (
                     <div className="flex w-1/5 h-fit items-center justify-center">      
                         <Oval
@@ -64,10 +66,27 @@ const AccueilAssoPage = () => {
                         />
                     </div>)}
 
+                    <div className='w-full text-center'>
+                        <Button 
+                           title={'Créer un animal'}
+                            bgColor={'bg-custom-purple'}
+                            border={'border border-white'}
+                            color={'text-white font-regular'}
+                            size={'w-fit'}
+                            hover={'hover:text-custom-light-purple hover:border-custom-light-purple'}
+                            padding={'px-2'}
+                            margin={'m-2'} 
+                            action={`creationAnimal`}
+                        />
+                    </div>
+
                 {petsByAssoList && (
                     petsByAssoList.map((pet : EditProfilPetProps) => (
 
+
                         <div className="card flexflex-col border-4 border-white rounded-2xl max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
+                            
+
                             <label
                             key={pet.id}   
                             >

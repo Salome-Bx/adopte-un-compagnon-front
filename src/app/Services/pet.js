@@ -53,6 +53,7 @@ export let petService = {
     createPet: async (data) => {
         try {
             const response = await axiosConfig.post("/pet/new", data);
+            console.log(response);
             const pet = response.data.pet;
             localStorage.setItem("pet", JSON.stringify(pet));
             return pet;
