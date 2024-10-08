@@ -149,7 +149,6 @@ const animalProfilPage = ({params}: {params: {id: number}}) => {
                         <h2 className="title text-custom-light-purple text-ml font-medium pb-2 pt-4">Description</h2>
                         <p className="description">{petData.description}</p>
                       </div>
-
                     </div>
               </div>
             )}

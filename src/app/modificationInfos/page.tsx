@@ -1,9 +1,8 @@
 "use client"
-import React, { useState } from 'react'
-import { Nav } from "../../Components/Nav";
-import Footer from "../../Components/Footer";
-import Button from "../../Components/ButtonAction";
-import { NavAsso } from '../../Components/NavAsso';
+import React, { useEffect, useState } from 'react'
+import Footer from "../Components/Footer";
+import Button from "../Components/ButtonAction";
+import { NavAsso } from '../Components/NavAsso';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Oval } from 'react-loader-spinner';
@@ -12,7 +11,7 @@ import { userService } from '@/app/Services/user';
 import axios from 'axios';
 
 
-const pageModificationInfos = ({params}: {params: {id: number}}) => {
+const pageModificationInfos = () => {
  
       const [email, setEmail] = useState('')
       const [password, setPassword] = useState('')
@@ -27,10 +26,30 @@ const pageModificationInfos = ({params}: {params: {id: number}}) => {
       const [siret, setSiret] = useState('')
       const [website, setWebsite] = useState('')
       const [image, setImage] = useState('')
+      const [id, setId] = useState<number | null>(null);
 
       const [isLoading, setIsLoading] = useState<boolean>(false);
       const [error, setError] = useState<string | null>(null);
       const {push} = useRouter();
+
+      useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+        
+        if (user) {
+            setId(user.id);
+            setEmail(user.email);
+            setLastname(user.lastname);
+            setFirstname(user.firstname);
+            setAddress(user.address);
+            setCity(user.city);
+            setPostalCode(user.postalCode);
+            setPhone(user.phone);
+            setNameAsso(user.nameAsso);
+            setSiret(user.siret);
+            setWebsite(user.website);
+            setImage(user.image);
+        }
+      }, []);
 
       const handleUserInfosEdit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -42,8 +61,8 @@ const pageModificationInfos = ({params}: {params: {id: number}}) => {
 
       } else {
 
-        let infosData = {
-          id: params.id,
+        let data = {
+          
           lastname: lastname,
           firstname : firstname,
           address : address,
@@ -51,14 +70,17 @@ const pageModificationInfos = ({params}: {params: {id: number}}) => {
           postalCode : postalCode,
           phone : phone,
           website : website,
-          image : image
+          image : image,
+         
+          
           
       }
 
       try {
-        const response = await userService.editUser(params.id, infosData);
-        toast.success("Vos information ont bien été modifiées !");
-        push(`/accueilAsso/${params.id}`);
+        const response = await userService.editUser(data);
+        
+        toast.success("Vos informations ont bien été modifiées !");
+        push(`/accueilAsso/${id}`);
       } 
     
       catch (error) {
@@ -115,24 +137,25 @@ const pageModificationInfos = ({params}: {params: {id: number}}) => {
 
             <form onSubmit={handleUserInfosEdit}  className="text-white text-sm">
 
-                <div className="name flex flex-col">
+                <div className="name flex flex-col text-violet-400">
                   <label htmlFor="name">Nom de l'association</label>
-                  <input type="text" name="name" id="name" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <input type="text" name="name" id="name" value={nameAsso} readOnly className="border-4 text-violet-400 border-violet-400 bg-custom-purple rounded-3xl mb-4 p-2 mt-1" /> 
+
                 </div>
 
                 <div className="lastname flex flex-col">
                   <label htmlFor="lastname">Nom du représentant</label>
-                  <input type="text" name="lastname" id="lastname" onChange={(e) => setLastname(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <input type="text" name="lastname" id="lastname" value={lastname}  onChange={(e) => setLastname(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="firstname flex flex-col">
                   <label htmlFor="firstname">Prénom du représentant</label>
-                  <input type="text" name="firstname" id="firstname" onChange={(e) => setFirstname(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />
+                  <input type="text" name="firstname" id="firstname"  value={firstname} onChange={(e) => setFirstname(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />
                 </div>
 
-                <div className="email flex flex-col">
+                <div className="email flex flex-col text-violet-400">
                   <label htmlFor="email">Email</label>
-                  <input type="email" name="email" id="email" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <input type="email" name="email" id="email"  value={email}  readOnly className="border-4 text-violet-400 border-violet-400 bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="password flex flex-col">
@@ -148,33 +171,44 @@ const pageModificationInfos = ({params}: {params: {id: number}}) => {
                 
                 <div className="address flex flex-col">
                   <label htmlFor="address">Adresse de l'association</label>
-                  <input type="text" name="address" id="address" onChange={(e) => setAddress(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1"/>  
+                  <input type="text" name="address" id="address"  value={address} onChange={(e) => setAddress(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1"/>  
                 </div>
                 
 
                 <div className="postalCode flex flex-col">
                   <label htmlFor="postalCode">Code postal</label>
-                  <input type="text" name="postalCode" id="postalCode" onChange={(e) => setPostalCode(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <input type="text" name="postalCode" id="postalCode" value={postalCode}  onChange={(e) => setPostalCode(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
                 
 
                 <div className="city flex flex-col">
                   <label htmlFor="city">Ville</label>
-                  <input type="text" name="city" id="city" onChange={(e) => setCity(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <input type="text" name="city" id="city" value={city} onChange={(e) => setCity(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
                 
 
                 <div className="phone flex flex-col">
                   <label htmlFor="phone">Téléphone</label>
-                  <input type="phone" name="phone" id="phone" onChange={(e) => setPhone(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <input type="phone" name="phone" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
                 
 
-                <div className="siret flex flex-col">
+                <div className="siret flex flex-col text-violet-400">
                   <label htmlFor="siret">SIRET</label>
-                  <input type="text" name="siret" id="siret" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <input type="text" name="siret" id="siret" value={siret} readOnly className="border-4 text-violet-400 border-violet-400 bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
                 
+                <div className="image flex flex-col">
+                  <label htmlFor="image">Image</label>
+                  <input type="text" name="image" id="image" value={image} className="border-4  border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                </div>
+
+                <div className="website flex flex-col">
+                  <label htmlFor="website">Site web</label>
+                  <input type="text" name="website" id="website" value={website} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                </div>
+
+
                 <div className="flex flex-col pt-10">
                   <Button
                         title={'Modifier mes informations'}
@@ -185,7 +219,7 @@ const pageModificationInfos = ({params}: {params: {id: number}}) => {
                         hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
                         padding={'px-6 py-2'}
                         margin={'m-auto'}  
-                        action={'infos'} 
+                        action={'accueilAsso'} 
                   />
                 </div>
                 
