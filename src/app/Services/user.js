@@ -44,11 +44,12 @@ export let userService = {
     },
     
     
-
-    editUser: async (id, data) => {
+    editUser: async (data) => {
         try {
-            const response = await axiosConfig.put(`/user/${id}/edit`, data);
-            const user = response.data;
+            let user = JSON.parse(localStorage.getItem("user"));
+            let id = user?.id;
+            let response = await axiosConfig.put(`/user/${id}/edit`, data);
+            user = response.data;
             localStorage.setItem("user", JSON.stringify(user));
             return user;
         } catch (error) {
@@ -57,12 +58,10 @@ export let userService = {
         }
     },
 
-    // editUser: async (data) => {
+    // editUser: async (id, data) => {
     //     try {
-    //         const user = JSON.parse(localStorage.getItem("user"));
-    //         const id = user?.id;
     //         const response = await axiosConfig.put(`/user/${id}/edit`, data);
-    //         user = response.data;
+    //         const user = response.data;
     //         localStorage.setItem("user", JSON.stringify(user));
     //         return user;
     //     } catch (error) {
@@ -70,6 +69,7 @@ export let userService = {
     //         throw error;
     //     }
     // },
+
 
 
 
