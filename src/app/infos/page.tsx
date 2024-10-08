@@ -151,7 +151,7 @@ const pageInfos = () => {
                             hover={'hover:text-custom-purple  hover:bg-white hover:borderwhite'}
                             padding={'px-6 py-2'}
                             margin={'m-auto mt-4'}  
-                            action={`modificationInfos/${userData.id}`} 
+                            action={"modificationInfos"} 
                     />
                     
 
