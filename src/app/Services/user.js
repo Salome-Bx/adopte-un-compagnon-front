@@ -57,12 +57,36 @@ export let userService = {
         }
     },
 
+    // editUser: async (data) => {
+    //     try {
+    //         const user = JSON.parse(localStorage.getItem("user"));
+    //         const id = user?.id;
+    //         const response = await axiosConfig.put(`/user/${id}/edit`, data);
+    //         user = response.data;
+    //         localStorage.setItem("user", JSON.stringify(user));
+    //         return user;
+    //     } catch (error) {
+    //         console.error("Erreur lors de la modification des informations", error);
+    //         throw error;
+    //     }
+    // },
+
 
 
     deleteUser: async () => {
         try {
             const user = JSON.parse(localStorage.getItem("user"));
             const id = user?.id;
+            const response = await axiosConfig.delete(`/user/${id}/delete`);
+            return response;
+
+        } catch (error) {
+            throw new Error("Erreur lors de la suppression");
+        }
+    },
+
+    deleteAssociation: async (id) => {
+        try {
             const response = await axiosConfig.delete(`/user/${id}/delete`);
             return response;
 
