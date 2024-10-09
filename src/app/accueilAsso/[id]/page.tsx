@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavAsso } from "../../Components/NavAsso";
 import Footer from "../../Components/Footer";
 import Button from "../../Components/Button";
@@ -13,7 +13,6 @@ import { Oval } from "react-loader-spinner";
 
 const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
 
-  const [id, setId] = useState('')
   const [name, setName] = useState('')
   const [image, setImage] = useState('')
   const [race, setRace] = useState('')
@@ -29,11 +28,41 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {push} = useRouter();
 
+  useEffect(() => {
+    const fetchPetData = async () => {
+      setIsLoading(true);
+      try {
+        const petData = await petService.getPetById(params.id);
+        const { name, image, race, gender, birthyear, withCats, withDogs, withChildren, sos, quickDescription, description } = petData;
+
+        setName(name);
+        setImage(image);
+        setRace(race);
+        setGender(gender);
+        setBirthyear(birthyear);
+        setWithCats(withCats);
+        setWithDogs(withDogs);
+        setWithChildren(withChildren);
+        setSos(sos);
+        setQuickDescription(quickDescription);
+        setDescription(description);
+
+      } catch (error) {
+        toast.error("Erreur lors du chargement des informations de l'animal.");
+        
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPetData();
+  }, [params.id]);
+
   const handlePetEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     
-    if (!name && !race && !gender && !birthyear && !quickDescription && !description) {
+    if (!name || !race || !gender || !birthyear || !quickDescription || !description) {
       
       toast.error("Veuillez remplir au moins un champ.");
 
@@ -129,28 +158,28 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
 
                 <div className="name flex flex-col">
                   <label htmlFor="name">Nom de l'animal</label>
-                  <input type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <input type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="image flex flex-col">
                   <label htmlFor="image">Images</label>
-                  <input type="text" name="image" id="image" onChange={(e) => setImage(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <input type="text" name="image" id="image" value={image} onChange={(e) => setImage(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="race flex flex-col">
                   <label htmlFor="race">Race</label>
-                  <input type="text" name="race" id="race" onChange={(e) => setRace(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />
+                  <input type="text" name="race" id="race" value={race} onChange={(e) => setRace(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />
                 </div>
 
                 <div className="gender flex flex-col">
                   <label htmlFor="gender">Genre</label>
                   <input type="text" name="gender" id="gender" 
-                  onChange={(e) => setGender(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  onChange={(e) => setGender(e.target.value)} value={gender} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="birthyear flex flex-col">
                   <label htmlFor="birthyear">Année de naissance</label>
-                  <input type="date" name="birthyear" id="birthyear" onChange={(e) => setBirthyear(e.target.value)}className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <input type="date" name="birthyear" id="birthyear" value={birthyear} onChange={(e) => setBirthyear(e.target.value)}className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="getAlong flex flex-col py-4">
@@ -158,17 +187,17 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
                   <ul className='pl-4'>
                     <li>
                       <label htmlFor="withCats">les chats</label>
-                      <input type="checkbox" name="withCats" id="withCats" onChange={(e) => setWithCats(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" />
+                      <input type="checkbox" name="withCats" id="withCats" value={withCats} onChange={(e) => setWithCats(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" />
                     </li>
 
                     <li>
                       <label htmlFor="withDogs">les chiens</label>
-                      <input type="checkbox" name="withDogs" onChange={(e) => setWithDogs(e.target.value)} id="withDogs" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" /> 
+                      <input type="checkbox" name="withDogs" value={withDogs} onChange={(e) => setWithDogs(e.target.value)} id="withDogs" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" /> 
                     </li>
 
                     <li>
                       <label htmlFor="withChildren">les enfants</label>
-                      <input type="checkbox" name="withCatsYes" id="withCats" onChange={(e) => setWithChildren(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" />
+                      <input type="checkbox" name="withCatsYes" value={withChildren} id="withCats" onChange={(e) => setWithChildren(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" />
                     </li>
                   </ul>
                   
@@ -177,19 +206,19 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
 
                 <div className="sos flex">
                   <label htmlFor="sos">SOS</label>
-                  <input type="checkbox" name="sos" id="sos" onChange={(e) => setSos(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4" />  
+                  <input type="checkbox" name="sos" id="sos" value={sos} onChange={(e) => setSos(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4" />  
                 </div>
                 
 
                 <div className="quickDescrition flex flex-col">
                   <label htmlFor="quickDescrition">Description rapide</label>
-                  <textarea name="description" id="description" onChange={(e) => setQuickDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <textarea name="description" id="description" value={quickDescription} onChange={(e) => setQuickDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
                 
 
                 <div className="description flex flex-col">
                   <label htmlFor="description">Description</label>
-                  <textarea name="description" id="description" onChange={(e) => setDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />
+                  <textarea name="description" id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />
                 </div>
                 
                 <div className="flex flex-col pt-10">

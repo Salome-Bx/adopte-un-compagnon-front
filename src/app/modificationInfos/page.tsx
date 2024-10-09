@@ -51,6 +51,8 @@ const pageModificationInfos = () => {
         }
       }, []);
 
+      
+
       const handleUserInfosEdit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
@@ -58,6 +60,25 @@ const pageModificationInfos = () => {
       if (!lastname || !firstname || !address || !city || !postalCode || !phone || !website || !image  ) {
 
         toast.error("Veuillez remplir tous les champs");
+      
+      } else if (password.valueOf() !== passwordConfirm.valueOf()) {
+        toast.error("Les mots de passes sont différents");
+
+      } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/.test(password)) {
+        toast.error("Veuillez entrer un mot de passe à 8 caractères contenant au moins un chiffre et une majuscule et un caractère spécial");
+
+      } else if (!/^\d{14}$/.test(siret)) {
+        toast.error("Le SIRET doit contenir 14 chiffres");
+
+      } else if (!/^\d{5}$/.test(postalCode)) {
+        toast.error("Le code postal doit contenir 5 chiffres");
+
+      } else if (!/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phone)) {
+        toast.error("Le téléphone doit contenir 10 chiffres");
+
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        console.log("no bueno");
+        toast.error("L'email doit être au bon format");
 
       } else {
 
@@ -76,7 +97,6 @@ const pageModificationInfos = () => {
 
       try {
         const response = await userService.editUser(data);
-        
         toast.success("Vos informations ont bien été modifiées !");
         push(`/accueilAsso/${id}`);
       } 
@@ -209,7 +229,7 @@ const pageModificationInfos = () => {
 
                 <div className="flex flex-col pt-10">
                   <Button
-                        title={'Modifier mes informations'}
+                        title={'Enregistrer mes modifications'}
                         bgColor={'bg-custom-light-purple'}
                         border={'border border-white'}
                         color={'text-white'}
@@ -220,12 +240,8 @@ const pageModificationInfos = () => {
                         action={'accueilAsso'} 
                   />
                 </div>
-                
             </form>
-
-
         </div>
-
         <Footer></Footer>
     </main>
   )
