@@ -58,20 +58,7 @@ export let userService = {
         }
     },
 
-    // editUser: async (id, data) => {
-    //     try {
-    //         const response = await axiosConfig.put(`/user/${id}/edit`, data);
-    //         const user = response.data;
-    //         localStorage.setItem("user", JSON.stringify(user));
-    //         return user;
-    //     } catch (error) {
-    //         console.error("Erreur lors de la modification des informations", error);
-    //         throw error;
-    //     }
-    // },
-
-
-
+    
 
     deleteUser: async () => {
         try {
@@ -94,6 +81,18 @@ export let userService = {
             throw new Error("Erreur lors de la suppression");
         }
     },
+
+
+    filter: async (postalCode) => {
+        try {
+            const response = await axiosConfig.get(`/user/filter/${postalCode}`);
+            return response.data;
+
+        } catch (error) {
+            throw new Error("Erreur lors du filtrage");
+        }
+    }
+    
     
     
     
