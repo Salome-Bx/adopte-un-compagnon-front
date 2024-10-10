@@ -16,10 +16,18 @@ const AccueilAssoPage = () => {
     
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [petsByAssoList, setPetsByAssoList] = useState<EditProfilPetProps>();
+    const [userExists, setUserExists] = useState<boolean>(false);
     const {push} = useRouter();
 
     useEffect(() => {
-        fetchPetsByAsso();
+        const user = localStorage.getItem('user');
+        if (!user) {
+            toast.error("Vous devez être connecté pour accéder à cette page.");
+            push('/connexion');
+        } else {
+            setUserExists(true);
+            fetchPetsByAsso();
+        }
 }, []);
 
     const fetchPetsByAsso = async () => {
@@ -39,7 +47,9 @@ const AccueilAssoPage = () => {
     };
     
 
-    
+    if (!userExists) {
+        return null; // Vous pouvez afficher un loader ici si vous le souhaitez
+    }
 
 
   return (

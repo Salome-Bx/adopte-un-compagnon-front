@@ -24,9 +24,22 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
   const [sos, setSos] = useState('')
   const [quickDescription, setQuickDescription] = useState('')
   const [description, setDescription] = useState('')
+  const [userExists, setUserExists] = useState<boolean>(false);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {push} = useRouter();
+
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (!user) {
+      toast.error("Vous devez être connecté pour accéder à cette page.");
+      push("/connexion");
+    } else {
+      setUserExists(true);
+    }
+  }, [push]);
+
 
   useEffect(() => {
     const fetchPetData = async () => {
@@ -84,7 +97,7 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
     }
     
     try {
-      const response = await petService.editPet(params.id, formData);
+      await petService.editPet(params.id, formData);
       toast.success("L'animal a bien été modifié !");
       push(`/accueilAsso/${params.id}`);
     } 

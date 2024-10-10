@@ -9,56 +9,84 @@ import Button from "../Components/ButtonAction";
 import 'react-toastify/dist/ReactToastify.css';
 import { Oval } from "react-loader-spinner";
 import toast from "react-hot-toast";
+import { userService } from "../Services/user";
 
 const animalsToAdoptPage = () => {
     
     const [petList, setPetList] = useState ([]);
+    const [filteredPets, setFilteredPets] = useState ([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     
     const [sos, setSos] = useState<boolean>(false);
     const [postalCode, setPostalCode] = useState<string>("");
     const [species, setSpecies] = useState<string>("");
+    
+    useEffect(() => {
+        fetchPets();
+    }, []);
 
-    const handlePostalCodeChange = (e: { target: { value: any; }; }) => {
+    // useEffect(() => {
+    //     filterPets();
+    // }, [sos, postalCode, species]);
+
+    const fetchPets = async () => {
+        setIsLoading(true);
+        try {
+            const response = await petService.getAllPets();
+            setPetList(response);
+            setFilteredPets(response); // Initialiser filteredPets avec tous les animaux
+        } catch (error) {
+            toast.error("Erreur pendant la récupération de la liste des animaux");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+
+
+
+    const handlePostalCodeChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         
         if (/^\d*$/.test(value) && value.length <= 5) {
             setPostalCode(value);
+            console.log(postalCode);
         }
     };
+
+
+    // const filterPets = async () => {
+    //     let filtered = petList; // On commence avec la liste actuelle des animaux
     
-    useEffect(() => {
-        fetchPets();
-    }, [sos, postalCode, species]);
+    //     if (postalCode) {
+    //         try {
+    //             const response = await userService.filter(postalCode);
+    //             console.log(response);
     
+    //             // Extraction des animaux à partir de la réponse
+    //             const petIds = response.pets.flatMap((petGroup) => petGroup.pet.map((pet) => pet.id));
     
-    const fetchPets = async () => {
-        setIsLoading(true);
+    //             // Filtrage de la liste d'animaux pour garder ceux dont l'ID est dans petIds
+    //             filtered = filtered.filter((pet) => petIds.includes(pet.id));
+    
+    //             // Optionnel : mettre à jour petList avec les animaux filtrés
+    //             setPetList(filtered);
+    //         } catch (error) {
+    //             toast.error("Erreur pendant le filtrage des animaux");
+    //         }
+    //     }
+
+    //     if (sos) {
+    //         filtered = filtered.filter((pet) => pet.sos === true);
+    //     }
         
-        try {
-            const response = await petService.getAllPets();
-            
-            const filteredPets = response.filter((pet: {
-                asso: any; sos: boolean; postalCode: string | string[]; species: { name: string }; 
-            }) => {
-                
-                const matchesSos = sos ? pet.sos : true;
-                const matchesPostalCode = postalCode ? pet.asso.postalCode.includes(postalCode) : true;
-                const matchesSpecies = species ? pet.species.name === species : true;
-                
-                return matchesSos && matchesPostalCode && matchesSpecies;
-            });
-            
-            setPetList(filteredPets);
-            
-        } catch (error) {
-            
-            toast.error("Erreur pendant la récupération de la liste des animaux");
-        } 
-        finally {
-            setIsLoading(false);
-        }
-    };
+    //     if (species) {
+    //         filtered = filtered.filter(pet => pet.species.name === species);
+    //     }
+    
+    //     setFilteredPets(filtered);
+        
+    // };
         
     
     return (
@@ -225,4 +253,3 @@ export default animalsToAdoptPage
 
 
     
-

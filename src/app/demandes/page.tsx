@@ -9,28 +9,36 @@ import { ButtonStateProps } from "../Utils/type";
 import 'react-toastify/dist/ReactToastify.css';
 import { Oval } from 'react-loader-spinner';
 import toast from "react-hot-toast";
+import { useRouter } from 'next/navigation';
 
 
 const FormsByAssoPage = () => {
     
     const [formList, setFormList] = useState<AdoptionFormProps | undefined>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const { push } = useRouter();
     
     useEffect(() => {
-        fetchForms();
-}, []);
+        const user = localStorage.getItem('user');
+        if (!user) {
+            toast.error("Vous devez être connecté pour accéder à cette page.");
+            push("/connexion");
+        } else {
+            fetchForms();
+        }
+    }, [push]);
     
     
     const fetchForms = async () => {
         setIsLoading(true);
-        // setError(null);
+      
         try {
         const response = await formService.getFormsByAsso();
         toast.success("Formulaire envoyé");
         setFormList(response);
 
         } catch (error) {
-        // setError("Failed to fetch meals. Please try again.");
+        
         console.error("Erreur pendant la récupération des formulaires :", error);
         toast.success("Une erreur s'est produite");
         } 

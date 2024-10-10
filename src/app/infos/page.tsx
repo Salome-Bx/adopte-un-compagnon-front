@@ -19,8 +19,14 @@ const pageInfos = () => {
     const {push} = useRouter();
     
     useEffect(() => {
-        fetchData();
-    }, []);
+        const user = localStorage.getItem('user');
+        if (!user) {
+            toast.error("Vous devez être connecté pour accéder à cette page.");
+            push("/connexion"); 
+        } else {
+            fetchData();
+        }
+    }, [push]);
     
     
     const fetchData = async () => {
