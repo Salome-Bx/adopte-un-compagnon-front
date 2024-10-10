@@ -1,6 +1,6 @@
 "use client"
-import React, { useState } from 'react'
-import { Nav } from "../Components/Nav";
+import React, { useEffect, useState } from 'react'
+import { NavAsso } from "../Components/NavAsso";
 import Footer from "../Components/Footer";
 import Button from "../Components/ButtonAction";
 import { useRouter } from 'next/navigation';
@@ -26,10 +26,17 @@ const pageCreationAnimal = () => {
   const [quickDescription, setQuickDescription] = useState('')
   const [description, setDescription] = useState('')
   
-  
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {push} = useRouter();
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (!user) {
+      toast.error("Vous devez être connecté pour accéder à cette page.");
+      push("/connexion"); 
+    }
+  }, [push]);
 
   const handlePetCreation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,13 +63,10 @@ const pageCreationAnimal = () => {
     }
     
     try {
-      const response = await petService.createPet(formData);
+      await petService.createPet(formData);
       toast.success("L'animal a bien été crée !");
       push("/creationAnimal");
-      
     } 
-  
-
     catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const errorMessage = error.response.data.message;
@@ -81,19 +85,18 @@ const pageCreationAnimal = () => {
         toast.error("Une erreur inattendue s'est produite. Veuillez réessayer.");
       }
       console.error("Une erreur est survenue", error);
+      push("/creationAnimal");
     } finally {
       setIsLoading(false);
     }
-  
-}
-
+  }
 }
 
 
   return (
     <main className="bg-custom-purple">
 
-        <Nav></Nav>
+        <NavAsso></NavAsso>
 
 
         <div className="flex flex-col w-1/3 m-auto pb-40">
