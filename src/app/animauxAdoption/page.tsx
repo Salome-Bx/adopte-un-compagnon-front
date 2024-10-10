@@ -55,38 +55,38 @@ const animalsToAdoptPage = () => {
     };
 
 
-    const filterPets = async () => {
-        let filtered = petList; // On commence avec la liste actuelle des animaux
+    // const filterPets = async () => {
+    //     let filtered = petList; // On commence avec la liste actuelle des animaux
     
-        if (postalCode) {
-            try {
-                const response = await userService.filter(postalCode);
-                console.log(response);
+    //     if (postalCode) {
+    //         try {
+    //             const response = await userService.filter(postalCode);
+    //             console.log(response);
     
-                // Extraction des animaux à partir de la réponse
-                const petIds = response.pets.flatMap((petGroup) => petGroup.pet.map((pet) => pet.id));
+    //             // Extraction des animaux à partir de la réponse
+    //             const petIds = response.pets.flatMap((petGroup) => petGroup.pet.map((pet) => pet.id));
     
-                // Filtrage de la liste d'animaux pour garder ceux dont l'ID est dans petIds
-                filtered = filtered.filter((pet) => petIds.includes(pet.id));
+    //             // Filtrage de la liste d'animaux pour garder ceux dont l'ID est dans petIds
+    //             filtered = filtered.filter((pet) => petIds.includes(pet.id));
     
-                // Optionnel : mettre à jour petList avec les animaux filtrés
-                setPetList(filtered);
-            } catch (error) {
-                toast.error("Erreur pendant le filtrage des animaux");
-            }
-        }
+    //             // Optionnel : mettre à jour petList avec les animaux filtrés
+    //             setPetList(filtered);
+    //         } catch (error) {
+    //             toast.error("Erreur pendant le filtrage des animaux");
+    //         }
+    //     }
 
-        if (sos) {
-            filtered = filtered.filter((pet) => pet.sos === true);
-        }
+    //     if (sos) {
+    //         filtered = filtered.filter((pet) => pet.sos === true);
+    //     }
         
-        if (species) {
-            filtered = filtered.filter(pet => pet.species.name === species);
-        }
+    //     if (species) {
+    //         filtered = filtered.filter(pet => pet.species.name === species);
+    //     }
     
-        setFilteredPets(filtered);
+    //     setFilteredPets(filtered);
         
-    };
+    // };
         
     
     return (
