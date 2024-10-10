@@ -25,9 +25,9 @@ const animalsToAdoptPage = () => {
         fetchPets();
     }, []);
 
-    useEffect(() => {
-        filterPets();
-    }, [sos, postalCode, species]);
+    // useEffect(() => {
+    //     filterPets();
+    // }, [sos, postalCode, species]);
 
     const fetchPets = async () => {
         setIsLoading(true);
