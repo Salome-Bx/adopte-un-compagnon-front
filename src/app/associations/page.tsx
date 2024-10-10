@@ -109,10 +109,10 @@ const associationsPage = () => {
                 )}
 
                 {assoList && (
-                    assoList.map((asso : CardAssoProps) => (
+                    assoList.map((asso : CardAssoProps, index) => (
 
                         
-                        <div className="card flex bg-custom-purple h-[430px] align-top flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
+                        <div key={"asso_list_" + index} className="card flex bg-custom-purple h-[430px] align-top flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
 
                             <label
                             key={asso.id}>

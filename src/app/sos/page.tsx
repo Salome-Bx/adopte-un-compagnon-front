@@ -124,9 +124,9 @@ const fetchSos = async () => {
                 )}
 
                 {sosList && (
-                    sosList.map((pet : CardPetProps) => (
+                    sosList.map((pet : CardPetProps, index) => (
 
-                        <div className="card flex bg-white flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
+                        <div key={"asso_list_" + index} className="card flex bg-white flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
                             <label
                             key={pet.id}   
                             >

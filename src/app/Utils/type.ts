@@ -51,6 +51,12 @@ export type CardPetProps = {
     sos: boolean
     race: string
     image: string 
+    asso: {
+        postalCode:string
+    },
+    species: {
+        name:string
+    }
 }
 
 

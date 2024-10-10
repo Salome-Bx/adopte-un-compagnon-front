@@ -11,15 +11,31 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import 'react-toastify/dist/ReactToastify.css';
 import { TbTrashFilled } from "react-icons/tb";
+import { useRouter } from 'next/navigation';
 
 const AccueilAdminPage = () => {
 
     const [assoList, setAssoList] = useState ([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const { push } = useRouter();
     
+    //vérifie si admin et ne donne accès qu'à lui
     useEffect(() => {
-        fetchAssos();
-    }, []);
+        const user = localStorage.getItem('user');
+        if (!user) {
+            toast.error("Accès refusé. Vous devez être un administrateur.");
+            push("/connexion");
+            return;
+        }
+
+        const parsedUser = JSON.parse(user);
+        if (!parsedUser.roles.includes("ROLE_ADMIN")) {
+            toast.error("Accès refusé. Vous devez être un administrateur.");
+            push("/connexion");
+        } else {
+            fetchAssos();
+        }
+    }, [push]);
     
     
     const fetchAssos = async () => {
@@ -95,9 +111,9 @@ const AccueilAdminPage = () => {
             <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center mb-28">
 
             {assoList && (
-                assoList.map((asso : CardAssoProps) => (
+                assoList.map((asso : CardAssoProps, index) => (
                     
-                    <div className="card flex bg-custom-purple h-[430px] align-top flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
+                    <div key={"asso_list_" + index} className="card flex bg-custom-purple h-[430px] align-top flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
 
                         <label
                         key={asso.id}>
