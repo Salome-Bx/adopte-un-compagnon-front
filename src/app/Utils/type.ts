@@ -99,6 +99,7 @@ export type EditProfilPetProps = {
     entryDate: Date
     sos: boolean
     race: string
+    isCategorized: string
     categorisedDog: string
     image: string 
     species: string

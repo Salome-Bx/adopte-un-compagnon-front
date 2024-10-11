@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { FaUser } from "react-icons/fa6";
 import { FaTimes } from 'react-icons/fa';
@@ -10,10 +10,16 @@ export const Nav = () => {
   
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    setIsUserLoggedIn(!!user); // Vérifie si l'utilisateur existe
+  }, []);
 
   const handleLinkClick = () => {
     setIsLoading(true);
@@ -34,7 +40,7 @@ export const Nav = () => {
             {/* Menu */}
             <div className="icones flex flex-row w-full justify-end mb-4">
               <button className="connexion text-white">
-                <Link href="/connexion" className="items-center z-11 flex text-white hover:text-custom-yellow text-lg color-white mr-4">
+                <Link href={isUserLoggedIn ? "/accueilAsso" : "/connexion"} className="items-center z-11 flex text-white hover:text-custom-yellow text-lg color-white mr-4">
                   <FaUser />
                 </Link>
               </button>
@@ -92,7 +98,8 @@ export const Nav = () => {
                   className={`absolute top-full left-0 mt-2 flex flex-col space-y-1 bg-custom-purple text-white p-2 shadow-md px-10 transition-all duration-300 ease-in-out ${menuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}
                 >
                   <li>
-                    <Link href="/connexion" className="text-sm hover:text-custom-light-purple">Connexion</Link>
+                    <Link href={isUserLoggedIn ? "/accueilAsso" : "/connexion"}  className="text-sm hover:text-custom-light-purple">{isUserLoggedIn ? "Mon compte" : "Connexion"}</Link>
+                    
                   </li>
                   <li>
                     <Link href="/inscription" className="text-sm hover:text-custom-light-purple">Inscription</Link>

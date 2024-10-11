@@ -27,7 +27,7 @@ export const NavAdmin = () => {
     setIsLoading(true);
     try {
     const response = await loggedService.logout();
-    
+    localStorage.removeItem('user');
     } catch (error) {
     console.error("Erreur pendant la déconnexion :", error);
     } 

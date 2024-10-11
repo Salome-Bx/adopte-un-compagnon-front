@@ -10,7 +10,6 @@ let axiosConfig = axios.create({
 
 
 
-
 export let petService = {
     getAllPets: async () => {
         try {
@@ -32,7 +31,6 @@ export let petService = {
 
     getPetById: async (id) => {
         try {
-            
             const response = await axiosConfig.get(`pet/${id}`);
             return response.data;
         } catch (error) {
@@ -54,11 +52,9 @@ export let petService = {
         try {
             const response = await axiosConfig.post("/pet/new", data);
             console.log(response);
-            const pet = response.data.pet;
-            localStorage.setItem("pet", JSON.stringify(pet));
-            return pet;
+            return response.data.pet;
         } catch (error) {
-            throw new Error("Erreur lors de l'enregistrement");
+            throw new Error("Erreur lors de la création de l'animal");
         }
     },
 
@@ -76,7 +72,6 @@ export let petService = {
         try {
             const response = await axiosConfig.delete(`/pet/${id}/delete`);
             return response;
-            
         } catch (error) {
             throw new Error("Erreur lors de la suppression");
         }

@@ -25,6 +25,9 @@ const pageCreationAnimal = () => {
   const [sos, setSos] = useState('')
   const [quickDescription, setQuickDescription] = useState('')
   const [description, setDescription] = useState('')
+  const [speciesId, setSpeciesId] = useState('')
+  const [assoId, setAssoId] = useState('')
+  const [isCategorized, setIsCategorized] = useState(false);
   
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -32,9 +35,16 @@ const pageCreationAnimal = () => {
 
   useEffect(() => {
     const user = localStorage.getItem('user');
+    console.log(user);
     if (!user) {
       toast.error("Vous devez être connecté pour accéder à cette page.");
-      push("/connexion"); 
+      push("/connexion");
+    } else {
+      const userObject = JSON.parse(user);
+      const assoId = userObject.id;
+      if (assoId) {
+        setAssoId(assoId);
+      }
     }
   }, [push]);
 
@@ -43,43 +53,61 @@ const pageCreationAnimal = () => {
     setIsLoading(true);
   
     if (!name || !race || !gender || !birthyear || !quickDescription || !description ) {
-
       toast.error("Veuillez remplir tous les champs");
-
+      setIsLoading(false);
+      
     } else {
 
-    let formData = {
+    let data = {
         name: name,
         image : image,
         race: race,
         gender: gender,
         birthyear: birthyear,
-        withCats: withCats,
-        withDogs: withDogs,
-        withChildren: withChildren,
+        get_along_cats: withCats,
+        get_along_dogs: withDogs,
+        get_along_children: withChildren,
         sos: sos,
-        quickDescription: quickDescription,
-        description: description
+        quick_description: quickDescription,
+        description: description,
+        categorised_dog: isCategorized,
+        species_id: speciesId,
+        asso_id: assoId
     }
+
     
     try {
-      await petService.createPet(formData);
+      await petService.createPet(data);
       toast.success("L'animal a bien été crée !");
       push("/creationAnimal");
     } 
     catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const errorMessage = error.response.data.message;
-        
-        switch (errorMessage) {
-          case 'Animal déjà crée':
-            setError('L\'animal a déjà été crée');
-            toast.error('L\'animal a déjà été crée');
-            break;
-          default:
-            setError("Une erreur s'est produite lors de l'enregistrement.");
-            toast.error("Une erreur s'est produite lors de l'enregistrement.");
-        }
+        const errorDetails = error.response.data.errors;
+        toast.error(errorMessage);
+
+        if (errorDetails && Array.isArray(errorDetails)) {
+          errorDetails.forEach((err) => {
+            toast.error(err); // Afficher chaque message d'erreur
+          });
+        console.log("errorMessage");
+      } else {
+        toast.error(errorMessage);
+
+        // switch (errorMessage) {
+        //   case "Le message doit faire au minimum 30 caractères.":
+        //     toast.error("Le message doit faire au minimum 30 caractères.");
+        //   case "Le message doit faire au plus 120 caractères.":
+        //     toast.error("Le message doit faire au plus 120 caractères.");
+        //   case "Le message doit faire au plus 255 caractères.":
+        //     toast.error("Le message doit faire au plus 255 caractères.");
+        //     break;
+        //   default:
+        //     setError("Une erreur s'est produite lors de l'enregistrement.");
+        //     toast.error("Une erreur s'est produite lors de l'enregistrement.");
+        // }
+      }
       } else {
         setError("Une erreur inattendue s'est produite. Veuillez réessayer.");
         toast.error("Une erreur inattendue s'est produite. Veuillez réessayer.");
@@ -92,6 +120,13 @@ const pageCreationAnimal = () => {
   }
 }
 
+const handleSpeciesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const value = e.target.value;
+  setSpeciesId(value);
+  if (value !== '2') {
+    setIsCategorized(false);
+  }
+};
 
   return (
     <main className="bg-custom-purple">
@@ -99,7 +134,7 @@ const pageCreationAnimal = () => {
         <NavAsso></NavAsso>
 
 
-        <div className="flex flex-col w-1/3 m-auto pb-40">
+        <div className="flex flex-col w-2/3 lg:w-1/3 m-auto pb-40">
             <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Créer le profil d'un animal</h1>
 
             <form onSubmit={handlePetCreation} className="text-white text-sm">
@@ -125,6 +160,34 @@ const pageCreationAnimal = () => {
                   <input type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
+                <div className="species flex flex-col">
+                  <label htmlFor="species">Espèce*</label>
+                  <select 
+                  name="species" 
+                  id="species" 
+                  className="border-4 border-white bg-custom-purple rounded-3xl p-2 mt-1 mb-4"
+                  onChange={(e) => setSpeciesId(e.target.value)}
+                  value={speciesId} >
+                    <option value="" className="text-custom-light-purple" disabled>Espèce</option>
+                    <option value="1">Chat</option>
+                    <option value="2">Chien</option>
+                  </select>
+                  {speciesId === '2' && (
+                    <div className="mt-2">
+                      <label>
+                        <input 
+                          type="checkbox"
+                          className="mr-2 mb-5 p-2 mt-1" 
+                          checked={isCategorized} 
+                          onChange={(e) => setIsCategorized(e.target.checked)} 
+                        />
+                        Chien catégorisé
+                      </label>
+                    </div>
+                  )}
+                </div>
+
+          
                 <div className="image flex flex-col">
                   <label htmlFor="image">Image*</label>
                   <input type="text" name="image" id="image" onChange={(e) => setImage(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
@@ -148,20 +211,20 @@ const pageCreationAnimal = () => {
 
                 <div className="getAlong flex flex-col py-4">
                   <p className='font-medium pb-2'>Entente avec :</p>
-                  <ul className='pl-4'>
+                  <ul>
                     <li>
-                      <label htmlFor="withCats">les chats</label>
                       <input type="checkbox" name="withCats" id="withCats" onChange={(e) => setWithCats(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" />
+                      <label htmlFor="withCats">les chats</label>
                     </li>
 
                     <li>
-                      <label htmlFor="withDogs">les chiens</label>
                       <input type="checkbox" name="withDogs" onChange={(e) => setWithDogs(e.target.value)} id="withDogs" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" /> 
+                      <label htmlFor="withDogs">les chiens</label>
                     </li>
 
                     <li>
-                      <label htmlFor="withChildren">les enfants</label>
                       <input type="checkbox" name="withCatsYes" id="withCats" onChange={(e) => setWithChildren(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" />
+                      <label htmlFor="withChildren">les enfants</label>
                     </li>
                   </ul>
                   
@@ -169,20 +232,21 @@ const pageCreationAnimal = () => {
                 
 
                 <div className="sos flex">
+                  <input type="checkbox" name="sos" id="sos" onChange={(e) => setSos(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mr-2 mb-5 p-2 mt-1" />  
                   <label htmlFor="sos">SOS</label>
-                  <input type="checkbox" name="sos" id="sos" onChange={(e) => setSos(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4" />  
                 </div>
                 
 
-                <div className="quickDescrition flex flex-col">
-                  <label htmlFor="quickDescrition">Description rapide*</label>
-                  <textarea name="description" id="description" onChange={(e) => setQuickDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                <div className="quickDescription flex flex-col">
+                  <label htmlFor="quickDescription">Description rapide*</label>
+                  <p className="text-purple-500">120 caractères max</p>
+                  <textarea name="quickDescription" id="quickDescription" onChange={(e) => setQuickDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 maxLength={120}" />  
                 </div>
                 
 
                 <div className="description flex flex-col">
                   <label htmlFor="description">Description*</label>
-                  <textarea name="description" id="description" onChange={(e) => setDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />
+                  <textarea name="description" id="description" onChange={(e) => setDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 h-36" />
                 </div>
                 
                 <div className="flex flex-col pt-10">
@@ -200,10 +264,8 @@ const pageCreationAnimal = () => {
                 </div>
             </form>
             <div className=" text-sm w-full max-w-md mx-auto">
-              <p className="text-sm text-white pt-6">* Champs obligatoires</p>
+              <p className="text-sm text-purple-500 pt-6">* Champs obligatoires</p>
             </div>
-
-            
 
         </div>
 
