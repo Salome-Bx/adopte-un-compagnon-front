@@ -7,6 +7,7 @@ import { userService } from '../Services/user';
 import { loggedService } from '../Services/logged';
 import 'react-toastify/dist/ReactToastify.css';
 import { Oval } from 'react-loader-spinner';
+import toast from 'react-hot-toast';
 
 
 
@@ -25,13 +26,12 @@ export const NavAsso = () => {
 
   const handeLogout = async () => {
     setIsLoading(true);
-    // setError(null);
+   
     try {
     const response = await loggedService.logout();
-    
+    localStorage.removeItem('user');
     } catch (error) {
-    // setError("Failed to fetch meals. Please try again.");
-    console.error("Erreur pendant la déconnexion :", error);
+    toast.error("Erreur pendant la déconnexion ",);
     } 
     finally {
       setIsLoading(false);

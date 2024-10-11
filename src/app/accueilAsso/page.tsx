@@ -36,6 +36,7 @@ const AccueilAssoPage = () => {
         
         try {
         const response = await petService.getPetsByAsso();
+        console.log(response);
         setPetsByAssoList(response);
         } catch (error) {
         
@@ -48,7 +49,7 @@ const AccueilAssoPage = () => {
     
 
     if (!userExists) {
-        return null; // Vous pouvez afficher un loader ici si vous le souhaitez
+        return null;
     }
 
 
@@ -103,8 +104,15 @@ const AccueilAssoPage = () => {
                             <label
                             key={pet.id}   
                             >
-                                <h4 className="name ml-6 flex text-2xl font-bold text-custom-yellow py-2">{pet.name}</h4>
-                                    
+                                <div className="flex place-items-center">
+                                    <h4 className="name ml-2 flex text-2xl font-bold text-custom-yellow py-2">{pet.name}</h4
+                                    >
+                                    {pet.categorisedDog && (
+                                        <p className="text-custom-light-purple flex ml-2 text-sm mt-2">Chien catégorisé</p>
+                                    )}     
+                                </div>
+                                
+
                                 <div className="relative overflow-hidden h-[300px]">
                                     <div className="absolute inset-0 flex items-center justify-center w-full">
                                         <Image

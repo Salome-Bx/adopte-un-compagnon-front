@@ -249,7 +249,7 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
 
                 <button 
                     onClick={handleDelete} 
-                    className='bg-custom-light-purple px-6 py-2 m-auto mt-4 border border-white text-white w-fit hover:text-custom-purple hover:bg-white hover:borderwhite'
+                    className='flex bg-custom-light-purple px-6 py-2 m-auto mt-4 border border-white text-white w-fit hover:text-custom-purple hover:bg-white hover:borderwhite'
                 >
                     Supprimer
                 </button>
