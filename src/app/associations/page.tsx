@@ -15,17 +15,15 @@ const associationsPage = () => {
     const [assoList, setAssoList] = useState ([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [postalCode, setPostalCode] = useState<string>("");
+    const [filteredAssoList, setFilteredAssoList] = useState<CardAssoProps[]>([]);
 
-    const handlePostalCodeChange = (e: { target: { value: any; }; }) => {
-        const value = e.target.value;
-        
-        if (/^\d*$/.test(value) && value.length <= 5) {
-            setPostalCode(value);
-        }
-    };
     
     useEffect(() => {
         fetchAssos();
+    }, []);
+
+    useEffect(() => {
+        handleFilterByPostalCode();
     }, [postalCode]);
     
     
@@ -34,34 +32,38 @@ const associationsPage = () => {
        
         try {
         const response = await userService.getAllAssos();
-            console.log(response);
-        //filtrer pour garder seulement role_user
-        const onlyAssos = response.filter((asso: CardAssoProps) => {
-            return !(asso.roles && Array.isArray(asso.roles) && asso.roles.includes("ROLE_ADMIN"));
-        });
-
-        //filtrer par code postal
-        // const filteredAssos = response.filter((asso: {
-        //     asso: any; postalCode: string | string[];  
-        // }) => {
-            
-        //     const matchesPostalCode = postalCode ? pet.asso.postalCode.includes(postalCode) : true;
-            
-        //     return matchesPostalCode;
-        // });
-
-        setAssoList(onlyAssos);
+            setAssoList(response);
+            setFilteredAssoList(response);
 
         } catch (err) {
-        
         toast.error("Erreur pendant la récupération de la liste des associations");
-        } 
-        finally {
+        
+        } finally {
           setIsLoading(false);
         }
     };
-
     
+    const handlePostalCodeChange = (e: { target: { value: any } }) => {
+        const value = e.target.value;
+        
+        if (/^\d*$/.test(value) && value.length <= 5) {
+            setPostalCode(value);
+        }
+    };
+
+    const handleFilterByPostalCode = () => {
+        let filteredAssos = [...assoList];
+        if(postalCode) {
+            filteredAssos = filteredAssos.filter(
+            (asso: CardAssoProps) =>
+            asso.postalCode && asso.postalCode.startsWith(postalCode)
+            ); 
+        }
+          
+        setFilteredAssoList(filteredAssos);
+        console.log("filtre :",filteredAssoList);
+    };
+
 
     return (
         <main className="bg-white ">
@@ -77,12 +79,16 @@ const associationsPage = () => {
                     <div className="w-full lg:w-fit flex lg:justify-end mb-4">Rechercher par</div>
                     
                     <div className="search w-full lg:w-1/4  lg:ml-4 mb-4 flex flex-col">
-                        <input type="search" id="petSearch" name="petSearch" className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" placeholder="Code postal" value={postalCode} 
+                        <input 
+                        type="search" 
+                        id="petSearch" 
+                        name="petSearch" 
+                        className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" 
+                        placeholder="Code postal" 
+                        value={postalCode} 
                         onChange={handlePostalCodeChange} 
                         />
                     </div>
-
-                    
 
                 </div>
             </div>
@@ -108,8 +114,8 @@ const associationsPage = () => {
                     </div>
                 )}
 
-                {assoList && (
-                    assoList.map((asso : CardAssoProps, index) => (
+                {filteredAssoList && (
+                    filteredAssoList.map((asso : CardAssoProps, index) => (
 
                         
                         <div key={"asso_list_" + index} className="card flex bg-custom-purple h-[430px] align-top flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">

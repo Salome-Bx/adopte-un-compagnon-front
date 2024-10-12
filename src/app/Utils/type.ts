@@ -122,7 +122,7 @@ export type CardAssoProps = {
     phone: string
     website: string
     roles : string
-
+    asso: any
 }
 
 export type ProfilAssoProps = {
