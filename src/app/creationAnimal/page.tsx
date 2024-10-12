@@ -54,8 +54,19 @@ const pageCreationAnimal = () => {
   
     if (!name || !race || !gender || !birthyear || !quickDescription || !description ) {
       toast.error("Veuillez remplir tous les champs");
+      push("/creationAnimal");
       setIsLoading(false);
-      
+    
+    } else if (quickDescription.length < 30 || quickDescription.length > 120) {
+      toast.error("La description rapide doit contenir entre 30 et 120 caractères.");
+      push("/creationAnimal");
+      setIsLoading(false);
+
+    } else if (description.length < 30 || description.length > 255) {
+      toast.error("La description doit contenir entre 30 et 255 caractères.");
+      push("/creationAnimal");
+      setIsLoading(false);  
+
     } else {
 
     let data = {
