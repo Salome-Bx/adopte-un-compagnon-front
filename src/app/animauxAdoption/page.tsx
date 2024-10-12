@@ -12,6 +12,7 @@ import Footer from "../Components/Footer";
 import Button from "../Components/ButtonAction";
 
 const animalsToAdoptPage = () => {
+  
   const [petList, setPetList] = useState<CardPetProps[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [sos, setSos] = useState<boolean>(false);
@@ -70,7 +71,7 @@ const animalsToAdoptPage = () => {
       filteredPets = filteredPets.filter((pet: CardPetProps) => pet.sos);
     }
     setFilteredPetList(filteredPets);
-    console.log(filteredPets);
+    
   };
 
   return (
