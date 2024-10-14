@@ -1,11 +1,9 @@
 "use client"
 import { useEffect, useState } from "react";
 import { formService } from "../Services/form";
-import Image from "next/image";
 import { NavAsso } from "../Components/NavAsso";
 import Footer from "../Components/Footer";
 import { AdoptionFormProps } from "../Utils/type";
-import { ButtonStateProps } from "../Utils/type";
 import 'react-toastify/dist/ReactToastify.css';
 import { Oval } from 'react-loader-spinner';
 import toast from "react-hot-toast";
@@ -33,16 +31,15 @@ const FormsByAssoPage = () => {
         setIsLoading(true);
       
         try {
-        const response = await formService.getFormsByAsso();
-        toast.success("Formulaire envoyé");
-        setFormList(response);
+            const response = await formService.getFormsByAsso();
+            toast.success("Formulaire envoyé");
+            setFormList(response);
 
         } catch {
-        toast.error("Une erreur s'est produite");
+            toast.error("Une erreur s'est produite");
 
-        } 
-        finally {
-          setIsLoading(false);
+        } finally {
+            setIsLoading(false);
         }
     };
     
@@ -85,7 +82,7 @@ const FormsByAssoPage = () => {
 
                         <h4 className="name flex text-lg font-bold text-custom-light-purple py-2">Demandes pour {form.name}</h4> 
                         
-                        {/* Display individual form details */}
+                        
                         {form.form.map((item: AdoptionFormProps, itemIndex: number) => (
                             <div className="pb-6 pt-4 border-b border-black-400">
                             <p>M ou Mme : <span className="font-bold">{item.firstname} {item.lastname}</span> </p>

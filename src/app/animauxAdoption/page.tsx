@@ -20,6 +20,8 @@ const animalsToAdoptPage = () => {
   const [species, setSpecies] = useState<string>("");
   const [filteredPetList, setFilteredPetList] = useState<CardPetProps[]>([]);
 
+
+  
   useEffect(() => {
     fetchPets();
   }, []);
@@ -53,7 +55,7 @@ const animalsToAdoptPage = () => {
   const handleFilters = () => {
     let filteredPets = [...petList];
 
-    // Filtrer par espèce si un choix est fait
+    
     if (species) {
       filteredPets = filteredPets.filter(
         (pet: CardPetProps) => pet.species.name === species
@@ -73,6 +75,9 @@ const animalsToAdoptPage = () => {
     setFilteredPetList(filteredPets);
     
   };
+
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
 
   return (
     <main className="bg-white">
@@ -130,10 +135,9 @@ const animalsToAdoptPage = () => {
               id="isSos"
               className="border-4 border-custom-light-purple rounded-sm accent-custom-light-purple"
               checked={sos}
-            //   onChange={(e) => setSos(e.target.value)}
               onChange={(e) => {
-                setSos(e.target.checked); // Utilisez checked pour obtenir l'état de la case
-                handleFilters(); // Appliquer les filtres après le changement
+                setSos(e.target.checked);
+                handleFilters();
               }}
             />
           </div>
@@ -160,8 +164,12 @@ const animalsToAdoptPage = () => {
           </div>
         )}
 
-        {filteredPetList &&
-          filteredPetList.map((pet: CardPetProps, index) => (
+        {filteredPetList.map((pet: CardPetProps, index) => {
+          const birthDate = typeof pet.birthyear === "string" ? new Date(pet.birthyear) : null;
+          const ageInYears = birthDate ? currentYear - birthDate.getFullYear() : null;
+          const ageInMonths = birthDate ? (currentMonth - birthDate.getMonth() + (ageInYears! * 12)) : null;
+
+          return (
             <div
               key={"pet_list_" + index}
               className="card flex bg-white flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4"
@@ -232,9 +240,14 @@ const animalsToAdoptPage = () => {
 
                   <hr className="w-4/5 justify-center m-auto" />
                   <div className="flex text w-full h-1/2 flex-col px-5 pb-2">
-                    <div className="flex flex-row mt-2 pb-2 justify-between font-bold">
-                      {/* <p className="flex age text-ml text-white">{pet.birthyear}</p> */}
-                      <p className="flex race text-ml text-white">{pet.race}</p>
+                    <div className="flex flex-row mt-2 pb-2 justify-between text-white">
+                    {ageInYears === 0 && ageInMonths !== null
+                        ? `${ageInMonths} mois`
+                        : ageInYears !== null
+                        ? `${ageInYears} ans`
+                        : "N/A"}
+                    
+                    <p className="flex race text-ml text-white">{pet.race}</p>
                     </div>
 
                     <p className="text-ml text-white">{pet.quickDescription}</p>
@@ -257,7 +270,8 @@ const animalsToAdoptPage = () => {
                 </div>
               </label>
             </div>
-          ))}
+           );
+          })}
       </div>
 
       <Footer></Footer>

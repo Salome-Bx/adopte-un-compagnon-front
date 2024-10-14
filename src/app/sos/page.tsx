@@ -85,20 +85,6 @@ const fetchSos = async () => {
                         <label className="mr-2" htmlFor="isSos">SOS</label>
                         <input type="checkbox" name="isSos" id="isSos" className="border-4 border-custom-light-purple rounded-sm accent-custom-light-purple" checked={sos} onChange={() => setSos(prev => !prev)}/>
                     </div>
-
-                    {/* <div className="ml-4 flex w-fit">
-                        <Button 
-                            title={'Filtrer'}
-                            bgColor={'bg-custom-light-purple'}
-                            border={'border border-white'}
-                            color={'text-white font-regular'}
-                            size={'w-fit'}
-                            hover={'hover:text-custom-purple hover:border-custom-light-purple'}
-                            padding={'px-2'}
-                            margin={''} 
-                            action={``}
-                        />
-                    </div> */}
                 </div>
             </div>
             

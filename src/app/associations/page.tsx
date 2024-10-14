@@ -31,15 +31,15 @@ const associationsPage = () => {
         setIsLoading(true);
        
         try {
-        const response = await userService.getAllAssos();
+            const response = await userService.getAllAssos();
             setAssoList(response);
             setFilteredAssoList(response);
 
         } catch (err) {
-        toast.error("Erreur pendant la récupération de la liste des associations");
+            toast.error("Erreur pendant la récupération de la liste des associations");
         
         } finally {
-          setIsLoading(false);
+            setIsLoading(false);
         }
     };
     
@@ -61,7 +61,6 @@ const associationsPage = () => {
         }
           
         setFilteredAssoList(filteredAssos);
-        console.log("filtre :",filteredAssoList);
     };
 
 

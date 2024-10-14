@@ -72,25 +72,14 @@ const pageConnexion = () => {
               default:
                 push("/"); 
             }
-            
               
           } catch (error) {
-              if (axios.isAxiosError(error) && error.response) {
-                toast.error("Identifiants non valides");
-                push("/connexion");
-                
-              } else {
-                toast.error("Une erreur a eu lieu, veuillez réessayer.");
-                push("/connexion");
-              }
-            
+            toast.error("Identifiants non valides");
+            push("/connexion");
+                 
           } finally {
-            
             setIsLoading(false);
           }
-      
-
-          
         }
       }
 

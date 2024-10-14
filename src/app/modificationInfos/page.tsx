@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Oval } from 'react-loader-spinner';
 import { useRouter } from 'next/navigation';
 import { userService } from '@/app/Services/user';
-import axios from 'axios';
+
 
 
 const pageModificationInfos = () => {
@@ -29,7 +29,6 @@ const pageModificationInfos = () => {
       const [id, setId] = useState<number | null>(null);
 
       const [isLoading, setIsLoading] = useState<boolean>(false);
-      const [error, setError] = useState<string | null>(null);
       const {push} = useRouter();
 
       useEffect(() => {
@@ -51,14 +50,11 @@ const pageModificationInfos = () => {
         }
       }, []);
 
-      
-
       const handleUserInfosEdit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
       
       if (!lastname || !firstname || !address || !city || !postalCode || !phone || !website || !image  ) {
-
         toast.error("Veuillez remplir tous les champs");
       
       } else if (password.valueOf() !== passwordConfirm.valueOf()) {
@@ -77,7 +73,6 @@ const pageModificationInfos = () => {
         toast.error("Le téléphone doit contenir 10 chiffres");
 
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        console.log("no bueno");
         toast.error("L'email doit être au bon format");
 
       } else {
@@ -99,33 +94,15 @@ const pageModificationInfos = () => {
         const response = await userService.editUser(data);
         toast.success("Vos informations ont bien été modifiées !");
         push(`/accueilAsso/${id}`);
-      } 
-    
-      catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          const errorMessage = error.response.data.message;
-          
-          switch (errorMessage) {
-            case 'Animal déjà crée':
-              setError('L\'animal a déjà été crée');
-              toast.error('L\'animal a déjà été crée');
-              break;
-            default:
-              setError("Une erreur s'est produite lors de l'enregistrement.");
-              toast.error("Une erreur s'est produite lors de l'enregistrement.");
-          }
-        } else {
-          setError("Une erreur inattendue s'est produite. Veuillez réessayer.");
-          toast.error("Une erreur inattendue s'est produite. Veuillez réessayer.");
-        }
         
-      }
-      finally {
+      } catch (error) {
+        toast.error("Une erreur s'est produite lors de l'enregistrement.");
+      
+      } finally {
         setIsLoading(false);
       }
-  }
-      
-  }  
+    }
+  }; 
 
   return (
   

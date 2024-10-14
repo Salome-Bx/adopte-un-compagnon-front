@@ -42,7 +42,7 @@ export type CardPetProps = {
     map(arg0: (pet: CardPetProps) => import("react").JSX.Element): import("react").ReactNode
     id: number 
     name: string
-    birthyear: Date
+    birthyear: number | string | Date;
     gender: string
     quickDescription: string
     getAlongCats: boolean

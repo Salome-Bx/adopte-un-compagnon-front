@@ -9,8 +9,6 @@ import Footer from "@/app/Components/Footer";
 import { useRouter } from 'next/navigation';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from "axios";
-import 'react-toastify/dist/ReactToastify.css';
 import { Oval } from "react-loader-spinner";
 
 
@@ -26,7 +24,6 @@ const animalProfilPage = ({params}: {params: {id: number}}) => {
     const [message, setMessage] = useState('');
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
     const {push} = useRouter();
    
    
@@ -61,26 +58,12 @@ const animalProfilPage = ({params}: {params: {id: number}}) => {
           toast.success("Formulaire envoyé");
           push("/animauxAdoption");
           
-          } catch (error) {
-              if (axios.isAxiosError(error) && error.response) {
-                setError(
-                  error.response.data.message ||
-                    "Erreur pendant l'envoi du formulaire."
-                );
-                console.log(error.response.data)
-                push("/animauxAdoption");
-                  
-                } else {
-                  setError("Une erreur a eu lieu, veuillez réessayer.");
-                  toast.error("Une erreur a eu lieu, veuillez réessayer.");
-                  push("/animauxAdoption");
-                }
-              console.error("Une erreur est survenue", error);
-              push("/animauxAdoption");
-            }
-            
-          }
+        } catch (error) {
+          toast.error("Erreur pendant l'envoi du formulaire");
+          push("/animauxAdoption");
         }
+      }
+    }
 
 
 
@@ -90,7 +73,8 @@ const animalProfilPage = ({params}: {params: {id: number}}) => {
         const repsonse = await petService.getPetById(params.id);
         setPetData(repsonse);
       } catch (error) {
-        console.error("Erreur pendant la récupération de l'animal :", error);
+        toast.error("Erreur pendant la récupération de l'animal");
+        push("/animauxAdoption");
       }
       finally {
         setIsLoading(false);
