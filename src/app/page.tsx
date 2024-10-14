@@ -16,7 +16,7 @@ import toast from 'react-hot-toast';
     const [petList, setPetList] = useState ([]);
     const [sosList, setSosList] = useState ([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+ 
     
     //import list of all animals and animals in sos  
     useEffect(() => {
@@ -27,15 +27,15 @@ import toast from 'react-hot-toast';
     // Function to fetch all pets
     const fetchPets = async () => {
         setIsLoading(true);
-        setError(null);
+        
         try {
         const response = await petService.getAllPets();
         setPetList(response);
+
         } catch (error) {
-        setError("Erreur pendant la récupération de la liste des animaux");
         toast.error("Erreur pendant la récupération de la liste des animaux ");
-        } 
-        finally {
+
+        } finally {
           setIsLoading(false);
         }
     };
@@ -62,43 +62,47 @@ import toast from 'react-hot-toast';
       {/*------------- hero ----------------*/}
       <div className="flex hero relative sm:max-h-[600px] overflow-hidden">
 
-  {/* Bloc de texte */}
-  <div className="bloc-text p-14 w-full max-h-[600px] bg-black/50 lg:bg-custom-purple lg:w-1/2 z-10 ">
-    <h1 className="text-white text-xl lg:text-5xl font-medium w-4/5 pb-5 leading-tight">
-      Bienvenue sur <br />
-      <span className="font-bold">Adopte un Compagnon</span>,<br />
-      la plateforme qui soutient la cause animale !
-    </h1>
-    <h2 className="text-white text-ml w-4/5 pb-4">
-      Nous soutenons les associations qui œuvrent pour le bien-être des animaux en leur offrant une plateforme dédiée !
-    </h2>
-    <div className="flex text-sm sm:w-full lg:w-4/5">
-      <Button
-        title={'Je suis une association'}
-        bgColor={''}
-        border={'border border-white'}
-        color={'text-white'}
-        size={'w-fit'}
-        hover={'hover:text-custom-purple hover:bg-white hover:border-white'}
-        padding={'px-6 py-2'}
-        margin={'mt-2'}
-        action="inscription"
-      />
-      </div>
-      <div className="flex text-sm sm:w-full lg:w-4/5">
-      <Button
-        title={'Je veux adopter un animal'}
-        bgColor={'bg-custom-yellow'}
-        border={'border border-custom-yellow'}
-        color={''}
-        size={'w-64'}
-        hover={'hover:text-custom-yellow hover:bg-white hover:border-custom-yellow'}
-        padding={'px-6 py-2 '}
-        margin={'mt-2'}
-        action="animauxAdoption"
-      />
+    {/* Bloc de texte */}
+    <div className="bloc-text p-14 w-full max-h-[600px] bg-black/50 lg:bg-custom-purple lg:w-1/2 z-10 ">
+        <h1 className="text-white text-xl lg:text-5xl font-medium w-4/5 pb-5 leading-tight">
+        Bienvenue sur <br />
+        <span className="font-bold">Adopte un Compagnon</span>,<br />
+        la plateforme qui soutient la cause animale !
+        </h1>
+        <h2 className="text-white text-ml w-4/5 pb-4">
+        Nous soutenons les associations qui œuvrent pour le bien-être des animaux en leur offrant une plateforme dédiée !
+        </h2>
+            <div className="flex flex-col font-bold justify-start lg:flex-row">
+                <div className="flex text-sm sm:w-full lg:w-fit">
+                    <Button
+                            title={'Je suis une association'}
+                            bgColor={''}
+                            border={'border border-white'}
+                            color={'text-white'}
+                            size={'w-fit'}
+                            hover={'hover:text-custom-purple hover:bg-white hover:border-white'}
+                            padding={'px-6 py-2'}
+                            margin={'mt-2'}
+                            action="inscription"
+                        /> 
+                </div>
+                <div className="flex text-sm font-bold sm:w-full lg:w-fit">
+                    <Button
+                            title={'Je veux adopter un animal'}
+                            bgColor={'bg-custom-yellow'}
+                            border={'border border-custom-yellow'}
+                            color={''}
+                            size={'w-fit'}
+                            hover={'hover:text-custom-yellow hover:bg-white hover:border-custom-yellow'}
+                            padding={'px-6 py-2 '}
+                            margin={'mt-2 lg:ml-4'}
+                            action="animauxAdoption"
+                    />
+                </div>
+
+            </div>
+            
     </div>
-  </div>
 
   {/* Bloc d'image */}
   <div className="bloc-image flex w-full absolute min-h-full overflow-hidden lg:w-1/2 lg:relative ">
@@ -158,8 +162,8 @@ import toast from 'react-hot-toast';
 
 
       {/*------------- meet the animals section  ----------------*/}
-      <div className="pets-meet flex m-auto w-fit flex-col bg-white h-fit pb-32">
-          <h3 className="text-custom-purple flex m-auto mt-10 w-fit text-3xl font-bold mb-12 lg:ml-24">Et si on se rencontrait ?</h3>
+      <div className="pets-meet flex m-auto w-fit flex-col bg-white h-fit pt-20 pb-32">
+          <h3 className="text-custom-purple flex m-auto mt-10 w-fit text-4xl font-bold mb-12 lg:ml-24">Et si on se rencontrait ?</h3>
       
          
         <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center">
@@ -268,7 +272,7 @@ import toast from 'react-hot-toast';
       {/*------------- SOS section ----------------*/}
       <div className="pets-sos flex m-auto w-fit flex-col mt-20 h-full mb-48">
       
-          <h3 className="text-custom-yellow flex m-auto mt-10 w-fit text-3xl font-bold mb-12 lg:ml-24">SOS Ils ont besoin de vous !</h3>
+          <h3 className="text-custom-yellow flex m-auto mt-10 w-fit text-4xl font-bold mb-12 lg:ml-24">SOS : Ils ont besoin de vous !</h3>
 
           <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center">
 
@@ -289,10 +293,11 @@ import toast from 'react-hot-toast';
                 </div>)}
                 
                 {sosList && 
-            sosList.slice(0, 3).map((pet : CardPetProps) => (
+                sosList.slice(0, 3).map((pet : CardPetProps) => (
                 <div className="card flex flex-col full mt-14 sm:1/2 md:w-1/3 lg:w-1/4 h-[550px] lg:mt-5 cursor-pointer">
                     <label key={pet.id}>  
                         <h4 className="name flex text-2xl font-bold text-custom-purple py-2">{pet.name}</h4>
+                        
                         <div className="relative overflow-hidden h-[300px]">
                             <div className="absolute inset-0 flex items-center justify-center w-full mt-20">
                                 <Image
@@ -338,8 +343,9 @@ import toast from 'react-hot-toast';
                                 </div>
                                 <p className="ml-2 mr-4 text-custom-purple"> {pet.getAlongChildren ? "Oui" : "Non"}</p>
                             </div>
+
                             <hr className="w-4/5 justify-center m-auto white" />
-                            <div className="flex text w-full h-1/2 flex-col px-5 pb-2 text-custom-purple">
+                            <div className="flex flex-col px-5 pb-2">
                                 <div className="flex flex-row mt-2 pb-2 justify-between font-bold">
                                     <p className="flex race text-ml">{pet.race}</p>   
                                 </div>
@@ -348,15 +354,16 @@ import toast from 'react-hot-toast';
                             <div className="button flex justify-end text-xs pr-2 ">
                                 <Button 
                                     title={'En savoir plus >'}
-                                    bgColor={'bg-custom-yellow'}
+                                    bgColor={'bg-custom-purple hover:bg-custom-yellow'}
                                     border={'border border-white'}
-                                    color={'text-white font-bold'}
+                                    color={'text-white font-regular'}
                                     size={'w-fit'}
                                     hover={'hover:text-custom-purple hover:border-custom-purple'}
                                     padding={'px-2'}
                                     margin={'m-2'} 
                                     action={`animauxAdoption/view/${pet.id}`}
                                 />
+
                             </div>
                         </div>
                     </label>

@@ -18,7 +18,7 @@ export const Nav = () => {
 
   useEffect(() => {
     const user = localStorage.getItem('user');
-    setIsUserLoggedIn(!!user); // Vérifie si l'utilisateur existe
+    setIsUserLoggedIn(!!user);
   }, []);
 
   const handleLinkClick = () => {
@@ -90,7 +90,7 @@ export const Nav = () => {
               <li className="relative z-10">
                 <button 
                   onClick={toggleMenu} 
-                  className="flex flex-col items-start text-custom-light-purple hover:underline"
+                  className="flex flex-col items-start text-custom-light-purple font-semibold hover:underline"
                 >
                   Espace association
                 </button>
