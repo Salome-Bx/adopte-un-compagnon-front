@@ -8,7 +8,7 @@ import axios from 'axios';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Oval } from "react-loader-spinner";
-import { RegisterAssoProps } from '../Utils/type';
+
 
 const pageInscription = () => {
 
@@ -35,30 +35,28 @@ const pageInscription = () => {
     e.preventDefault();
     setIsLoading(true);
 
-            if (!email || !password || !lastname || !firstname || !address || !city || !postalCode ||!phone || !nameAsso || !siret || !website || !image ) {
-
-              toast.error("Veuillez remplir tous les champs");
-
-            } else if (password.valueOf() !== passwordConfirm.valueOf()) {
+        if (!email || !password || !lastname || !firstname || !address || !city || !postalCode ||!phone || !nameAsso || !siret || !website || !image ) {
+           toast.error("Veuillez remplir tous les champs");
+        
+          } else if (password.valueOf() !== passwordConfirm.valueOf()) {
               toast.error("Les mots de passes sont différents");
-
-            } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/.test(password)) {
+        
+          } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/.test(password)) {
               toast.error("Veuillez entrer un mot de passe à 8 caractères contenant au moins un chiffre et une majuscule et un caractère spécial");
 
-
-            } else if (!/^\d{14}$/.test(siret)) {
+          } else if (!/^\d{14}$/.test(siret)) {
               toast.error("Le SIRET doit contenir 14 chiffres");
 
-            } else if (!/^\d{5}$/.test(postalCode)) {
+          } else if (!/^\d{5}$/.test(postalCode)) {
               toast.error("Le code postal doit contenir 5 chiffres");
 
-            } else if (!/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phone)) {
+          } else if (!/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phone)) {
               toast.error("Le téléphone doit contenir 10 chiffres");
 
-            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
               toast.error("L'email doit être au bon format'");
 
-            } else {
+          } else {
         
             let formData = {
                 email: email,
@@ -73,44 +71,21 @@ const pageInscription = () => {
                 siret: siret,
                 website: website,
                 image: image,
-                
             }
             
             try {
               const response = await userService.registration(formData);
               toast.success("Votre compte a été crée !");
               push("/connexion");
-
             } 
-          
 
             catch (error) {
-              if (axios.isAxiosError(error) && error.response) {
-                const errorMessage = error.response.data.message;
-                
-                switch (errorMessage) {
-                  case 'Email déjà utilisé':
-                    setError('L\'email est déjà utilisé. Veuillez utiliser un autre email.');
-                    toast.error("L'email est déjà utilisé");
-                    break;
-                  default:
-                    setError("Une erreur s'est produite lors de l'enregistrement.");
-                    toast.error("Une erreur s'est produite lors de l'enregistrement.");
-                    push("/inscription");
-                }
-              } else {
-                setError("Une erreur inattendue s'est produite. Veuillez réessayer.");
-                toast.error("Une erreur inattendue s'est produite. Veuillez réessayer.");
-                push("/inscription");
-              }
-              console.error("Une erreur est survenue", error);
-            }
-            finally {
+              toast.error("L'email est déjà utilisé");
+            
+            } finally {
               setIsLoading(false);
             }
-          
         }
-        
       }
     
       
@@ -120,20 +95,20 @@ const pageInscription = () => {
         <Nav></Nav>
       
         {isLoading && (
-                    <div className="flex w-1/5 h-fit items-center justify-center">      
-                        <Oval
-                        height={70}
-                        width={70}
-                        color="#9003ff"
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                        visible={true}
-                        ariaLabel="oval-loading"
-                        secondaryColor="#410f72"
-                        strokeWidth={2}
-                        strokeWidthSecondary={2}
-                        />
-                    </div>)}
+          <div className="flex w-1/5 h-fit items-center justify-center">      
+            <Oval
+            height={70}
+            width={70}
+            color="#9003ff"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+            ariaLabel="oval-loading"
+            secondaryColor="#410f72"
+            strokeWidth={2}
+            strokeWidthSecondary={2}
+             />
+          </div>)}
 
         
         <div className="flex flex-col items-center justify-center min-h-screen px-4 pb-24">

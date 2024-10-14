@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { NavAsso } from "../Components/NavAsso";
 import Footer from "../Components/Footer";
 import Button from "../Components/ButtonAction";
-import Link from 'next/link';
 import { petService } from '../Services/pet';
 import { EditProfilPetProps } from '../Utils/type';
 import Image from "next/image";
@@ -28,7 +27,7 @@ const AccueilAssoPage = () => {
             setUserExists(true);
             fetchPetsByAsso();
         }
-}, []);
+    }, []);
 
     const fetchPetsByAsso = async () => {
 
@@ -36,21 +35,16 @@ const AccueilAssoPage = () => {
         
         try {
         const response = await petService.getPetsByAsso();
-        console.log(response);
         setPetsByAssoList(response);
+
         } catch (error) {
+        toast.error("Erreur pendant la récupération de la liste des animaux");
         
-        console.error("Erreur pendant la récupération de la liste des animaux :", error);
-        } 
-        finally {
+        } finally {
           setIsLoading(false);
         }
     };
     
-
-    if (!userExists) {
-        return null;
-    }
 
 
   return (

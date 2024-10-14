@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import { NavAdmin } from "../Components/NavAdmin";
 import Footer from "../Components/Footer";
-import Button from "../Components/ButtonAction";
-import Link from 'next/link';
 import { Oval } from 'react-loader-spinner';
 import { userService } from '../Services/user';
 import { CardAssoProps } from '../Utils/type';
@@ -19,7 +17,7 @@ const AccueilAdminPage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const { push } = useRouter();
     
-    //vérifie si admin et ne donne accès qu'à lui
+    
     useEffect(() => {
         const user = localStorage.getItem('user');
         if (!user) {
@@ -44,18 +42,15 @@ const AccueilAdminPage = () => {
         try {
             const response = await userService.getAllAssos();
 
-            //filtrer pour garder seulement role_user
             const onlyAssos = response.filter((asso: CardAssoProps) => {
             return !(asso.roles && Array.isArray(asso.roles) && asso.roles.includes("ROLE_ADMIN"));
-        });
-
+            });
             setAssoList(onlyAssos);
 
         } catch (error) {
-        
-        console.error("Erreur pendant la récupération de la liste des animaux :", error);
-        } 
-        finally {
+            toast.error("Une erreur s'est produite, impossible d'importer les associations");
+
+        } finally {
           setIsLoading(false);
         }
     };

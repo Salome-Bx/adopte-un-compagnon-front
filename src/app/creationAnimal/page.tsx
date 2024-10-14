@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { petService } from '../Services/pet';
-import axios from 'axios';
 import { Oval } from 'react-loader-spinner';
 
 
@@ -29,13 +28,12 @@ const pageCreationAnimal = () => {
   const [assoId, setAssoId] = useState('')
   const [isCategorized, setIsCategorized] = useState(false);
   
-  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {push} = useRouter();
 
   useEffect(() => {
     const user = localStorage.getItem('user');
-    console.log(user);
+    
     if (!user) {
       toast.error("Vous devez être connecté pour accéder à cette page.");
       push("/connexion");
@@ -91,40 +89,11 @@ const pageCreationAnimal = () => {
       await petService.createPet(data);
       toast.success("L'animal a bien été crée !");
       push("/creationAnimal");
-    } 
-    catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        const errorMessage = error.response.data.message;
-        const errorDetails = error.response.data.errors;
-        toast.error(errorMessage);
 
-        if (errorDetails && Array.isArray(errorDetails)) {
-          errorDetails.forEach((err) => {
-            toast.error(err); // Afficher chaque message d'erreur
-          });
-        console.log("errorMessage");
-      } else {
-        toast.error(errorMessage);
-
-        // switch (errorMessage) {
-        //   case "Le message doit faire au minimum 30 caractères.":
-        //     toast.error("Le message doit faire au minimum 30 caractères.");
-        //   case "Le message doit faire au plus 120 caractères.":
-        //     toast.error("Le message doit faire au plus 120 caractères.");
-        //   case "Le message doit faire au plus 255 caractères.":
-        //     toast.error("Le message doit faire au plus 255 caractères.");
-        //     break;
-        //   default:
-        //     setError("Une erreur s'est produite lors de l'enregistrement.");
-        //     toast.error("Une erreur s'est produite lors de l'enregistrement.");
-        // }
-      }
-      } else {
-        setError("Une erreur inattendue s'est produite. Veuillez réessayer.");
-        toast.error("Une erreur inattendue s'est produite. Veuillez réessayer.");
-      }
-      console.error("Une erreur est survenue", error);
+    } catch (error) {
+      toast.error("Une erreur s'est produite lors de l'enregistrement. Veuillez réessayer.");
       push("/creationAnimal");
+    
     } finally {
       setIsLoading(false);
     }

@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { petService } from '../../Services/pet';
-import axios from 'axios';
 import { Oval } from "react-loader-spinner";
 
 
@@ -100,24 +99,11 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
       await petService.editPet(params.id, formData);
       toast.success("L'animal a bien été modifié !");
       push(`/accueilAsso/${params.id}`);
-    } 
-  
-    catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        const errorMessage = error.response.data.message;
-        
-        switch (errorMessage) {
-          case 'Animal déjà crée':
-            toast.error('L\'animal a déjà été crée');
-            break;
-          default:
-            toast.error("Une erreur s'est produite lors de l'enregistrement.");
-        }
-      } else {
-        toast.error("Une erreur inattendue s'est produite. Veuillez réessayer.");
-      }
-    }
-    finally {
+
+    } catch (error) {
+      toast.error("Une erreur s'est produite. Impossible d'enregistrer l'animal.");
+      
+    } finally {
       setIsLoading(false);
     }
   }
@@ -129,9 +115,9 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
       setIsLoading(true);
       
       try {
-          await petService.deletePet(params.id);
-          toast.success("L'animal a été supprimé avec succès.");
-          push("/accueilAsso");
+        await petService.deletePet(params.id);
+        toast.success("L'animal a été supprimé avec succès.");
+        push("/accueilAsso");
 
       } catch (error) {
         toast.error("Erreur lors de la suppression de l'animal.");

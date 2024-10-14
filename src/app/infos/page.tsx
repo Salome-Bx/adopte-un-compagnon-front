@@ -36,10 +36,10 @@ const pageInfos = () => {
             const response = await userService.getAssoById();
             setUserData(response);
         } catch (error) {
-        
-            toast.error("Erreur pendant la récupération des information de l'association");
-        } 
-        finally {
+            toast.error("Erreur pendant la récupération des informations de l'association");
+            push("/accueilAsso"); 
+
+        } finally {
             setIsLoading(false);
         }
     };
@@ -56,9 +56,9 @@ const pageInfos = () => {
 
           } catch (error) {
             toast.error("Erreur lors de la suppression du compte.");
+            push("/accueilAsso"); 
 
           } finally {
-            toast.success("Votre compte a été supprimé avec succès.");
             setIsLoading(false);
           }
         }
