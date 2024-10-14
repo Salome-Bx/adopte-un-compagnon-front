@@ -69,7 +69,7 @@ const Footer = () => {
               <p>04 35 67 34 95</p>
               <p>contact@adopteuncompagnon.fr</p>
             </div>
-            <div className="social-medias flex flex-row justify-start pt-4 align-bottom">
+            <div className="social-medias flex flex-row justify-start pt-4 items-center">
               <Link href="/"  className="fb w-10 pb-2"><img src="img/icones/facebook.svg" alt="logo facebook" /></Link>
               <Link href="/"  className="insta w-10 pb-2 pl-2"><img src="img/icones/insta.svg" alt="logo instagram" /></Link>
               <Link href="/"  className="x w-10 pb-2 pl-2"><img src="img/icones/x.svg" alt="logo instagram" /></Link>
@@ -93,8 +93,8 @@ const Footer = () => {
         <div className="border-white border-t-2 my-4">
         </div>
 
-        <div className="flex flex-row justify-between text-white text-xs sm:hidden md:hidden lg:block">
-          <div className="copyright w-fit flex">
+        <div className="flex flex-row w-full justify-between text-white text-xs ">
+          <div className="flex w-fit">
             © 2024 Adopte un Compagnon. Tous droits réservés.
           </div>
           <div className="flex w-fit">

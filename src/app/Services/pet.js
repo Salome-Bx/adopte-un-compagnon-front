@@ -51,7 +51,6 @@ export let petService = {
     createPet: async (data) => {
         try {
             const response = await axiosConfig.post("/pet/new", data);
-            console.log(response);
             return response.data.pet;
         } catch (error) {
             throw new Error("Erreur lors de la création de l'animal");

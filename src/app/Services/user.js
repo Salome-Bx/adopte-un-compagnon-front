@@ -27,8 +27,7 @@ export let userService = {
             localStorage.setItem("user", JSON.stringify(user));
             return user;
         } catch (error) {
-            console.error("Erreur lors de l'enregistrement", error);
-            throw error;
+            throw new Error("Erreur lors de l'enregistrement");
         }
     },
 
@@ -53,8 +52,7 @@ export let userService = {
             localStorage.setItem("user", JSON.stringify(user));
             return user;
         } catch (error) {
-            console.error("Erreur lors de la modification des informations", error);
-            throw error;
+            throw new Error("Erreur lors de la modification des informations");
         }
     },
 

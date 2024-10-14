@@ -4,7 +4,6 @@ import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
 import { useRouter } from 'next/navigation';
 import { userService } from '../Services/user';
-import axios from 'axios';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Oval } from "react-loader-spinner";
@@ -28,7 +27,6 @@ const pageInscription = () => {
   const [image, setImage] = useState('')
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
   const {push} = useRouter();
 
   const handleRegistration = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -74,7 +72,7 @@ const pageInscription = () => {
             }
             
             try {
-              const response = await userService.registration(formData);
+              await userService.registration(formData);
               toast.success("Votre compte a été crée !");
               push("/connexion");
             } 
