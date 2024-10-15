@@ -8,7 +8,7 @@ const pagePolitique = () => {
         <main className="w-full bg-white">
             <Nav />
             <div className="w-3/4 bg-white m-auto my-16">
-                <h1 className="text-2xl mb-6">Politique de Confidentialité de "Adopte un Compagnon"</h1>
+                <h1 className="text-2xl mb-6">Politique  de Confidentialité de "Adopte un Compagnon"</h1>
                 <p><strong>Dernière mise à jour :</strong> 15 octobre 2024</p>
                 <p>
                     Chez "Adopte un Compagnon", nous nous engageons à protéger votre vie privée. Cette politique de confidentialité explique comment nous collectons, utilisons, partageons et protégeons vos informations lorsque vous utilisez notre site web et nos services.
