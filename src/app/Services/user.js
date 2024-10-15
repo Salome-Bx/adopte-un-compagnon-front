@@ -81,15 +81,15 @@ export let userService = {
     },
 
 
-    filter: async (postalCode) => {
-        try {
-            const response = await axiosConfig.get(`/user/filter/${postalCode}`);
-            return response.data;
+    // filter: async (postalCode) => {
+    //     try {
+    //         const response = await axiosConfig.get(`/user/filter/${postalCode}`);
+    //         return response.data;
 
-        } catch (error) {
-            throw new Error("Erreur lors du filtrage");
-        }
-    }
+    //     } catch (error) {
+    //         throw new Error("Erreur lors du filtrage");
+    //     }
+    // }
     
     
     
