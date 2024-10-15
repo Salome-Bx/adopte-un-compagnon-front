@@ -98,9 +98,8 @@ const Footer = () => {
             © 2024 Adopte un Compagnon. Tous droits réservés.
           </div>
           <div className="flex w-fit">
-            <Link href="/"  className="flex mr-5">Politique de confidentialité</Link>
-            <Link href="/"  className="flex mr-5">Conditions d'utilisation</Link>
-            <Link href="/"  className="flex mr-5">Paramètres des cookies</Link>
+            <Link href="/politiqueConfidentialite"  className="flex mr-5">Politique de confidentialité</Link>
+            <Link href="/conditionsUtilisation"  className="flex mr-5">Conditions d'utilisation</Link>
           </div>
         </div>
       </div>

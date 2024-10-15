@@ -44,7 +44,7 @@ const animalsToAdoptPage = () => {
     }
   };
 
-  const handlePostalCodeChange = (e: { target: { value: any } }) => {
+  const handlePostalCodeChange = (e: { target: { value: string } }) => {
     const value = e.target.value;
 
     if (/^\d*$/.test(value) && value.length <= 5) {

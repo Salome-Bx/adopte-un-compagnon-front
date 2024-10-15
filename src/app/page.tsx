@@ -351,14 +351,14 @@ import toast from 'react-hot-toast';
                                 </div>
                                 <p className="text-ml ">{pet.quickDescription}</p>
                             </div> 
-                            <div className="button flex justify-end text-xs pr-2 ">
+                            <div className="button flex justify-end text-xs font-bold pr-2 ">
                                 <Button 
                                     title={'En savoir plus >'}
-                                    bgColor={'bg-custom-purple hover:bg-custom-yellow'}
+                                    bgColor={'text-custom-purple border-custom-purple'}
                                     border={'border border-white'}
-                                    color={'text-white font-regular'}
+                                    color={'text-custom-purple font-regular'}
                                     size={'w-fit'}
-                                    hover={'hover:text-custom-purple hover:border-custom-purple'}
+                                    hover={'hover:bg-custom-purple hover:bg-custom-yellow'}
                                     padding={'px-2'}
                                     margin={'m-2'} 
                                     action={`animauxAdoption/view/${pet.id}`}
