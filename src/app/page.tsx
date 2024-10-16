@@ -115,16 +115,16 @@ import toast from 'react-hot-toast';
 
       {/*------------- support section ----------------*/}   
 
-      <div className="flex bloc-soutien m-24 flex-col lg:flex-row">
+      <div className="flex bloc-soutien m-12 lg:m-24 flex-col lg:flex-row">
 
-        <div className="sm:w-full md:w-full lg:w-1/3 p- text-custom-purple">
+        <div className="sm:w-full md:w-full lg:w-1/3 text-custom-purple">
           <h3 className="text-3xl font-bold">Comment nous soutenons les associations ?</h3>
           
         </div>
       
         <div className="sm:w-full md:w-full lg:w-1/3 p-2">
-          <h3 className="text-custom-light-purple text-xl font-bold">En promouvant les adoptions</h3>
-          <p className="text-custom-purple">Découvrez tous les animaux qui recherchent un foyer et trouver votre futur compagnon grâce à leurs profils détaillés.</p>
+          <h3 className="text-custom-light-purple text-xl font-bold mt-4">En promouvant les adoptions</h3>
+          <p className="text-custom-purple mt-2">Découvrez tous les animaux qui recherchent un foyer et trouver votre futur compagnon grâce à leurs profils détaillés.</p>
           <Button
             title={'Trouver mon compagnon'}
             bgColor={'bg-white'}
@@ -139,8 +139,8 @@ import toast from 'react-hot-toast';
         </div>
 
         <div className="sm:w-full md:w-full lg:w-1/3 p-2">
-          <h3 className="text-custom-light-purple text-xl font-bold">En priorisant les urgences</h3>
-          <p className="text-custom-purple">L’onglet SOS permet de mettre en avant les adoptions urgentes.</p>
+          <h3 className="text-custom-light-purple text-xl font-bold mt-4">En priorisant les urgences</h3>
+          <p className="text-custom-purple mt-2">L’onglet SOS permet de mettre en avant les adoptions urgentes.</p>
           <Button
               title={'Voir les urgences'}
               bgColor={'bg-white'}
@@ -272,7 +272,7 @@ import toast from 'react-hot-toast';
       {/*------------- SOS section ----------------*/}
       <div className="pets-sos flex m-auto w-fit flex-col mt-20 h-full mb-48">
       
-          <h3 className="text-custom-yellow flex m-auto mt-10 w-fit text-4xl font-bold mb-12 lg:ml-24">SOS : Ils ont besoin de vous !</h3>
+          <h3 className="text-custom-yellow flex m-auto mt-10 ml-6 w-fit text-4xl font-bold mb-12 lg:ml-24">SOS : Ils ont besoin de vous !</h3>
 
           <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center">
 
