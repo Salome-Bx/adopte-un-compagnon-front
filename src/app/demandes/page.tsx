@@ -86,12 +86,17 @@ const FormsByAssoPage = () => {
                         {form.form.map((item: AdoptionFormProps, itemIndex: number) => (
                             <div className="pb-6 pt-4 border-b border-black-400">
                             <p>M ou Mme : <span className="font-bold">{item.firstname} {item.lastname}</span> </p>
-                            <p>Date de la demande : {item.dateForm}</p>
-                            <p>Email : {item.email}</p>
-                            <p>Code postal : {item.postalCode}</p>
-                            <p>Téléphone : {item.phone}</p>
-                            <p>Message : {item.message}</p>
-                            <p>Pet ID : {item.pet_id}</p>
+                            <p className="mt-2"><span className="text-custom-light-purple">Date de la demande : </span> 
+                                {new Date(item.dateForm).toLocaleDateString('fr-FR', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                })}</p>
+                            <p className="mt-2"><span className="text-custom-light-purple">Email : </span>{item.email}</p>
+                            <p className="mt-2"><span className="text-custom-light-purple">Code postal :</span> {item.postalCode}</p>
+                            <p className="mt-2"><span className="text-custom-light-purple">Téléphone :</span> {item.phone}</p>
+                            <p className="mt-2"><span className="text-custom-light-purple">Message :</span>{item.message}</p>
+                            
                             </div>
                         ))}
                         </label>
