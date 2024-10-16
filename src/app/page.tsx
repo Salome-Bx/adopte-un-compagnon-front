@@ -163,7 +163,7 @@ import toast from 'react-hot-toast';
 
       {/*------------- meet the animals section  ----------------*/}
       <div className="pets-meet flex m-auto w-fit flex-col bg-white h-fit pt-20 pb-32">
-          <h3 className="text-custom-purple flex m-auto mt-10 w-fit text-4xl font-bold mb-12 lg:ml-24">Et si on se rencontrait ?</h3>
+          <h3 className="text-custom-purple flex m-auto mt-10 w-fit text-4xl font-bold mb-12 lg:mt-4 lg:ml-24">Et si on se rencontrait ?</h3>
       
          
         <div className="flex flex-wrap cards gap-4 mx-14 md:mx-2 md:gap-8 justify-center">
