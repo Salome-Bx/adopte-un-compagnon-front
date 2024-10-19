@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Oval } from 'react-loader-spinner';
+import Link from 'next/link';
 
 
 
@@ -107,7 +108,7 @@ const pageConnexion = () => {
       
         <div className="flex flex-col items-center justify-center min-h-screen px-4">
           
-              <h1 className="text-custom-light-purple text-3xl font-bold mb-8 text-center">Connexion Association</h1>
+              <h1 className="text-custom-light-violet text-3xl font-bold mb-8 text-center">Connexion Association</h1>
 
               <form onSubmit={handleLogin} className="w-full max-w-md mx-auto bg-custom-purple rounded-lg p-8">
                 <div className="mb-6">
@@ -131,12 +132,7 @@ const pageConnexion = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   
-                  <p className="mt-2 text-sm text-custom-light-purple justify-end text-right">
-                    Mot de passe oublié ?
-                  </p>
-                  <p className="mt-2 text-sm text-custom-light-purple justify-end text-right">
-                    Déjà un compte ?
-                  </p>
+                  <Link href="/inscription" className="mt-2 text-sm text-custom-light-violet justify-end text-right">Mot de passe oublié ?</Link>
                 </div>
                 
 

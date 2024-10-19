@@ -82,10 +82,10 @@ const Footer = () => {
           <div className="flex">
             <ul className="flex flex-col text-white">
               <p className="font-bold align-bottom">Plan du site</p>
-                <Link href="/"  className="flex mr-5">A propos</Link>
-                <Link href="/"  className="flex mr-5">Animaux à l'adoption</Link>
-                <Link href="/"  className="flex mr-5">Les associations</Link>
-                <Link href="/"  className="flex mr-5">SOS</Link>
+                <Link href="/"  className="flex mr-5 hover:text-custom-light-violet">A propos</Link>
+                <Link href="/animauxAdoption"  className="flex mr-5 hover:text-custom-light-violet">Animaux à l'adoption</Link>
+                <Link href="/associations"  className="flex mr-5 hover:text-custom-light-violet">Les associations</Link>
+                <Link href="/sos"  className="flex mr-5 hover:text-custom-light-violet">SOS</Link>
             </ul>
           </div>
         </div>
@@ -98,8 +98,8 @@ const Footer = () => {
             © 2024 Adopte un Compagnon. Tous droits réservés.
           </div>
           <div className="flex w-fit">
-            <Link href="/politiqueConfidentialite"  className="flex mr-5">Politique de confidentialité</Link>
-            <Link href="/conditionsUtilisation"  className="flex mr-5">Conditions d'utilisation</Link>
+            <Link href="/politiqueConfidentialite"  className="flex mr-5 hover:text-custom-light-violet">Politique de confidentialité</Link>
+            <Link href="/conditionsUtilisation"  className="flex mr-5 hover:text-custom-light-violet">Conditions d'utilisation</Link>
           </div>
         </div>
       </div>

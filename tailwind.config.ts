@@ -14,10 +14,11 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-      'custom-purple': '#410F72',
-      'custom-light-purple': '#9003FF',
-      'custom-yellow': '#FFAE00',
-      'custom-cream': '#FFFAF0'
+        'custom-purple': '#410F72',
+        'custom-light-purple': '#9003FF',
+        'custom-light-violet': '#B451FF',
+        'custom-yellow': '#FFAE00',
+        'custom-cream': '#FFFAF0'
       }, 
     },
   },

@@ -260,7 +260,7 @@ const animalsToAdoptPage = () => {
                       color={"text-white font-regular"}
                       size={"w-fit"}
                       hover={
-                        "hover:text-custom-light-purple hover:border-custom-light-purple"
+                        "hover:text-custom-light-violet hover:border-custom-light-violet"
                       }
                       padding={"px-2"}
                       margin={"m-2"}

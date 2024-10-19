@@ -110,7 +110,7 @@ const pageInscription = () => {
 
         
         <div className="flex flex-col items-center justify-center min-h-screen px-4 pb-24">
-            <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Inscription Association</h1>
+            <h1 className="text-custom-light-violet text-3xl font-bold pt-24 pb-20">Inscription Association</h1>
 
             <form onSubmit={handleRegistration}  className="text-white text-sm w-full max-w-md mx-auto">
 

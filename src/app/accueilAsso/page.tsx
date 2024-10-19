@@ -17,6 +17,14 @@ const AccueilAssoPage = () => {
     const [petsByAssoList, setPetsByAssoList] = useState<EditProfilPetProps>();
     const [userExists, setUserExists] = useState<boolean>(false);
     const {push} = useRouter();
+    
+    const formatDate = (dateString : string) => {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear(); 
+        return `${day} ${month} ${year}`; 
+    };
 
     useEffect(() => {
         const user = localStorage.getItem('user');
@@ -35,6 +43,7 @@ const AccueilAssoPage = () => {
         
         try {
         const response = await petService.getPetsByAsso();
+        console.log(response);
         setPetsByAssoList(response);
 
         } catch (error) {
@@ -45,7 +54,10 @@ const AccueilAssoPage = () => {
         }
     };
     
+    
+    
 
+    
 
   return (
     <main className="bg-custom-purple w-full ">
@@ -53,7 +65,7 @@ const AccueilAssoPage = () => {
         
             <h3 className="text-3xl font-bold text-white mt-12 ml-12 text-center">Bienvenue sur votre espace</h3>
             
-            <h5 className="text-custom-light-purple mt-10 mb-6 ml-12 font-bold text-xl text-center">Les profils de vos pensionnaires :</h5>
+            <h5 className="text-custom-light-violet mt-10 mb-6 ml-12 font-bold text-3xl text-center">Les profils de vos pensionnaires :</h5>
 
             
 
@@ -81,7 +93,7 @@ const AccueilAssoPage = () => {
                             border={'border border-white'}
                             color={'text-white font-regular'}
                             size={'w-fit'}
-                            hover={'hover:text-custom-light-purple hover:border-custom-light-purple'}
+                            hover={'hover:text-custom-yellow hover:border-custom-yellow'}
                             padding={'px-2'}
                             margin={'m-2'} 
                             action={`creationAnimal`}
@@ -99,10 +111,10 @@ const AccueilAssoPage = () => {
                             key={pet.id}   
                             >
                                 <div className="flex place-items-center">
-                                    <h4 className="name ml-2 flex text-2xl font-bold text-custom-yellow py-2">{pet.name}</h4
+                                    <h4 className="name ml-2 flex text-2xl font-bold text-white py-2">{pet.name}</h4
                                     >
                                     {pet.categorisedDog && (
-                                        <p className="text-custom-light-purple flex ml-2 text-sm mt-2">Chien catégorisé</p>
+                                        <p className="text-custom-light-violet flex ml-2 text-sm mt-2">Chien catégorisé</p>
                                     )}     
                                 </div>
                                 
@@ -162,12 +174,12 @@ const AccueilAssoPage = () => {
                                     <hr className="w-4/5 justify-center m-auto"/>
                                     <div className="flex text w-full h-1/2 flex-col px-5 pb-2 text-white text-sm">
                                         <div className="flex flex-row mt-2 pb-2 justify-between font-bold">
-                                            {/* <p className="flex age text-ml text-white">{pet.birthyear}</p> */}
+                                            <p className="flex age text-ml text-white">Né le {formatDate(pet.birthyear)}</p> 
                                             <p  className="flex race text-ml text-white">{pet.race}</p>   
                                         </div>
-                                        <p className="font-medium mb-2 text-custom-light-purple">Description rapide :</p>    
+                                        <p className="font-bold mb-2 mt-4 text-custom-light-violet">Description rapide :</p>    
                                         <p className="">{pet.quickDescription}</p>
-                                        <p className="font-medium my-2  text-custom-light-purple">Description :</p>
+                                        <p className="font-bold my-2 mt-4 text-custom-light-violet">Description :</p>
                                         <p className="">{pet.description}</p>
                                     </div> 
                                     <div className="button flex justify-end text-xs pr-2">
@@ -177,7 +189,7 @@ const AccueilAssoPage = () => {
                                             border={'border border-white'}
                                             color={'text-white font-regular'}
                                             size={'w-fit'}
-                                            hover={'hover:text-custom-light-purple hover:border-custom-light-purple'}
+                                            hover={'hover:text-custom-yellow hover:border-custom-yellow'}
                                             padding={'px-2'}
                                             margin={'m-2'} 
                                             action={`accueilAsso/${pet.id}`}
