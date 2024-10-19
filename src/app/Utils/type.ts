@@ -89,14 +89,14 @@ export type EditProfilPetProps = {
     map(arg0: (pet: EditProfilPetProps) => import("react").JSX.Element): import("react").ReactNode
     id: number 
     name: string
-    birthyear: Date
+    birthyear: string
     gender: string
     quickDescription: string
     description: string
     getAlongCats: boolean
     getAlongDogs: boolean
     getAlongChildren: boolean
-    entryDate: Date
+    entryDate: string
     sos: boolean
     race: string
     isCategorized: string

@@ -12,42 +12,66 @@ import Button from "../Components/ButtonAction";
 
 const SOSpage = () => {
 
+  
   const [sosList, setSosList] = useState ([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-
-  const [sos, setSos] = useState<boolean>(false);
-    const [postalCode, setPostalCode] = useState<string>("");
-    const [species, setSpecies] = useState<string>("");
-
-    const handlePostalCodeChange = (e: { target: { value: any; }; }) => {
-        const value = e.target.value;
-        
-        if (/^\d*$/.test(value) && value.length <= 5) {
-            setPostalCode(value);
-        }
-    };
-    
+  const [postalCode, setPostalCode] = useState<string>("");
+  const [species, setSpecies] = useState<string>("");
+  const [filteredPetList, setFilteredPetList] = useState<CardPetProps[]>([]);
+ 
     useEffect(() => {
         fetchSos();
-    }, [sos, postalCode, species]);
+    }, []);
 
+    useEffect(() => {
+        handleFilters();
+    }, [postalCode, species])
+    
   
-  
-const fetchSos = async () => {
-    setIsLoading(true);
-    try {
-        const response = await petService.getSosPets();
-        setSosList(response); 
+    const fetchSos = async () => {
+        setIsLoading(true);
+        try {
+            const response = await petService.getSosPets();
+            setSosList(response); 
+            setFilteredPetList(response);
+        } catch (err) {
+            toast.error("Erreur pendant la récupération de la liste des animaux SOS");
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-    } catch (err) {
-        toast.error("Erreur pendant la récupération de la liste des animaux SOS");
-    }
-    finally {
-        setIsLoading(false);
+    const handlePostalCodeChange = (e: { target: { value: string } }) => {
+        const value = e.target.value;
+        if (/^\d*$/.test(value) && value.length <= 5) {
+        setPostalCode(value);
+        }
+    };
+
+
+  const handleFilters = () => {
+    let filteredPets = [...sosList];
+
+    if (species) {
+      filteredPets = filteredPets.filter(
+        (pet: CardPetProps) => pet.species.name === species
+      );
     }
 
-};
+    if (postalCode) {
+      filteredPets = filteredPets.filter(
+        (pet: CardPetProps) =>
+          pet.asso.postalCode && pet.asso.postalCode.startsWith(postalCode)
+      );
+    }
+
+    setFilteredPetList(filteredPets);
+
+  };
+
+const currentYear = new Date().getFullYear();
+const currentMonth = new Date().getMonth();
+
   return (
 
     <main className="bg-white">
@@ -62,9 +86,9 @@ const fetchSos = async () => {
             {/* -------filtre------ */}
 
             <div className="filter w-full flex justify-center pb-6 m-auto">
-                <div className="filterContainer flex-col lg:flex-row w-3/5 flex justify-between text-custom-light-purple">
-                    <div className="w-full lg:w-1/4 flex lg:justify-end mb-4">Rechercher par</div>
-                    <div className="species w-full lg:w-1/4 mb-4 lg:ml-4 flex">
+                <div className="filterContainer flex-col lg:flex-row w-2/5 flex justify-between text-custom-light-purple">
+                    <div className="w-full lg:w-1/3 flex lg:justify-center mb-4">Rechercher par</div>
+                    <div className="species w-full lg:w-1/3 mb-4 lg:ml-4 flex">
                         <select className="text-custom-light-purple w-full bg-white border-b-4 border-custom-light-purple focus:outline-none" name="pet" id="pet" value={species} onChange={(e) => setSpecies(e.target.value)}>
                             <option value="" className="text-custom-light-purple" disabled>
                                 Espèce
@@ -75,16 +99,12 @@ const fetchSos = async () => {
                     </div>
                     
 
-                    <div className="search w-full lg:w-1/4  lg:ml-4 mb-4 flex flex-col">
+                    <div className="search w-full lg:w-1/3  lg:ml-4 mb-4 flex flex-col">
                         <input type="search" id="petSearch" name="petSearch" className="text-custom-light-purple bg-white border-b-4 border-custom-light-purple focus:outline-none" placeholder="Code postal" value={postalCode} 
                         onChange={handlePostalCodeChange} 
                         />
                     </div>
 
-                    <div className="sos lg:ml-4 lg:w-1/4 flex">
-                        <label className="mr-2" htmlFor="isSos">SOS</label>
-                        <input type="checkbox" name="isSos" id="isSos" className="border-4 border-custom-light-purple rounded-sm accent-custom-light-purple" checked={sos} onChange={() => setSos(prev => !prev)}/>
-                    </div>
                 </div>
             </div>
             
@@ -109,9 +129,12 @@ const fetchSos = async () => {
                     </div>
                 )}
 
-                {sosList && (
-                    sosList.map((pet : CardPetProps, index) => (
-
+                {filteredPetList.map((pet : CardPetProps, index) => {
+                        const birthDate = typeof pet.birthyear === "string" ? new Date(pet.birthyear) : null;
+                        const ageInYears = birthDate ? currentYear - birthDate.getFullYear() : null;
+                        const ageInMonths = birthDate ? (currentMonth - birthDate.getMonth() + (ageInYears! * 12)) : null;
+                    
+                    return (
                         <div key={"asso_list_" + index} className="card flex bg-white flex-col max-sm:full sm:1/2 md:w-1/3 lg:w-1/4">
                             <label
                             key={pet.id}   
@@ -174,7 +197,11 @@ const fetchSos = async () => {
                                 <hr className="w-4/5 justify-center m-auto" />
                                 <div className="flex text w-full h-1/2 flex-col px-5 pb-2">
                                     <div className="flex flex-row mt-2 pb-2 justify-between font-bold">
-                                        {/* <p className="flex age text-ml text-purple">{pet.birthyear}</p> */}
+                                    {ageInYears === 0 && ageInMonths !== null
+                                        ? `${ageInMonths} mois`
+                                        : ageInYears !== null
+                                        ? `${ageInYears} ans`
+                                        : "N/A"}
                                         <p  className="flex race text-ml text-purple">{pet.race}</p>   
                                     </div>
                                     
@@ -193,18 +220,15 @@ const fetchSos = async () => {
                                         action={`animauxAdoption/view/${pet.id}`}
                                     />
                                 </div>
-
                             </div>
                         </label>
                     </div>
-
-                    ))
-                )}
-                            
+                );
+                })}
             </div>
 
-        <Footer></Footer>
-        </main>
+    <Footer></Footer>
+    </main>
 
     )
 }

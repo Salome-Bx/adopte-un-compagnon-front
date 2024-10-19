@@ -65,24 +65,26 @@ const pageCreationAnimal = () => {
       push("/creationAnimal");
       setIsLoading(false);  
 
+      
     } else {
-
-    let data = {
-        name: name,
-        image : image,
-        race: race,
-        gender: gender,
-        birthyear: birthyear,
-        get_along_cats: withCats,
-        get_along_dogs: withDogs,
-        get_along_children: withChildren,
-        sos: sos,
-        quick_description: quickDescription,
-        description: description,
-        categorised_dog: isCategorized,
-        species_id: speciesId,
-        asso_id: assoId
-    }
+      
+      
+      let data = {
+          name: name,
+          image : image,
+          race: race,
+          gender: gender,
+          birthyear: birthyear,
+          get_along_cats: withCats,
+          get_along_dogs: withDogs,
+          get_along_children: withChildren,
+          sos: sos,
+          quick_description: quickDescription,
+          description: description,
+          categorised_dog: isCategorized,
+          species_id: speciesId,
+          asso_id: assoId
+      }
 
     
     try {
@@ -98,6 +100,8 @@ const pageCreationAnimal = () => {
       setIsLoading(false);
     }
   }
+
+  
 }
 
 const handleSpeciesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

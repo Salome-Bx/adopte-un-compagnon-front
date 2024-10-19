@@ -70,7 +70,7 @@ const pageInfos = () => {
         <NavAsso></NavAsso>
 
         <div className="flex flex-col m-auto pb-40 w-2/3 max-w-md mx-auto">
-            <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Mes informations</h1>
+            <h1 className="text-custom-light-violet text-3xl font-bold pt-24 pb-20">Mes informations</h1>
                 
                 {isLoading && (
                         <div className="flex w-1/5 h-fit items-center justify-center">      

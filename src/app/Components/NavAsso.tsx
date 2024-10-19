@@ -2,26 +2,27 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { petService } from '../Services/pet';
-import { userService } from '../Services/user';
 import { loggedService } from '../Services/logged';
 import 'react-toastify/dist/ReactToastify.css';
 import { Oval } from 'react-loader-spinner';
 import toast from 'react-hot-toast';
+import { FaUser } from "react-icons/fa6";
 
 
 
 export const NavAsso = () => {
-  const [showSubmenu, setShowSubmenu] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
- 
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    setIsUserLoggedIn(!!user);
+  }, []);
   
 
   const handeLogout = async () => {
@@ -75,14 +76,10 @@ if (isLoading) {
           {/* Menu */}
             <div className="icones flex flex-row w-full justify-end">
               <button className="connexion text-white">
-                <Link href="/connexion" className="items-center z-11 flex text-custom-light-purple color-white mr-4">
-                  <Image
-                      src="/icones/user.png"
-                      width={21}
-                      height={24}
-                      alt="Espace mon compte"
-                  />
+                <Link href={isUserLoggedIn ? "/accueilAsso" : "/connexion"} className="items-center z-11 flex text-custom-light-purple color-white mr-4">
+                  <FaUser />
                 </Link>
+                
               </button>
               <button onClick={toggleMenu} className="items-center flex hover:text-custom-yellow text-white font-medium">
                 Menu
@@ -106,7 +103,7 @@ if (isLoading) {
                     <Link href="/infos" className="flex hover:text-custom-yellow">Mes informations</Link>
                   </li>
                   <li>
-                    <Link href="/" className="flex hover:text-custom-yellow">Se déconnecter</Link>
+                    <Link onClick={handeLogout} href="/" className="flex hover:text-custom-yellow">Se déconnecter</Link>
                   </li>
                   
                 </ul>

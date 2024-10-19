@@ -54,7 +54,6 @@ export const Nav = () => {
             </div>
           </div>
           <div className="menuDeroulant flex flex-col ">
-          
 
             {menuOpen && (
               <div className="menuMobile bg-custom-purple text-white w-full pb-4">
@@ -63,7 +62,7 @@ export const Nav = () => {
                   <li><Link href="/animauxAdoption" className="flex hover:text-custom-yellow mb-2">Compagnons à l'adoption</Link></li>
                   <li><Link href="/sos" className="flex hover:text-custom-yellow mb-2">SOS</Link></li>
                   <li><Link href="/associations" className="flex hover:text-custom-yellow mb-2">Les associations</Link></li>
-                  <li><Link href="/inscription" className="text-custom-light-purple hover:underline mb-2">Inscription Association</Link></li>
+                  <li><Link href="/inscription" className="text-custom-light-violet hover:underline mb-2">Inscription Association</Link></li>
                 </ul>
               </div>
             )}
@@ -90,7 +89,7 @@ export const Nav = () => {
               <li className="relative z-10">
                 <button 
                   onClick={toggleMenu} 
-                  className="flex flex-col items-start text-custom-light-purple font-semibold hover:underline"
+                  className="flex flex-col items-start text-custom-light-violet font-semibold hover:underline"
                 >
                   Espace association
                 </button>
@@ -98,11 +97,11 @@ export const Nav = () => {
                   className={`absolute top-full left-0 mt-2 flex flex-col space-y-1 bg-custom-purple text-white p-2 shadow-md px-10 transition-all duration-300 ease-in-out ${menuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}
                 >
                   <li>
-                    <Link href={isUserLoggedIn ? "/accueilAsso" : "/connexion"}  className="text-sm hover:text-custom-light-purple">{isUserLoggedIn ? "Mon compte" : "Connexion"}</Link>
+                    <Link href={isUserLoggedIn ? "/accueilAsso" : "/connexion"}  className="text-sm hover:text-custom-light-violet">{isUserLoggedIn ? "Mon compte" : "Connexion"}</Link>
                     
                   </li>
                   <li>
-                    <Link href="/inscription" className="text-sm hover:text-custom-light-purple">Inscription</Link>
+                    <Link href="/inscription" className="text-sm hover:text-custom-light-violet">Inscription</Link>
                   </li>
                 </ul>
               </li>

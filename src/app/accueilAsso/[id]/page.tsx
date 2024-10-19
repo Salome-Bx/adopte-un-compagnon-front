@@ -17,10 +17,10 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
   const [race, setRace] = useState('')
   const [gender, setGender] = useState('')
   const [birthyear, setBirthyear] = useState('')
-  const [withCats, setWithCats] = useState('')
-  const [withDogs, setWithDogs] = useState('')
-  const [withChildren, setWithChildren] = useState('')
-  const [sos, setSos] = useState('')
+  const [withCats, setWithCats] = useState<boolean>(false);
+  const [withDogs, setWithDogs] = useState<boolean>(false);
+  const [withChildren, setWithChildren] = useState<boolean>(false);
+  const [sos, setSos] = useState<boolean>(false);
   const [quickDescription, setQuickDescription] = useState('')
   const [description, setDescription] = useState('')
   const [userExists, setUserExists] = useState<boolean>(false);
@@ -45,16 +45,18 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
       setIsLoading(true);
       try {
         const petData = await petService.getPetById(params.id);
-        const { name, image, race, gender, birthyear, withCats, withDogs, withChildren, sos, quickDescription, description } = petData;
+        const { name, image, race, gender, birthyear, getAlongCats, getAlongDogs, getAlongChildren, sos, quickDescription, description } = petData;
+
+        const formattedBirthyear = new Date(birthyear).toISOString().split("T")[0];
 
         setName(name);
         setImage(image);
         setRace(race);
         setGender(gender);
-        setBirthyear(birthyear);
-        setWithCats(withCats);
-        setWithDogs(withDogs);
-        setWithChildren(withChildren);
+        setBirthyear(formattedBirthyear);
+        setWithCats(getAlongCats);
+        setWithDogs(getAlongDogs);
+        setWithChildren(getAlongChildren);
         setSos(sos);
         setQuickDescription(quickDescription);
         setDescription(description);
@@ -87,14 +89,14 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
         race: race,
         gender: gender,
         birthyear: birthyear,
-        withCats: withCats,
-        withDogs: withDogs,
-        withChildren: withChildren,
+        get_along_cats: withCats,
+        get_along_dogs: withDogs,
+        get_along_children: withChildren,
         sos: sos,
-        quickDescription: quickDescription,
+        quick_description: quickDescription,
         description: description
     }
-    
+    console.log("Données envoyées à l'API : ", formData); 
     try {
       await petService.editPet(params.id, formData);
       toast.success("L'animal a bien été modifié !");
@@ -151,7 +153,7 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
 
 
         <div className="flex flex-col w-1/3 m-auto pb-40">
-            <h1 className="text-custom-light-purple text-3xl font-bold pt-24 pb-20">Modifier le profil de l'animal</h1>
+            <h1 className="text-custom-light-violet text-3xl font-bold pt-24 pb-20">Modifier le profil de l'animal</h1>
 
             <form onSubmit={handlePetEdit} className="text-white text-sm">
 
@@ -185,18 +187,18 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
                   <p className='font-medium pb-2'>Entente avec :</p>
                   <ul className='pl-4'>
                     <li>
-                      <label htmlFor="withCats">les chats</label>
-                      <input type="checkbox" name="withCats" id="withCats" value={withCats} onChange={(e) => setWithCats(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" />
+                      <label htmlFor="get_along_cats">les chats</label>
+                      <input type="checkbox" name="get_along_cats" id="get_along_cats" checked={withCats} onChange={(e) => setWithCats(e.target.checked)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" />
                     </li>
 
                     <li>
-                      <label htmlFor="withDogs">les chiens</label>
-                      <input type="checkbox" name="withDogs" value={withDogs} onChange={(e) => setWithDogs(e.target.value)} id="withDogs" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" /> 
+                      <label htmlFor="get_along_dogs">les chiens</label>
+                      <input type="checkbox" name="get_along_dogs" id="get_along_dogs" checked={withDogs} onChange={(e) => setWithDogs(e.target.checked)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" /> 
                     </li>
 
                     <li>
-                      <label htmlFor="withChildren">les enfants</label>
-                      <input type="checkbox" name="withCatsYes" value={withChildren} id="withCats" onChange={(e) => setWithChildren(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" />
+                      <label htmlFor="get_along_children">les enfants</label>
+                      <input type="checkbox" name="get_along_children" id="get_along_children" checked={withChildren} onChange={(e) => setWithChildren(e.target.checked)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4 mr-2" />
                     </li>
                   </ul>
                   
@@ -205,13 +207,13 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
 
                 <div className="sos flex">
                   <label htmlFor="sos">SOS</label>
-                  <input type="checkbox" name="sos" id="sos" value={sos} onChange={(e) => setSos(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4" />  
+                  <input type="checkbox" name="sos" id="sos" checked={sos} onChange={(e) => setSos(e.target.checked)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1 ml-4" />  
                 </div>
                 
 
-                <div className="quickDescrition flex flex-col">
-                  <label htmlFor="quickDescrition">Description rapide</label>
-                  <textarea name="description" id="description" value={quickDescription} onChange={(e) => setQuickDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                <div className="quick_description flex flex-col">
+                  <label htmlFor="quick_description">Description rapide</label>
+                  <textarea name="quick_description" id="quick_description" value={quickDescription} onChange={(e) => setQuickDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
                 
 

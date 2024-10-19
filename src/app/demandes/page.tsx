@@ -51,7 +51,7 @@ const FormsByAssoPage = () => {
 
             <NavAsso></NavAsso>
 
-            <div className="w-full flex p-6 pt-20 justify-center text-custom-cream">
+            <div className="w-full flex p-6 pt-20 justify-center text-custom-light-violet">
                 <h3 className="flex text-3xl text-center font-bold">Demandes d'adoption</h3>
                 <p></p>
             </div>
