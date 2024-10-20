@@ -10,6 +10,7 @@ import { CardPetProps } from "../Utils/type";
 import { Nav } from "../Components/Nav";
 import Footer from "../Components/Footer";
 import Button from "../Components/ButtonAction";
+import { decode } from 'html-entities';
 
 const animalsToAdoptPage = () => {
   
@@ -180,15 +181,28 @@ const animalsToAdoptPage = () => {
                 </h4>
 
                 <div className="relative overflow-hidden h-[300px]">
-                  <div className="absolute inset-0 flex items-center justify-center w-full">
-                    <Image
-                      src={`/${pet.image}`}
-                      width={300}
-                      height={70}
-                      alt="photo de l'animal"
-                      className="object-contain"
-                      style={{ width: "100%" }}
-                    />
+                  
+                  <div className="absolute inset-0 flex items-center justify-center w-full pt-20">
+                                    
+                      {pet.image.startsWith('img/') ? (
+                          <Image
+                              src={`/${pet.image}`}
+                              width={300}
+                              height={70}
+                              alt="photo de l'animal"
+                              className="object-contain"
+                              style={{ width: '100%' }}
+                          />
+                        ) : (
+                          <Image
+                              src={pet.image.replace(/&amp;/g, '&')}
+                              width={300}
+                              height={70}
+                              alt="photo de l'animal"
+                              className="object-contain"
+                              style={{ width: '100%'}}
+                          />
+                        )}      
                   </div>
                 </div>
 
@@ -250,7 +264,7 @@ const animalsToAdoptPage = () => {
                     <p className="flex race text-ml text-white">{pet.race}</p>
                     </div>
 
-                    <p className="text-ml text-white">{pet.quickDescription}</p>
+                    <p className="text-ml text-white">{decode(pet.quickDescription)}</p>
                   </div>
                   <div className="button flex justify-end text-xs pr-2">
                     <Button

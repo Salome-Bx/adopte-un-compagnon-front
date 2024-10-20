@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Oval } from "react-loader-spinner";
+import { decode } from 'html-entities';
 
 
 
@@ -26,7 +27,13 @@ const animalProfilPage = ({params}: {params: {id: number}}) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const {push} = useRouter();
    
-   
+    const formatDate = (dateString : string) => {
+      const date = new Date(dateString);
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear(); 
+      return `${day} ${month} ${year}`; 
+  };
 
     useEffect(() => {
       fetchPetProfil();
@@ -109,29 +116,40 @@ const animalProfilPage = ({params}: {params: {id: number}}) => {
                   <div className="informationsEtPhoto flex w-full flex-col lg:flex-row">
                     <div className="bg-custom-cream w-full lg:w-1/2 pl-10">
                       <h3 className="flex nom w-full lg:w-2/3 text-custom-purple text-3xl font-bold pt-10 pb-4">{petData.name}</h3>
-                      <div className="flex photo w-full text-custom-purple">
-                      <Image
-                            src={`/${petData.image}`}
-                            width={300}
-                            height={200}
-                            alt={`picture of ${petData.species}`}
-                          />
+                      <div className="flex photo h-96 w-96 relative overflow-hidden">
+                        {petData.image.startsWith('img/') ? (
+                            <Image
+                                src={`/${petData.image}`}
+                                alt="photo de l'animal"
+                                className="absolute inset-0"
+                                layout="fill"
+                                objectFit="cover"
+                            />
+                          ) : (
+                            <Image
+                                src={petData.image.replace(/&amp;/g, '&')}
+                                alt="photo de l'animal"
+                                className="absolute inset-0"
+                                layout="fill"
+                                objectFit="cover"
+                            />
+                          )}
                       </div>  
                     </div>
                     
 
                     <div className="flex informations w-3/4 mb-12 text-custom-purple m-auto lg:w-1/2 lg:mr-10">
-                      <div className="text w-full lg:w-full sm:m-auto md:m-auto">
-                        <h2 className="title text-custom-light-purple text-ml font-medium pb-2 pt-4">Informations</h2>
-                        <p className="race">Race : {petData.race}</p>
-                        <p className="gender">Genre : {petData.gender}</p>
-                        {/* <p className="age">Age : {new Date().getFullYear() - petData.birthyear}</p> */}
-                        <p className="withCats">Entente avec les chats : {petData.getAlongCats ? 'Oui' : 'Non'}</p>
-                        <p className="withDogs">Entente avec les chiens : {petData.getAlongDogs ? 'Oui' : 'Non'}</p>
-                        <p className="withChildren">Entente avec les enfants : {petData.getAlongChildren ? 'Oui' : 'Non'}</p>
-                        <p className="sos">SOS : {petData.sos ? 'Oui' : 'Non'}</p>
-                        <h2 className="title text-custom-light-purple text-ml font-medium pb-2 pt-4">Description</h2>
-                        <p className="description">{petData.description}</p>
+                      <div className="text w-full lg:w-full sm:m-auto md:m-auto pl-2">
+                        <h2 className="title text-custom-light-purple text-xl font-medium pb-2 pt-4">Informations</h2>
+                        <p className="race"><span className="font-bold">Race : </span>{petData.race}</p>
+                        <p className="gender"><span className="font-bold">Genre : </span>{petData.gender}</p>
+                        <p className="age"><span className="font-bold">Né(e) le : </span>{formatDate(petData.birthyear)}</p>
+                        <p className="withCats"><span className="font-bold">Entente avec les chats : </span>{petData.getAlongCats ? 'Oui' : 'Non'}</p>
+                        <p className="withDogs"><span className="font-bold">Entente avec les chiens : </span>{petData.getAlongDogs ? 'Oui' : 'Non'}</p>
+                        <p className="withChildren"><span className="font-bold">Entente avec les enfants : </span>{petData.getAlongChildren ? 'Oui' : 'Non'}</p>
+                        <p className="sos"><span className="font-bold">SOS : </span>{petData.sos ? 'Oui' : 'Non'}</p>
+                        <h2 className="title text-custom-light-purple text-xl font-medium pb-2 pt-4">Description</h2>
+                        <p className="description">{decode(petData.description)}</p>
                       </div>
                     </div>
               </div>
@@ -141,7 +159,7 @@ const animalProfilPage = ({params}: {params: {id: number}}) => {
 
               <div className="flex lg:w-1/2 lg:ml-14 w-3/4 m-auto form flex-col mt-12">
                   <div className="">
-                      <p className="text-custom-light-purple font-medium text-lg">L'association</p>
+                      <p className="text-custom-light-violet font-medium text-lg">L'association</p>
                       {petData && (
                         <div className="text-white justify-center">
                           <p className="">{petData.asso.nameAsso}</p> 

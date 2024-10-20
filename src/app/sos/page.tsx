@@ -9,6 +9,7 @@ import { Oval } from "react-loader-spinner";
 import 'react-toastify/dist/ReactToastify.css';
 import toast from "react-hot-toast";
 import Button from "../Components/ButtonAction";
+import { decode } from 'html-entities';
 
 const SOSpage = () => {
 
@@ -142,16 +143,31 @@ const currentMonth = new Date().getMonth();
                             <h4 className="name flex text-2xl font-bold text-custom-purple py-2">{pet.name}</h4>
                             
                             <div className="relative overflow-hidden h-[300px]">
-                                <div className="absolute inset-0 flex items-center justify-center w-full">
-                                    <Image
-                                    src={`/${pet.image}`}
-                                    width={300}
-                                    height={70}
-                                    alt="photo de l'animal"
-                                    className="object-contain"
-                                    style={{ width: '100%' }}
-                                    />
+                                
+                                <div className="absolute inset-0 flex items-center justify-center w-full pt-20">
+                                    
+                                    {pet.image.startsWith('img/') ? (
+                                        <Image
+                                            src={`/${pet.image}`}
+                                            width={300}
+                                            height={70}
+                                            alt="photo de l'animal"
+                                            className="object-contain"
+                                            style={{ width: '100%' }}
+                                        />
+                                    ) : (
+                                        <Image
+                                            src={pet.image.replace(/&amp;/g, '&')}
+                                            width={300}
+                                            height={70}
+                                            alt="photo de l'animal"
+                                            className="object-contain"
+                                            style={{ width: '100%'}}
+                                           
+                                        />
+                                    )}
                                 </div>
+                               
                             </div>
 
                             <div className="flex bg-custom-yellow h-250 flex-col align-top">
@@ -205,7 +221,7 @@ const currentMonth = new Date().getMonth();
                                         <p  className="flex race text-ml text-purple">{pet.race}</p>   
                                     </div>
                                     
-                                    <p className="text-ml text-purple">{pet.quickDescription}</p>
+                                    <p className="text-ml text-purple">{decode(pet.quickDescription)}</p>
                                 </div> 
                                 <div className="button flex justify-end text-xs pr-2">
                                     <Button 

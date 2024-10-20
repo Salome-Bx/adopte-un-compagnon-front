@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Oval } from "react-loader-spinner";
 import 'react-toastify/dist/ReactToastify.css';
 import toast from 'react-hot-toast';
+import { decode } from 'html-entities';
 
   //homepage component
   const Home = () => {
@@ -209,10 +210,10 @@ import toast from 'react-hot-toast';
                                                 height={70}
                                                 alt="photo de l'animal"
                                                 className="object-contain"
-                                                style={{ width: '100%' }}
+                                                style={{ width: '100%'}}
+                                               
                                             />
                                         )}
-
                                     </div>
                                 </div>
 
@@ -257,7 +258,7 @@ import toast from 'react-hot-toast';
                                         <div className="flex flex-row mt-2 pb-2 justify-between font-bold">
                                             <p className="flex race text-ml text-white">{pet.race}</p>   
                                         </div>
-                                        <p className="text-ml text-white">{pet.quickDescription}</p>
+                                        <p className="text-ml text-white">{decode(pet.quickDescription)}</p>
                                     </div> 
                                     <div className="button flex justify-end text-xs pr-2">
                                         <Button 
@@ -362,7 +363,7 @@ import toast from 'react-hot-toast';
                                 <div className="flex flex-row mt-2 pb-2 justify-between font-bold">
                                     <p className="flex race text-ml">{pet.race}</p>   
                                 </div>
-                                <p className="text-ml ">{pet.quickDescription}</p>
+                                <p className="text-ml ">{decode(pet.quickDescription)}</p>
                             </div> 
                             <div className="button flex justify-end text-xs font-bold pr-2 ">
                                 <Button 
