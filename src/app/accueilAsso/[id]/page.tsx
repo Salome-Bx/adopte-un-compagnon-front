@@ -8,6 +8,7 @@ import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { petService } from '../../Services/pet';
 import { Oval } from "react-loader-spinner";
+import { decode } from 'html-entities';
 
 
 const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
@@ -96,7 +97,7 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
         quick_description: quickDescription,
         description: description
     }
-    console.log("Données envoyées à l'API : ", formData); 
+    
     try {
       await petService.editPet(params.id, formData);
       toast.success("L'animal a bien été modifié !");
@@ -213,13 +214,13 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
 
                 <div className="quick_description flex flex-col">
                   <label htmlFor="quick_description">Description rapide</label>
-                  <textarea name="quick_description" id="quick_description" value={quickDescription} onChange={(e) => setQuickDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <textarea name="quick_description" id="quick_description" value={decode(quickDescription)} onChange={(e) => setQuickDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
                 
 
                 <div className="description flex flex-col">
                   <label htmlFor="description">Description</label>
-                  <textarea name="description" id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />
+                  <textarea name="description" id="description" value={decode(description)} onChange={(e) => setDescription(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />
                 </div>
                 
                 <div className="flex flex-col pt-10">
