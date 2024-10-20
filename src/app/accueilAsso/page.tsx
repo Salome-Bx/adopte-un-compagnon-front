@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import toast from 'react-hot-toast';
 import { Oval } from 'react-loader-spinner';
 import { useRouter } from 'next/navigation';
+import { decode } from 'html-entities';
 
 
 const AccueilAssoPage = () => {
@@ -191,9 +192,9 @@ const AccueilAssoPage = () => {
                                             <p  className="flex race text-ml text-white">{pet.race}</p>   
                                         </div>
                                         <p className="font-bold mb-2 mt-4 text-custom-light-violet">Description rapide :</p>    
-                                        <p className="">{pet.quickDescription}</p>
+                                        <p className="">{decode(pet.quickDescription)}</p>
                                         <p className="font-bold my-2 mt-4 text-custom-light-violet">Description :</p>
-                                        <p className="">{pet.description}</p>
+                                        <p className="">{decode(pet.description)}</p>
                                     </div> 
                                     <div className="button flex justify-end text-xs pr-2">
                                         <Button 

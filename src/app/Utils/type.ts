@@ -64,7 +64,7 @@ export type CardPetProps = {
 export type ProfilPetProps = {
     id: number 
     name: string
-    birthyear: Date
+    birthyear: string
     gender: string
     description: string
     getAlongCats: boolean
