@@ -46,6 +46,11 @@ const pageCreationAnimal = () => {
     }
   }, [push]);
 
+  const isValidImageUrl = (url: string): boolean => {
+    const pattern = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp|svg))|^https?:\/\/.+/i;
+    return pattern.test(url);
+  };
+
   const handlePetCreation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -54,6 +59,12 @@ const pageCreationAnimal = () => {
       toast.error("Veuillez remplir tous les champs");
       push("/creationAnimal");
       setIsLoading(false);
+
+    } else if (!isValidImageUrl(image)) {
+      toast.error("Veuillez entrer une URL d'image valide.");
+      setIsLoading(false);
+      return;
+   
     
     } else if (quickDescription.length < 30 || quickDescription.length > 120) {
       toast.error("La description rapide doit contenir entre 30 et 120 caractères.");
@@ -64,6 +75,7 @@ const pageCreationAnimal = () => {
       toast.error("La description doit contenir entre 30 et 255 caractères.");
       push("/creationAnimal");
       setIsLoading(false);  
+
 
       
     } else {
@@ -110,6 +122,14 @@ const handleSpeciesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
   if (value !== '2') {
     setIsCategorized(false);
   }
+};
+
+const [imagePreview, setImagePreview] = useState('');
+
+const handleImageChange = (e:any) => {
+    const url = e.target.value;
+    setImage(url);
+    setImagePreview(isValidImageUrl(url) ? url : '');
 };
 
   return (
@@ -174,7 +194,8 @@ const handleSpeciesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
           
                 <div className="image flex flex-col">
                   <label htmlFor="image">Image*</label>
-                  <input type="text" name="image" id="image" onChange={(e) => setImage(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <input type="text" name="image" id="image" onChange={handleImageChange} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  {imagePreview && <img src={imagePreview} alt="Aperçu" className="mt-2" style={{ maxWidth: '100%' }} />}
                 </div>
 
                 <div className="race flex flex-col">

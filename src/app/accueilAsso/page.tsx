@@ -11,6 +11,7 @@ import toast from 'react-hot-toast';
 import { Oval } from 'react-loader-spinner';
 import { useRouter } from 'next/navigation';
 
+
 const AccueilAssoPage = () => {
     
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -121,14 +122,26 @@ const AccueilAssoPage = () => {
 
                                 <div className="relative overflow-hidden h-[300px]">
                                     <div className="absolute inset-0 flex items-center justify-center w-full">
-                                        <Image
-                                        src={`/${pet.image}`}
-                                        width={300}
-                                        height={70}
-                                        alt="photo de l'animal"
-                                        className="object-contain"
-                                        style={{ width: '100%' }}
-                                        />
+                                        {pet.image.startsWith('img/') ? (
+                                            <Image
+                                                src={`/${pet.image}`}
+                                                width={300}
+                                                height={70}
+                                                alt="photo de l'animal"
+                                                className="object-contain"
+                                                style={{ width: '100%' }}
+                                            />
+                                        ) : (
+                                            <Image
+                                                src={pet.image.replace(/&amp;/g, '&')}
+                                                width={300}
+                                                height={70}
+                                                alt="photo de l'animal"
+                                                className="object-contain"
+                                                style={{ width: '100%' }}
+                                            />
+                                        )}
+
                                     </div>
                                 </div>
 
@@ -195,9 +208,6 @@ const AccueilAssoPage = () => {
                                             action={`accueilAsso/${pet.id}`}
                                         />
                                         
-                                        
-
-
                                     </div>
                                 </div>
                             </label>

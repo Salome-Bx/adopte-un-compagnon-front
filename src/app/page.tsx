@@ -162,7 +162,7 @@ import toast from 'react-hot-toast';
 
 
       {/*------------- meet the animals section  ----------------*/}
-      <div className="pets-meet flex m-auto w-fit flex-col bg-white h-fit pt-20 pb-32">
+      <div className="pets-meet flex m-auto w-full flex-col bg-white h-fit pt-20 pb-32">
           <h3 className="text-custom-purple flex m-auto mt-10 w-fit text-4xl font-bold mb-12 lg:mt-4 lg:ml-24">Et si on se rencontrait ?</h3>
       
          
@@ -185,21 +185,34 @@ import toast from 'react-hot-toast';
                 </div>)}
                     
                 {petList && 
-                    petList.slice(0, 3).map((pet: CardPetProps) => (
+                    petList.slice(-3).map((pet: CardPetProps) => (
                         <div className="card flex flex-col full mt-14 sm:1/2 md:w-1/3 lg:w-1/4 h-[550px] lg:mt-5 cursor-pointer">
                             <label key={pet.id}>
                                 <h4 className="name flex text-2xl font-bold text-custom-purple py-2">{pet.name}</h4>
                                 
                                 <div className="relative overflow-hidden h-[300px]"> 
                                     <div className="absolute inset-0 flex items-center justify-center w-full pt-20">
-                                        <Image
-                                            src={`/${pet.image}`}
-                                            width={300}
-                                            height={70}
-                                            alt="photo de l'animal"
-                                            className="object-contain"
-                                            style={{ width: '100%' }}
-                                        />
+                                    
+                                        {pet.image.startsWith('img/') ? (
+                                            <Image
+                                                src={`/${pet.image}`}
+                                                width={300}
+                                                height={70}
+                                                alt="photo de l'animal"
+                                                className="object-contain"
+                                                style={{ width: '100%' }}
+                                            />
+                                        ) : (
+                                            <Image
+                                                src={pet.image.replace(/&amp;/g, '&')}
+                                                width={300}
+                                                height={70}
+                                                alt="photo de l'animal"
+                                                className="object-contain"
+                                                style={{ width: '100%' }}
+                                            />
+                                        )}
+
                                     </div>
                                 </div>
 
@@ -293,7 +306,7 @@ import toast from 'react-hot-toast';
                 </div>)}
                 
                 {sosList && 
-                sosList.slice(0, 3).map((pet : CardPetProps) => (
+                sosList.slice(-3).map((pet : CardPetProps) => (
                 <div className="card flex flex-col full mt-14 sm:1/2 md:w-1/3 lg:w-1/4 h-[550px] lg:mt-5 cursor-pointer">
                     <label key={pet.id}>  
                         <h4 className="name flex text-2xl font-bold text-custom-purple py-2">{pet.name}</h4>
