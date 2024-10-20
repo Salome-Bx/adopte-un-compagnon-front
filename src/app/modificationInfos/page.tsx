@@ -93,7 +93,7 @@ const pageModificationInfos = () => {
       try {
         const response = await userService.editUser(data);
         toast.success("Vos informations ont bien été modifiées !");
-        push(`/accueilAsso/${id}`);
+        push(`/accueilAsso`);
         
       } catch (error) {
         toast.error("Une erreur s'est produite lors de l'enregistrement.");
@@ -155,12 +155,12 @@ const pageModificationInfos = () => {
 
                 <div className="password flex flex-col">
                   <label htmlFor="password">Mot de passe</label>
-                  <input type="password" name="password" id="password" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
+                  <input type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />  
                 </div>
 
                 <div className="password2 flex flex-col">
                   <label htmlFor="password2">Vérification mot de passe</label>
-                  <input type="password" name="password2" id="password2" className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />
+                  <input type="password" name="password2" id="password2" onChange={(e) => setPasswordConfirm(e.target.value)} className="border-4 border-white bg-custom-purple rounded-3xl mb-4 p-2 mt-1" />
                 </div>
                 
                 
