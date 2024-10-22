@@ -45,7 +45,6 @@ const AccueilAssoPage = () => {
         
         try {
         const response = await petService.getPetsByAsso();
-        console.log(response);
         setPetsByAssoList(response);
 
         } catch (error) {
