@@ -27,6 +27,7 @@ const pageCreationAnimal = () => {
   const [speciesId, setSpeciesId] = useState('')
   const [assoId, setAssoId] = useState('')
   const [isCategorized, setIsCategorized] = useState(false);
+  const [imagePreview, setImagePreview] = useState('');
   
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {push} = useRouter();
@@ -62,6 +63,7 @@ const pageCreationAnimal = () => {
 
     } else if (!isValidImageUrl(image)) {
       toast.error("Veuillez entrer une URL d'image valide.");
+      push("/creationAnimal");
       setIsLoading(false);
       return;
    
@@ -124,7 +126,7 @@ const handleSpeciesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
   }
 };
 
-const [imagePreview, setImagePreview] = useState('');
+
 
 const handleImageChange = (e:any) => {
     const url = e.target.value;

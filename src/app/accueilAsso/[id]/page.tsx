@@ -13,17 +13,17 @@ import { decode } from 'html-entities';
 
 const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
 
-  const [name, setName] = useState('')
-  const [image, setImage] = useState('')
-  const [race, setRace] = useState('')
-  const [gender, setGender] = useState('')
-  const [birthyear, setBirthyear] = useState('')
+  const [name, setName] = useState('');
+  const [image, setImage] = useState('');
+  const [race, setRace] = useState('');
+  const [gender, setGender] = useState('');
+  const [birthyear, setBirthyear] = useState('');
   const [withCats, setWithCats] = useState<boolean>(false);
   const [withDogs, setWithDogs] = useState<boolean>(false);
   const [withChildren, setWithChildren] = useState<boolean>(false);
   const [sos, setSos] = useState<boolean>(false);
-  const [quickDescription, setQuickDescription] = useState('')
-  const [description, setDescription] = useState('')
+  const [quickDescription, setQuickDescription] = useState('');
+  const [description, setDescription] = useState('');
   const [userExists, setUserExists] = useState<boolean>(false);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -79,7 +79,7 @@ const pageModificationAnimal = ( {params}: {params: {id: number}}) => {
     
     if (!name || !race || !gender || !birthyear || !quickDescription || !description) {
       
-      toast.error("Veuillez remplir au moins un champ.");
+      toast.error("Veuillez remplir tous les champs obligatoires.");
 
   } else {
 
